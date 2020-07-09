@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     code: DataTypes.STRING
   }, {
+    paranoid:true,
     sequelize,
     modelName: 'IataCode',
   });

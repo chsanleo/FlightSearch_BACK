@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     companyManag: DataTypes.STRING,
     smooking: DataTypes.BOOLEAN
   }, {
+    paranoid : true,
     sequelize,
     modelName: 'Airport',
   });
