@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   Insurance.init({
     type: DataTypes.STRING,
     name: DataTypes.STRING,
-    company: DataTypes.STRING
+    company: DataTypes.STRING,
+    price : DataTypes.INTEGER
   }, {
     paranoid : true,
     sequelize,
