@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   IataCode.init({
-    name: DataTypes.STRING,
     code: DataTypes.STRING
   }, {
     paranoid:true,
