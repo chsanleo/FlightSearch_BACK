@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     company: DataTypes.STRING
   }, {
+    paranoid : true,
     sequelize,
     modelName: 'Insurance',
   });

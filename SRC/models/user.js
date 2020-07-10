@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     answerSecret: DataTypes.STRING,
     isAdmin: DataTypes.BOOLEAN
   }, {
+    paranoid : true,
     sequelize,
     modelName: 'User',
   });
