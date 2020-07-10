@@ -20,6 +20,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      passport: {
+        type: Sequelize.STRING
+      },
       token: {
         type: Sequelize.STRING
       },
