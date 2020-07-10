@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      User.hasOne(models.ContactInfo);
+      User.hasOne(models.Country);
+      User.hasMany(models.UserPayData);
       // define association here
     }
   };
