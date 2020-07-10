@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     code: DataTypes.STRING,
     prefix: DataTypes.INTEGER
   }, {
+    paranoid : true,
     sequelize,
     modelName: 'Country',
   });
