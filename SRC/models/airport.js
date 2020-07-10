@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+     
       // define association here
     }
   };
@@ -17,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     code: DataTypes.STRING,
     companyManag: DataTypes.STRING,
-    smooking: DataTypes.BOOLEAN
+    smooking: DataTypes.BOOLEAN,
   }, {
     paranoid : true,
     sequelize,
