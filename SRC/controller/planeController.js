@@ -1,7 +1,6 @@
 const { Plane } = require('../models');
 
 const axios = require('axios');
-const { update, delete } = require('../../../../KATAS/Back-end/EXPRESS-MYSQL/api/controladores/MovieControlador');
 
 const PlaneController = {
 
