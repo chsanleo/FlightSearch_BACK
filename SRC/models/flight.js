@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       Flight.hasOne(models.Plane);
       Flight.hasOne(models.Company);
       Flight.hasOne(models.Currency);
-      Flights.hasMany(models.Airport, {as: landingAirport});
-      Flights.hasMany(models.Airport, {as: takeoffAirport});
+      Flight.hasMany(models.Airport, {as: landingAirport});
+      Flight.hasMany(models.Airport, {as: takeoffAirport});
       
       // define association here
     }

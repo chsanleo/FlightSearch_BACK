@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Airport.hasOne(models.IataCode);
       Airport.hasOne(models.Country);
       Airport.hasOne(models.ContactInfo);
-      Airport.belongsTo(models.Flight); //Revisar
+      Airport.belongsTo(models.Flight);
      
       // define association here
     }

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       UserPayDate.hasOne(models.PayData);
       UserPayDate.hasOne(models.PayType);
-      UserPayDate.hasOne(models.User);
+      UserPayDate.belongsTo(models.User);
       // define association here
     }
   };
