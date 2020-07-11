@@ -67,7 +67,6 @@ const PlaneController = {
         }
     }
 
-
 };
 
 module.exports = PlaneController;
