@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      takeOffDat: {
+      takeOffDate: {
         type: Sequelize.DATE,
         allowNull: false
       },
