@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     model: DataTypes.STRING,
     yearOfFabric: DataTypes.DATE,
-    plate: DataTypes.STRING
+    plate: DataTypes.STRING,
+    CompanyId: DataTypes.INTEGER
   }, {
     paranoid : true,
     sequelize,

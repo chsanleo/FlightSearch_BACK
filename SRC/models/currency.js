@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   Currency.init({
     name: DataTypes.STRING,
-    code: DataTypes.STRING
+    code: DataTypes.STRING,
+    CountryId: DataTypes.INTEGER
   }, {
     paranoid  :true,
     sequelize,
