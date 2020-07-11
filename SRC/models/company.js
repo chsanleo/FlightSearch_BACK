@@ -19,7 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Company.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    IataCodeId: DataTypes.INTEGER,
+    CurrencyId: DataTypes.INTEGER,
+    CountryId: DataTypes.INTEGER,
+    ContactInfoId: DataTypes.INTEGER
   }, {
     paranoid : true,
     sequelize,

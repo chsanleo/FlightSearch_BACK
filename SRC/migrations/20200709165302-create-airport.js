@@ -9,16 +9,26 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
-      },
-      code: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       companyManag: {
         type: Sequelize.STRING
       },
       smooking: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
+      CountryId: {
+        type:Sequelize.INTEGER,
+        allowNull: false,
+      },
+      ContactInfoId: {
+        type:Sequelize.INTEGER
+      },
+      IataCodeId: {
+        type:Sequelize.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

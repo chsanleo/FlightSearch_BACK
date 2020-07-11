@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   UserPayDate.init({
-    preference: DataTypes.BOOLEAN
+    preference: DataTypes.BOOLEAN,
+    UserId: DataTypes.INTEGER,
+    PayDataId: DataTypes.INTEGER,
+    PayTypeId: DataTypes.INTEGER
   }, {
     paranoid:true,
     sequelize,

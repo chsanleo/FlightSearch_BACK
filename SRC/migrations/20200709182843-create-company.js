@@ -9,7 +9,24 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      IataCodeId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      CurrencyId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      CountryId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      ContactInfoId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

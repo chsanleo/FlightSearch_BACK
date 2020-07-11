@@ -15,13 +15,19 @@ module.exports = {
         type: Sequelize.STRING
       },
       model: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       yearOfFabric: {
         type: Sequelize.DATE
       },
       plate: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      CompanyId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

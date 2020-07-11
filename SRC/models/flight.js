@@ -23,7 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.FLOAT,
     code: DataTypes.STRING,
     takeOffDat: DataTypes.DATE,
-    landingDate: DataTypes.DATE
+    landingDate: DataTypes.DATE,
+    LandingAirportId: DataTypes.INTEGER,
+    TakeOffAirportId: DataTypes.INTEGER,
+    PlaneId: DataTypes.INTEGER,
+    CurrencyId: DataTypes.INTEGER
   }, {
     paranoid : true,
     sequelize,

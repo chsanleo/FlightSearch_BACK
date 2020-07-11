@@ -9,16 +9,36 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       price: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
+        allowNull: false
       },
       code: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       takeOffDat: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false
       },
       landingDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      LandingAirportId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      TakeOffAirportId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      PlaneId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      CurrencyId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
