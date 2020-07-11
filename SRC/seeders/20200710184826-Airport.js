@@ -4,67 +4,67 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
       return queryInterface.bulkInsert('Airport', [{
         name: 'Aeroparque Jorge Newbery',
-        smoking: true,
+        smooking: true,
       },
       {
         name: 'Aeropuerto de Málaga-Costa del Sol',
-        smoking: true,
+        smooking: true,
       },
       {
         name: 'Aeropuerto de Ámsterdam-Schiphol',
-        smoking: false,
+        smooking: false,
       },
       {
         name: 'Aeropuerto Internacional Reina Beatrix',
-        smoking: true,
+        smooking: true,
       },
       {
         name: 'Aeropuerto de Barcelona-El Prat',
-        smoking: false,
+        smooking: false,
       },
       {
         name: 'Aeropuerto de Bamiyán',
-        smoking: true,
+        smooking: true,
       },
       {
         name: 'Aeropuerto Internacional El Dorado',
-        smoking: false,
+        smooking: false,
       },
       {
         name: 'Base Aérea de Beja',
-        smoking: false,
+        smooking: false,
       },
       {
         name: 'Aeropuerto Internacional de Maiquetía Simón Bolívar',
-        smoking: true,
+        smooking: true,
       },
       {
         name: 'Aeropuerto de París-Charles de Gaulle',
-        smoking: true,
+        smooking: true,
       },
       {
         name: 'Aeropuerto Internacional Mariscal Lamar',
-        smoking: true,
+        smooking: true,
       },
       {
         name: 'Aeropuerto Internacional James M. Cox-Dayton',
-        smoking: false,
+        smooking: false,
       },
       {
         name: 'Aeropuerto Internacional Hamad',
-        smoking: false,
+        smooking: false,
       },
       {
         name: 'Aeropuerto de Edimburgo',
-        smoking: true,
+        smooking: true,
       },
       {
         name: 'Aeropuerto Internacional de São Paulo-Guarulhos',
-        smoking: true,
+        smooking: true,
       },
       {
         name: 'Aeropuerto de Hannover',
-        smoking: false,
+        smooking: false,
       },
     ]);
     },

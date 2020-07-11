@@ -13,16 +13,18 @@ module.exports = (sequelize, DataTypes) => {
       Airport.hasOne(models.IataCode);
       Airport.hasOne(models.Country);
       Airport.hasOne(models.ContactInfo);
-      Airport.belongsTo(models.Flight); //Revisar
+      Airport.belongsTo(models.Flight);
      
       // define association here
     }
   };
   Airport.init({
     name: DataTypes.STRING,
-    code: DataTypes.STRING,
     companyManag: DataTypes.STRING,
     smooking: DataTypes.BOOLEAN,
+    CountryId: DataTypes.INTEGER,
+    ContactInfoId: DataTypes.INTEGER,
+    IataCodeId: DataTypes.INTEGER
   }, {
     paranoid : true,
     sequelize,

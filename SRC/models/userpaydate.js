@@ -12,12 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       UserPayDate.hasOne(models.PayData);
       UserPayDate.hasOne(models.PayType);
-      UserPayDate.hasOne(models.User);
+      UserPayDate.belongsTo(models.User);
       // define association here
     }
   };
   UserPayDate.init({
-    preference: DataTypes.BOOLEAN
+    preference: DataTypes.BOOLEAN,
+    UserId: DataTypes.INTEGER,
+    PayDataId: DataTypes.INTEGER,
+    PayTypeId: DataTypes.INTEGER
   }, {
     paranoid:true,
     sequelize,

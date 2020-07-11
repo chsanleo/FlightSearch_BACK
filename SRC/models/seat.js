@@ -10,13 +10,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Seat.hasMany(models.Flight);
+      Seat.belongsToMany(models.Flight);
       // define association here
     }
   };
   Seat.init({
     type: DataTypes.STRING,
-    price: DataTypes.STRING
+    price: DataTypes.STRING,
+    PlaneId: DataTypes.INTEGER
   }, {
     paranoid : true,
     sequelize,

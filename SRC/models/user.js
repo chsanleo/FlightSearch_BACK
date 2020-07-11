@@ -25,7 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     token: DataTypes.STRING,
     questionSecret: DataTypes.STRING,
     answerSecret: DataTypes.STRING,
-    isAdmin: DataTypes.BOOLEAN
+    isAdmin: DataTypes.BOOLEAN,
+    CountryId: DataTypes.INTEGER,
+    ContactInfoId: DataTypes.INTEGER
   }, {
     paranoid : true,
     sequelize,

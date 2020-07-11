@@ -11,6 +11,18 @@ module.exports = {
       preference: {
         type: Sequelize.BOOLEAN
       },
+      UserId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      PayDataId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      PayTypeId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

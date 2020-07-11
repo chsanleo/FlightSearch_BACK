@@ -11,14 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Currency.hasMany(models.Flight);
-      Currency.hasMany(models.Country);
+      Currency.belongsTo(models.Country);
       Currency.hasMany(models.Company);
       // define association here
     }
   };
   Currency.init({
     name: DataTypes.STRING,
-    code: DataTypes.STRING
+    code: DataTypes.STRING,
+    CountryId: DataTypes.INTEGER
   }, {
     paranoid  :true,
     sequelize,

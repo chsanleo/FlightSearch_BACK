@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       Flight.hasOne(models.Plane);
       Flight.hasOne(models.Company);
       Flight.hasOne(models.Currency);
-      Flights.hasMany(models.Airport, {as: landingAirport});
-      Flights.hasMany(models.Airport, {as: takeoffAirport});
+      Flight.hasMany(models.Airport, {as: landingAirport});
+      Flight.hasMany(models.Airport, {as: takeoffAirport});
       
       // define association here
     }
@@ -22,8 +22,12 @@ module.exports = (sequelize, DataTypes) => {
   Flight.init({
     price: DataTypes.FLOAT,
     code: DataTypes.STRING,
-    takeOffDat: DataTypes.DATE,
-    landingDate: DataTypes.DATE
+    takeOffDate: DataTypes.DATE,
+    landingDate: DataTypes.DATE,
+    LandingAirportId: DataTypes.INTEGER,
+    TakeOffAirportId: DataTypes.INTEGER,
+    PlaneId: DataTypes.INTEGER,
+    CurrencyId: DataTypes.INTEGER
   }, {
     paranoid : true,
     sequelize,
