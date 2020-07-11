@@ -64,6 +64,19 @@ const PlaneController = {
             console.log(error)
             res.status(500).send({ message : 'Error eliminando el avión'})
         }
+    },
+    async getPlanePlate(req,res) {
+        try {
+            const { plate } = req.params;
+            const plane = await Plane.findOne({
+                where: {
+                    plate: plate
+                }
+            })
+            res.status(200).send(plane)
+        } catch (error) {
+            res.status(500).send({ message: 'There was a problem'})
+        }
     }
 
 };
