@@ -240,6 +240,31 @@ const Validations = {
         if (error != "") {
             throw Error(error);
         }
+    },
+    validaAirport(airport) {
+        let error = ''
+
+        if(airport.name == ''){
+            error += 'Name can not be empty'
+        }
+        if(airport.companymang == ''){
+            error += 'Company can not be empty'
+        }
+        if(airport.smoking <= 0){ // Arreglar
+            error += 'Smoking may be allowed'
+        }
+        if(airport.countryId <= 0){
+            error += 'Id can not be empty'
+        }
+        if(airport.contactInfoId <= 0){
+            error += 'ContactInfoId can not less than 0'
+        }
+        if(airport.IataCodeId <= 0){
+            error += 'IataCodeId can not less than 0'
+        }
+        if (error != "") {
+            throw Error(error);
+        }
     }
 
     // String : No puede ser vacio, igual a name
