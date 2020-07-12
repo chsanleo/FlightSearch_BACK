@@ -44,7 +44,7 @@ const InsuranceController = {
                 name: req.body.name,
                 company: req.body.company,
                 price : req.body.price,
-                ContactInfoId: contactInfo.id
+                contactInfoId: contactInfo.id
             }
 
             Validations.validaInsurance(insuranceF)
@@ -73,7 +73,7 @@ const InsuranceController = {
                 name: req.body.name,
                 company: req.body.company,
                 price : req.body.price,
-                ContactInfoId: contactInfo.id
+                contactInfoId: contactInfo.id
             }
 
             Validations.validaInsurance(insuranceF)

@@ -63,7 +63,6 @@ const MainController = {
                 passport: req.body.passport,
                 questionSecret: req.body.questionSecret,
                 answerSecret: req.body.answerSecret,
-                isAdmin: false,
                 countryId: req.body.countryId,
                 contactInfoId :contactInfo.id
             };

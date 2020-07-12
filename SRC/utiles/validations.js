@@ -22,6 +22,46 @@ const Validations = {
         let error = "";
 
         //casos
+        if(user.name == ''){
+            error += 'Name can not empty'
+        }
+        if(user.name.lenght < 4){
+            error += 'Name can not be less than 4 characters'
+        }
+        if(user.username == ''){
+            error += 'Username can not empty'
+        }
+        if(user.username == username){
+            error += 'Username already exists'
+        }
+        if(user.surname == ''){
+            error += 'Surname can not empty'
+        }
+        if(user.password == ''){
+            error += 'Password can not empty'
+        }
+        if(user.password.lenght < 6){
+            error += 'Password can not less than 6 characters'
+        }
+        if(user.passport == ''){
+            error += 'Passport can not empty'
+        }
+        if(user.passport.lenght < 8){
+            error += 'Passport can not be less than 8 characters'
+        }
+        if(user.questionSecret == ''){
+            error += 'QuestionSecret can not empty'
+        }
+        if(user.answerSecret == ''){
+            error += 'AnswerSecret can not empty'
+        }
+        if(user.countryId <= 0){
+            error += 'CountryID can not less than 0'
+        }
+        if(user.contactInfoId <= 0){
+            error += 'Name can not less than 0'
+        }
+
 
         if (error != "") {
             throw Error(error);
@@ -42,20 +82,24 @@ const Validations = {
         if(flight.landingDate < new Date()){
             error += 'Landing Date can not be last'
         }
-        if(flight.landingAirportId == ''){
-            error += 'Landing Airport ID can not empty'
+        if(flight.landingAirportId <= 0){
+            error += 'Landing Airport ID can not 0 or less'
         }
-        if(flight.takeOffAirportId == ''){
-            error += 'Take Off Airport ID can not empty'
+        if(flight.takeOffAirportId <= 0){
+            error += 'Take Off Airport ID can not 0 or less'
         }
-        if(flight.planeId == ''){
-            error += 'PlaneID can not empty'
+        if(flight.planeId <= 0){
+            error += 'PlaneID can not 0 or less'
+        }
+
+        if (error != "") {
+            throw Error(error);
         }
     },
     validaInsurance(insurance) {
         let error = "";
         
-        //Revisar ya que no siempre se va a querer seguro
+        //Revisar ya que no siempre se va a querer seguro, entendido en caso de que se coja
 
         if(insurance.type == ''){
             error += 'Must be a type'
@@ -68,6 +112,13 @@ const Validations = {
         }
         if(insurance.name == ''){
             error += 'Name can not empty'
+        }
+        if(insurance.contactInfoId <= 0){
+            error += 'ContactInfoId can not less than 0'
+        }
+
+        if (error != "") {
+            throw Error(error);
         }
 
     },
@@ -91,6 +142,10 @@ const Validations = {
         }
         if(plane.companyId <= 0){
             error += 'Plane must be a Company'
+        }
+
+        if (error != "") {
+            throw Error(error);
         }
     }
 };
