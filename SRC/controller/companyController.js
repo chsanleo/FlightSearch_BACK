@@ -1,16 +1,14 @@
 const Company = require('../models/company');
 
 const CompanyController = {
-    createCompany (req, res) {
-        console.log(req.body)
-        Company.create(req.body)
-            .then(company => {
-                res.status(200).send(company)
-            })
-            .catch(error => {
-                console.log(error)
-                res.status(500).send({ message : 'There was a problem creating the company, please, try again.'})
-            })
+    async createCompany(req, res) {
+        try {
+            const company = Company.create(req.body);
+            res.status(201).send(company);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error creating the Company.' });
+        }
     },
     async getCompanies(req,res) {
         try {
