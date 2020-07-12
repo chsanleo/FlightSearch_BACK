@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const properties = require ('../config/properties');
-const { User } = require('../models');
+const User = require('../models/user');
 
 const auth = async (req, res, next) => {
     try {
@@ -15,9 +15,7 @@ const auth = async (req, res, next) => {
             }
         }); 
         if (!user || !tokenFound) {
-            return res.status(401).send({
-                message: 'You are not authorized.'
-            });
+            return res.status(401).send({ message: 'You are not authorized.' });
         }
         req.user = user;
         next();
