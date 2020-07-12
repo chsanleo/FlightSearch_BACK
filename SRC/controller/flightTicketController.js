@@ -1,10 +1,10 @@
-const { Bill } = require('../models');
+const Bill = require('../models/bill');
 
 const FlightTicketController = {
 
     async getAll(req, res) {
         try {
-            const flightTickets = await Bill.findAll();
+            const flightTickets = await Bill.find();
             res.status(200).send(flightTickets);
         } catch (error) {
             console.log(error);
@@ -13,7 +13,7 @@ const FlightTicketController = {
     },
     async get(req, res) {
         try {
-            const flightTicket = await Bill.findOne({ '_id': req.params });
+            const flightTicket = await Bill.findOne({ _id: req.params.id });
             res.status(200).send(flightTicket);
         } catch (error) {
             console.log(error);

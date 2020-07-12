@@ -1,7 +1,4 @@
-const { Insurance } = require('../models');
-
-const axios = require('axios');
-
+const Insurance = require('../models/insurance');
 
 const InsuranceController = {
     async getInsurance(req,res) {

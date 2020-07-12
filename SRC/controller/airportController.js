@@ -1,8 +1,7 @@
-const { Airport } = require('../models');
+const Airport = require('../models/airport');
 
-const axios = require('axios');
 
-const AirportController = {
+const AirportController = { 
     createAirport (req, res) {
         console.log(req.body)        
         Airport.create(req.body)

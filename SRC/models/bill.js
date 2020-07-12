@@ -52,7 +52,7 @@ const BillSchema = mongoose.Schema({
         required:true
     },
     flightCode:{
-        type:string,
+        type:String,
         required:true
     },
     plane:{
@@ -61,11 +61,11 @@ const BillSchema = mongoose.Schema({
         required:true
     },
     seat:{
-        type:string,
+        type:String,
         required:true
     },
 
 })
 
-const billModel = mongoose.model('bill',BillSchema);
+const billModel = mongoose.model('Bill',BillSchema);
 module.exports = billModel;
