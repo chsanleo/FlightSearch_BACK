@@ -188,7 +188,63 @@ const Validations = {
         if (error != "") {
             throw Error(error);
         }
+    },
+    validaFlightTicket(flightticket) {
+        let error = ''
+
+        if(flightticket.name == ''){
+            error += 'Name can not be empty'
+        }
+        if(flightticket.takeOffDate == ''){
+            error += 'Code can not be empty'
+        }
+        if(flightticket.landingAirport == ''){
+            error += 'CurrencyId can not be empty'
+        }
+        if(flightticket.takeOffAirport == ''){
+            error += 'Id can not be empty'
+        }
+        if(flightticket.basePrice <= 0){
+            error += 'ContactInfoId can not less than 0'
+        }
+        if(flightticket.ratioExchange <= 0){
+            error += 'Code can not be empty'
+        }
+        if(flightticket.baseCurrency == ''){
+            error += 'CurrencyId can not be empty'
+        }
+        if(flightticket.price <= 0){
+            error += 'Id can not be empty'
+        }
+        if(flightticket.currency == ''){
+            error += 'ContactInfoId can not less than 0'
+        }
+        if(flightticket.user <= 0){
+            error += 'Id can not be empty'
+        }
+        if(flightticket.smoking <= 0){
+            error += 'ContactInfoId can not less than 0'
+        }
+        if(flightticket.insurance <= 0){
+            error += 'ContactInfoId can not less than 0'
+        }
+        if(flightticket.flightcode == ''){
+            error += 'Id can not be empty'
+        }
+        if(flightticket.plane <= 0){
+            error += 'ContactInfoId can not less than 0'
+        }
+        if(flightticket.seat == ''){
+            error += 'Id can not be empty'
+        }
+        if (error != "") {
+            throw Error(error);
+        }
     }
+
+    // String : No puede ser vacio, igual a name
+    // Number (id): no puede ser ni menor ni igual a 0
+    // Date : SI es fecha de salida no puede ser menor que new date y la fecha de llegada no puede ser menor que new date
 };
 
 module.exports = Validations;

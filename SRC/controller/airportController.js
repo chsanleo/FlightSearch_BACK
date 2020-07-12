@@ -1,10 +1,22 @@
 const Airport = require('../models/airport');
+const Validations = require('../utiles/validations');
 
 
 const AirportController = { 
     async createAirport(req, res) {
         try {
-            const airport = Airport.create(req.body);
+            const airportF = {
+                name: req.body.name,
+                companyManag: req.body.companyManag,
+                smooking: req.body.smooking,
+                CountryId: req.body.CountryId,
+                ContactInfoId: req.body.ContactInfoId,
+                IataCodeId: req.body.IataCodeId,
+            };
+
+            Validations.validaCurrency(airportF)
+
+            const airport = Airport.create(airportF);
             res.status(201).send(airport);
         } catch (error) {
             console.log(error);
