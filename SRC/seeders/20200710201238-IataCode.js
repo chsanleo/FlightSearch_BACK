@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     //Compañias REVISAR
-    let numbers = ["0","1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
     let iataCompanies = [];
@@ -27,9 +27,9 @@ module.exports = {
         }
       }
     }
-
-    return queryInterface.bulkInsert('Iatacodes', [
-      { code: "ABC" }, { code: "AEP" }, { code: "AFA" }, { code: "AGP" },
+    
+    let iataAirports = [
+      { code: 'ABC' }, { code: "AEP" }, { code: "AFA" }, { code: "AGP" },
       { code: "AMS" }, { code: "AOL" }, { code: "ARI" }, { code: "ARN" },
       { code: "ASU" }, { code: "ATH" }, { code: "AUA" }, { code: "BCN" },
       { code: "BIN" }, { code: "BOD" }, { code: "BOG" }, { code: "BPM" },
@@ -82,8 +82,12 @@ module.exports = {
       { code: "YFB" }, { code: "YHU" }, { code: "YHZ" }, { code: "YOW" },
       { code: "YQB" }, { code: "YRB" }, { code: "YUL" }, { code: "YVM" },
       { code: "YVR" }, { code: "YWG" }, { code: "YYY" }, { code: "YYZ" },
-      { code: "ZAG" }, { code: "ZAZ" }, iataCompanies
-    ]);
+      { code: "ZAG" }, { code: "ZAZ" }];
+
+
+
+    return queryInterface.bulkInsert('Iatacodes', iataAirports.concat(iataCompanies)
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
