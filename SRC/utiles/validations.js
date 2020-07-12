@@ -1,3 +1,5 @@
+const currency = require("../models/currency");
+
 const Validations = {
     validaContactInfo(contactInfo) {
 
@@ -144,6 +146,23 @@ const Validations = {
             error += 'Plane must be a Company'
         }
 
+        if (error != "") {
+            throw Error(error);
+        }
+
+    },
+    validaCurrency(currency) {
+        let error = ''
+
+        if(currency.name == ''){
+            error += 'Name can not be empty'
+        }
+        if(currency.code == ''){
+            error += 'Code can not be empty'
+        }
+        if(currency.countryId <= 0){
+            error += 'Id can not be empty'
+        }
         if (error != "") {
             throw Error(error);
         }

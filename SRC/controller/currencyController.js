@@ -1,12 +1,22 @@
 const Currency = require('../models/currency');
 
 const axios = require('axios');
+const Validations = require('../utiles/validations');
 
 const CurrencyController = {
     async createCurrency(req, res) {
         try {
-            const currency = Currency.create(req.body);
+            const currencyF = {
+                name: req.body.name,
+                code: req.body.code,
+                countryId: req.body.countryId
+            };
+
+            Validations.validaCurrency(currencyF)
+
+            const currency = Currency.create(currencyF);
             res.status(201).send(currency);
+
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error creating the Currency.' });
@@ -41,26 +51,24 @@ const CurrencyController = {
         }
     },
     async updateCurrency(req,res) {
-        const id = req.params.id;
-        Currency.updateCurrency(req.body, {
-            where: { id : id }
-        })
-            .then(num => {
-                if (num == 1) {
-                    res.send({
-                        message: "Currency was updated succesfully"
-                    });
-                } else {
-                    res.send ({
-                        message: `Cannot update Currency with id=${id}.`
-                    });
-                }
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message: "Error updating Currency with id=" + id
-                });
+        try {
+            const currencyF = {
+                name: req.body.name,
+                code: req.body.code,
+                countryId: req.body.countryId
+            };
+
+            Validations.validaFlight(currencyF)
+
+
+            await Currency.update(currencyF, {
+                where: { id: req.body }
             });
+            res.status(202).send({ message: 'Successfull Updated.' });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error.' });
+        }
     },
     async deleteCurrency(req,res) {
         try {
