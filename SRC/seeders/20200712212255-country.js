@@ -2,9 +2,8 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Currency', [
+    return queryInterface.bulkInsert('Countries', [
       //ISO 3166 ALPHA-2
-      { name: "", code: "", prefix: ""},
       { name: "Afganistán", code: "AF", prefix: "+93"},
       { name: "Islas de Åland", code: "AX", prefix: ""},
       { name: "Albania", code: "AL", prefix: "+355"},
@@ -261,7 +260,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Country', null, {});
+    return queryInterface.bulkDelete('Countries', null, {});
 
   }
 };
