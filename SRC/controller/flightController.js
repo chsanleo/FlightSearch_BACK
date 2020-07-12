@@ -1,4 +1,5 @@
 const Flight = require('../models/flight');
+const Validations = require('../utiles/validations');
 
 const FlightController = {
     async getAllFlight(req, res) {
@@ -23,7 +24,20 @@ const FlightController = {
     },
     async createFlight(req, res) {
         try {
-            const flight = Flight.create(req.body);
+            const flightF = {
+                price: req.body.price,
+                code: req.body.code,
+                takeOffDate: req.body.takeOffDate,
+                landingDate: req.body.landingDate,
+                landingAirportId: req.body.landingAirportId,
+                takeOffAirportId: req.body.takeOffAirportId,
+                planeId: req.body.planeId,
+                currencyId: req.body.currencyId
+            };
+
+            Validations.validaFlight(flightF)
+
+            const flight = Flight.create(flightF);
             res.status(201).send(flight);
         } catch (error) {
             console.log(error);
@@ -32,8 +46,22 @@ const FlightController = {
     },
     async update(req, res) {
         try {
-            await Flight.update(req.body, {
-                where: { id: req.params }
+            const flightF = {
+                price: req.body.price,
+                code: req.body.code,
+                takeOffDate: req.body.takeOffDate,
+                landingDate: req.body.landingDate,
+                landingAirportId: req.body.landingAirportId,
+                takeOffAirportId: req.body.takeOffAirportId,
+                planeId: req.body.planeId,
+                currencyId: req.body.currencyId
+            };
+
+            Validations.validaFlight(flightF)
+
+
+            await Flight.update(flightF, {
+                where: { id: req.body }
             });
             res.status(202).send({ message: 'Successfull Updated.' });
         } catch (error) {
