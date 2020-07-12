@@ -7,7 +7,7 @@ const InsuranceController = {
             res.status(200).send(insurances)
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem'})
+            res.status(500).send({ message : 'There was a problem. '})
         }
     },
     async getOneInsurance(req,res) {
@@ -21,7 +21,7 @@ const InsuranceController = {
             res.status(200).send(insurance)
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem'})
+            res.status(500).send({ message : ' There was a problem. '})
         }
     },
     async createInsurance(req,res) {

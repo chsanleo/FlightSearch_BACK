@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const ContactInfo = require ('../models/contactinfo');
+const Validations = require ('../utiles/validations');
 
 const MainController = {
     async login(req, res) {
@@ -16,8 +18,8 @@ const MainController = {
             const token = jwt.sign({ id: user.id }, properties.token_SECRETWORD, { expiresIn: properties.token_EXPIRES });
 
             await User.updateOne({
-                token:token
-            },{
+                token: token
+            }, {
                 where: { id: user.id }
             });
 
@@ -27,9 +29,10 @@ const MainController = {
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async getAllQuestions(req, res){
+    async getAllQuestions(req, res) {
         try {
-            const questions = await User.findAll({attributes:['questionSecret']
+            const questions = await User.findAll({
+                attributes: ['questionSecret']
 
             });
             res.status(200).send(questions);
@@ -40,16 +43,40 @@ const MainController = {
 
 
     },
-    async register(req,res) {
+    async register(req, res) {
         try {
-            const user = await User.create(req.body)
+            const contactInfoF = {
+                address: req.body.address,
+                telephone: req.body.telephone,
+                email: req.body.email,
+            };
+
+            Validations.validaContactInfo(contactInfoF);
+
+            const contactInfo = await ContactInfo.create(contactInfoF);
+
+            const userF = {
+                name: req.body.name,
+                username: req.body.username,
+                surname: req.body.surname,
+                password: req.body.password,
+                passport: req.body.passport,
+                questionSecret: req.body.questionSecret,
+                answerSecret: req.body.answerSecret,
+                isAdmin: false,
+                countryId: req.body.countryId,
+                contactInfoId :contactInfo.id
+            };
+
+            Validations.validaUser(userF);
+
+            const user = await User.create(userF)
             res.status(201).send(user)
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem'})
+            res.status(500).send(error)
         }
-    },
-
+    }    
 };
 
 module.exports = MainController;
