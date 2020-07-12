@@ -166,6 +166,28 @@ const Validations = {
         if (error != "") {
             throw Error(error);
         }
+    },
+    validaCompany(company) {
+        let error = ''
+
+        if(company.name == ''){
+            error += 'Name can not be empty'
+        }
+        if(company.IataCodeId == ''){
+            error += 'Code can not be empty'
+        }
+        if(company.currencyId <= 0){
+            error += 'CurrencyId can not be empty'
+        }
+        if(company.countryId <= 0){
+            error += 'Id can not be empty'
+        }
+        if(company.contactInfoId <= 0){
+            error += 'ContactInfoId can not less than 0'
+        }
+        if (error != "") {
+            throw Error(error);
+        }
     }
 };
 
