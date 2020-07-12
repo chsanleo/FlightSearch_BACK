@@ -1,4 +1,4 @@
-const router = require ('express').Router();
+const router = require('express').Router();
 const CurrencyController = require ('../controller/currencyController')
 
 router.get('/allcurrency', CurrencyController.getCurrencies)

@@ -1,4 +1,4 @@
-const router = require ('express').Router();
+const router = require('express').Router();
 const FlightTicketController = require ('../controller/flightTicketController')
 
 router.get('/allflightstickets', FlightTicketController.getAll)

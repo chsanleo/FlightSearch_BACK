@@ -1,4 +1,4 @@
-const router = require ('express').Router();
+const router = require('express').Router();
 const CompanyController = require ('../controller/companyController')
 
 router.get('/allcompanies', CompanyController.getCompanies)

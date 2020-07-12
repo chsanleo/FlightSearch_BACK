@@ -8,14 +8,14 @@ dbconnect();
 const cors = require('./middleware/cors');
 
 //Routes
-const adminRouter = require('./routes/admin')
+//const adminRouter = require('./routes/admin')
 const airportRouter = require('./routes/airport')
 const companyRouter = require('./routes/company')
 const currencyRouter = require('./routes/currency')
 const flightTicketRouter = require('./routes/flightTicket')
 const flightRouter = require('./routes/flights')
 const insuranceRouter = require('./routes/insurances')
-const mainRouter = require('./routes/main')
+//const mainRouter = require('./routes/main')
 const planeRouter = require('./routes/plane')
 const userRouter = require('./routes/users')
 

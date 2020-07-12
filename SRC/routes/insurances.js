@@ -1,4 +1,4 @@
-const router = require ('express').Router();
+const router = require('express').Router();
 const InsuranceController = require ('../controller/insuranceController')
 
 router.get('/allinsurance', InsuranceController.getInsurance)
