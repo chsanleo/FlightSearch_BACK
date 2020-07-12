@@ -51,6 +51,25 @@ const Validations = {
         if(flight.planeId == ''){
             error += 'PlaneID can not empty'
         }
+    },
+    validaInsurance(insurance) {
+        let error = "";
+        
+        //Revisar ya que no siempre se va a querer seguro
+
+        if(insurance.type == ''){
+            error += 'Must be a type'
+        }
+        if(insurance.price < 0){
+            error += 'Price can not negative'
+        }
+        if(insurance.company == ''){
+            error += 'Company can not empty'
+        }
+        if(insurance.name == ''){
+            error += 'Name can not empty'
+        }
+
     }
 };
 
