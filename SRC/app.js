@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 
 const properties = require('./config/properties');
-//const dbconnect = require('./config/mongoDb');
-//dbconnect();
+const dbconnect = require('./config/mongoDb');
+dbconnect();
+
 const cors = require('./middleware/cors');
 
 //Routes
