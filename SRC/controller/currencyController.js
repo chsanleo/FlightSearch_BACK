@@ -3,16 +3,14 @@ const Currency = require('../models/currency');
 const axios = require('axios');
 
 const CurrencyController = {
-    createCurrency (req, res) {
-        console.log(req.body)        
-        Currency.create(req.body)
-            .then(currency => {
-                res.status(200).send(currency)
-            })
-            .catch(error => {
-                console.log(error)
-                res.status(500).send({ message : 'There was a problem creating the currency, please, try again.'})
-            })
+    async createCurrency(req, res) {
+        try {
+            const currency = Currency.create(req.body);
+            res.status(201).send(currency);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error creating the Currency.' });
+        }
     },
     async getCurrencies(req,res) {
         try {
