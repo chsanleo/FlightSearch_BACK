@@ -2,324 +2,115 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-      return queryInterface.bulkInsert('Company', [{
-        name: 'VASCO'
-      },
-      {
-        name: 'Branson Air Express'
-      },
-      {
-        name: 'Angara Airlines'
-      },
-      {
-        name: 'Star Peru'
-      },
-      {
-        name: 'Air Burkina'
-      },
-      {
-        name: 'Avianca'
-      },
-      {
-        name: 'Maya Island Air'
-      },
-      {
-        name: 'Albawings'
-      },
-      {
-        name: 'Blue Air'
-      },
-      {
-        name: 'Helvetic Airways'
-      },
-      {
-        name: "Sun d'Or Airlines"
-      },
-      {
-        name: 'Passaredo Linhas Aéreas'
-      },
-      {
-        name: 'Binter Cabo Verde'
-      },
-      {
-        name: 'Air Chathams'
-      },
-      {
-        name: 'Air Choice One'
-      },
-      {
-        name: 'Pacificair'
-      },
-      {
-        name: 'Air Inuit'
-      },
-      {
-        name: 'Jubba Airways'
-      },
-      {
-        name: 'Silver Airways'
-      },
-      {
-        name: 'Airline Urga'
-      },
-      {
-        name: 'Air Philip'
-      },
-      {
-        name: 'Avior Regional'
-      },
-      {
-        name: 'Air Antilles'
-      },
-      {
-        name: 'Tarco Aviation'
-      },
-      {
-        name: 'Sichuan Airlines'
-      },
-      {
-        name: 'Malawi Airlines'
-      },
-      {
-        name: 'Boutique Air'
-      },
-      {
-        name: 'Gazpromavia'
-      },
-      {
-        name: 'FlyDamas'
-      },
-      {
-        name: 'Kenn Borek Air'
-      },
-      {
-        name: 'Airnorth'
-      },
-      {
-        name: 'Star East Airlines'
-      },
-      {
-        name: 'Warbelows Air'
-      },
-      {
-        name: 'Airlink'
-      },
-      {
-        name: 'Bassaka Air'
-      },
-      {
-        name: 'Aeromexico Connect'
-      },
-      {
-        name: 'FlyOne'
-      },
-      {
-        name: 'FlyMontserrat'
-      },
-      {
-        name: 'SmartAvia'
-      },
-      {
-        name: 'ASL Airlines France'
-      },
-      {
-        name: 'Rutaca Airlines'
-      },
-      {
-        name: 'Canadian North'
-      },
-      {
-        name: 'TAG Airlines'
-      },
-      {
-        name: 'CemAir'
-      },
-      {
-        name: 'TUI fly Nordic'
-      },
-      {
-        name: 'Air Timor'
-      },
-      {
-        name: 'Israir Airlines'
-      },
-      {
-        name: 'Solaseed Air'
-      },
-      {
-        name: 'Aklak Air'
-      },
-      {
-        name: 'Niger Airlines'
-      },
-      {
-        name: 'Orbest'
-      },
-      {
-        name: 'Cham Wings Airlines'
-      },
-      {
-        name: 'ALROSA'
-      },
-      {
-        name: 'SaudiGulf'
-      },
-      {
-        name: 'SmartLynx Airlines Estonia'
-      },
-      {
-        name: 'Madagasikara Airways'
-      },
-      {
-        name: 'Sylt Air'
-      },
-      {
-        name: 'First Air'
-      },
-      {
-        name: 'MAYAir'
-      },
-      {
-        name: 'Air Panama'
-      },
-      {
-        name: 'Elite Airways'
-      },
-      {
-        name: 'RusLine'
-      },
-      {
-        name: 'Federal Airlines'
-      },
-      {
-        name: 'Mann Yadanarpon Airlines'
-      },
-      {
-        name: 'TransNusa'
-      },
-      {
-        name: 'Bering Air'
-      },
-      {
-        name: 'STP Airways'
-      },
-      {
-        name: 'Fly Mid Africa'
-      },
-      {
-        name: 'BHAir'
-      },
-      {
-        name: 'EcoJet'
-      },
-      {
-        name: 'Myanmar Airways International'
-      },
-      {
-        name: 'Regional Air'
-      },
-      {
-        name: 'Pacific Coastal Airlines'
-      },
-      {
-        name: 'Air Tindi'
-      },
-      {
-        name: 'Afriqiyah Airways'
-      },
-      {
-        name: 'EWA Air'
-      },
-      {
-        name: 'LATAM Colombia'
-      },
-      {
-        name: 'PAL Express'
-      },
-      {
-        name: 'Jetstar Asia'
-      },
-      {
-        name: 'Air Arabia Maroc'
-      },
-      {
-        name: 'Fly540'
-      },
-      {
-        name: 'Indigo'
-      },
-      {
-        name: 'Jeju Air'
-      },
-      {
-        name: 'Lucky Air'
-      },
-      {
-        name: 'StarFlyer'
-      },
-      {
-        name: 'TruJet'
-      },
-      {
-        name: 'Ravn Alaska'
-      },
-      {
-        name: 'Eurowings'
-      },
-      {
-        name: 'Onur Air'
-      },
-      {
-        name: 'Interjet'
-      },
-      {
-        name: 'Wright Air Service'
-      },
-      {
-        name: 'Fly All Ways'
-      },
-      {
-        name: 'Pan Pacific Airlines'
-      },
-      {
-        name: 'Congo Airways'
-      },
-      {
-        name: 'Air Changan'
-      },
-      {
-        name: 'Dana Air'
-      },
-      {
-        name: 'Cape Air'
-      },
-      {
-        name: 'Central Mountain Air'
-      },
-      {
-        name: 'Tropic Air'
-      },
-      {
-        name: 'Caicos Express Airways'
-      },
-      {
-        name: 'SATENA'
-      },
-      {
-        name: 'Air Moldova'
-      },
-      {
-        name: 'Avior Airlines'
-      },
-      {
-        name: 'Jet Airways'
-      },
-      {
-        name: 'Southern Airways Express'
-      },
+    return queryInterface.bulkInsert('Company', [
+      { name: 'VASCO', ContactInfoId: 24 },
+      { name: 'Branson Air Express', ContactInfoId: 25 },
+      { name: 'Angara Airlines', ContactInfoId: 26 },
+      { name: 'Star Peru', ContactInfoId: 27 },
+      { name: 'Air Burkina', ContactInfoId: 28 },
+      { name: 'Avianca', ContactInfoId: 29 },
+      { name: 'Maya Island Air', ContactInfoId: 30 },
+      { name: 'Albawings', ContactInfoId: 31 },
+      { name: 'Blue Air', ContactInfoId: 32 },
+      { name: 'Helvetic Airways', ContactInfoId: 33 },
+      { name: "Sun d'Or Airlines", ContactInfoId: 34 },
+      { name: 'Passaredo Linhas Aéreas', ContactInfoId: 35 },
+      { name: 'Binter Cabo Verde', ContactInfoId: 36 },
+      { name: 'Air Chathams', ContactInfoId: 37 },
+      { name: 'Air Choice One', ContactInfoId: 38 },
+      { name: 'Pacificair', ContactInfoId: 39 },
+      { name: 'Air Inuit', ContactInfoId: 40 },
+      { name: 'Jubba Airways', ContactInfoId: 41 },
+      { name: 'Silver Airways', ContactInfoId: 42 },
+      { name: 'Airline Urga', ContactInfoId: 43 },
+      { name: 'Air Philip', ContactInfoId: 44 },
+      { name: 'Avior Regional', ContactInfoId: 45 },
+      { name: 'Air Antilles', ContactInfoId: 46 },
+      { name: 'Tarco Aviation', ContactInfoId: 47 },
+      { name: 'Sichuan Airlines', ContactInfoId: 48 },
+      { name: 'Malawi Airlines', ContactInfoId: 49 },
+      { name: 'Boutique Air', ContactInfoId: 50 },
+      { name: 'Gazpromavia', ContactInfoId: 51 },
+      { name: 'FlyDamas', ContactInfoId: 52 },
+      { name: 'Kenn Borek Air', ContactInfoId: 53 },
+      { name: 'Airnorth', ContactInfoId: 54 },
+      { name: 'Star East Airlines', ContactInfoId: 55 },
+      { name: 'Warbelows Air', ContactInfoId: 56 },
+      { name: 'Airlink' , ContactInfoId: 57},
+      { name: 'Bassaka Air' , ContactInfoId: 58},
+      { name: 'Aeromexico Connect', ContactInfoId: 59 },
+      { name: 'FlyOne', ContactInfoId: 60 },
+      { name: 'FlyMontserrat', ContactInfoId: 61 },
+      { name: 'SmartAvia', ContactInfoId: 62},
+      { name: 'ASL Airlines France', ContactInfoId: 63 },
+      { name: 'Rutaca Airlines' , ContactInfoId: 64},
+      { name: 'Canadian North', ContactInfoId: 65 },
+      { name: 'TAG Airlines', ContactInfoId: 66 },
+      { name: 'CemAir', ContactInfoId: 67 },
+      { name: 'TUI fly Nordic', ContactInfoId: 68},
+      { name: 'Air Timor', ContactInfoId: 69 },
+      { name: 'Israir Airlines', ContactInfoId: 70 },
+      { name: 'Solaseed Air', ContactInfoId: 71 },
+      { name: 'Aklak Air', ContactInfoId: 72 },
+      { name: 'Niger Airlines' , ContactInfoId: 73},
+      { name: 'Orbest', ContactInfoId: 74 },
+      { name: 'Cham Wings Airlines', ContactInfoId: 75 },
+      { name: 'ALROSA', ContactInfoId: 76 },
+      { name: 'SaudiGulf', ContactInfoId: 77 },
+      { name: 'SmartLynx Airlines Estonia', ContactInfoId: 78 },
+      { name: 'Madagasikara Airways', ContactInfoId: 79 },
+      { name: 'Sylt Air', ContactInfoId: 80 },
+      { name: 'First Air', ContactInfoId: 81 },
+      { name: 'MAYAir', ContactInfoId: 82 },
+      { name: 'Air Panama' , ContactInfoId: 83},
+      { name: 'Elite Airways', ContactInfoId: 84 },
+      { name: 'RusLine', ContactInfoId: 85 },
+      { name: 'Federal Airlines', ContactInfoId: 86 },
+      { name: 'Mann Yadanarpon Airlines', ContactInfoId: 87 },
+      { name: 'TransNusa', ContactInfoId: 88 },
+      { name: 'Bering Air', ContactInfoId: 89 },
+      { name: 'STP Airways', ContactInfoId: 90 },
+      { name: 'Fly Mid Africa', ContactInfoId: 91 },
+      { name: 'BHAir', ContactInfoId: 92 },
+      { name: 'EcoJet', ContactInfoId: 93 },
+      { name: 'Myanmar Airways International', ContactInfoId: 94 },
+      { name: 'Regional Air', ContactInfoId: 95 },
+      { name: 'Pacific Coastal Airlines', ContactInfoId: 96 },
+      { name: 'Air Tindi', ContactInfoId: 97 },
+      { name: 'Afriqiyah Airways', ContactInfoId: 98 },
+      { name: 'EWA Air', ContactInfoId: 99 },
+      { name: 'LATAM Colombia' , ContactInfoId: 100},
+      { name: 'PAL Express' , ContactInfoId: 101},
+      { name: 'Jetstar Asia', ContactInfoId: 102 },
+      { name: 'Air Arabia Maroc', ContactInfoId: 103 },
+      { name: 'Fly540', ContactInfoId: 104 },
+      { name: 'Indigo', ContactInfoId: 105 },
+      { name: 'Jeju Air', ContactInfoId: 106 },
+      { name: 'Lucky Air', ContactInfoId: 107 },
+      { name: 'StarFlyer', ContactInfoId: 108 },
+      { name: 'TruJet', ContactInfoId: 109 },
+      { name: 'Ravn Alaska' , ContactInfoId: 110},
+      { name: 'Eurowings', ContactInfoId: 111},
+      { name: 'Onur Air', ContactInfoId: 112 },
+      { name: 'Interjet', ContactInfoId: 113 },
+      { name: 'Wright Air Service', ContactInfoId: 114 },
+      { name: 'Fly All Ways', ContactInfoId: 115 },
+      { name: 'Pan Pacific Airlines', ContactInfoId: 116 },
+      { name: 'Congo Airways', ContactInfoId: 117 },
+      { name: 'Air Changan', ContactInfoId: 118 },
+      { name: 'Dana Air', ContactInfoId: 119 },
+      { name: 'Cape Air', ContactInfoId: 120 },
+      { name: 'Central Mountain Air', ContactInfoId: 121 },
+      { name: 'Tropic Air', ContactInfoId: 122 },
+      { name: 'Caicos Express Airways', ContactInfoId: 123 },
+      { name: 'SATENA', ContactInfoId: 124 },
+      { name: 'Air Moldova', ContactInfoId: 125 },
+      { name: 'Avior Airlines' , ContactInfoId: 126},
+      { name: 'Jet Airways', ContactInfoId: 127 },
+      { name: 'Southern Airways Express', ContactInfoId: 128 },
     ]);
-    },
-    down: (queryInterface, Sequelize) => {
-      return queryInterface.bulkDelete('Company', null, {});
-    }
+  },
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete('Company', null, {});
+  }
 };

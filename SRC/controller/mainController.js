@@ -40,9 +40,8 @@ const MainController = {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
-
-
     },
+    
     async register(req, res) {
         try {
             const contactInfoF = {
