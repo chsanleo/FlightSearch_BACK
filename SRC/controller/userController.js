@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const ContactInfo = require ('../models/contactinfo');
+const Validations = require ('../utiles/validations');
 
 const axios = require('axios');
 
@@ -28,8 +30,32 @@ const UserController = {
     },
     async updateUser(req,res) {
         try {
-            const { id } = req.params;
-            await User.update(req.body, {
+            const contactInfoF = {
+                address: req.body.address,
+                telephone: req.body.telephone,
+                email: req.body.email
+            }
+
+            Validations.validaContactInfo(contactInforF);
+
+            const contactinfo = await ContactInfo.update(contactInfoF)
+
+            const userF = {
+                name: req.body.name,
+                username: req.body.username,
+                surname: req.body.surname,
+                password: req.body.password,
+                passport: req.body.passport,
+                questionSecret: req.body.questionSecret,
+                answerSecret: req.body.answerSecret,
+                countryId: req.body.countryId,
+                contactInfoId :contactInfo.id
+            };
+
+            Validations.validaUser(userF);
+
+            const { id } = req.body;
+            await User.update(userF, {
                 where: {
                     id: id
                 }
