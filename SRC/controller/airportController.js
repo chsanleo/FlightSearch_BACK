@@ -1,10 +1,22 @@
 const Airport = require('../models/airport');
+const Validations = require('../utiles/validations');
 
 
 const AirportController = { 
     async createAirport(req, res) {
         try {
-            const airport = Airport.create(req.body);
+            const airportF = {
+                name: req.body.name,
+                companyManag: req.body.companyManag,
+                smooking: req.body.smooking,
+                CountryId: req.body.CountryId,
+                ContactInfoId: req.body.ContactInfoId,
+                IataCodeId: req.body.IataCodeId,
+            };
+
+            Validations.validaCurrency(airportF)
+
+            const airport = Airport.create(airportF);
             res.status(201).send(airport);
         } catch (error) {
             console.log(error);
@@ -40,26 +52,26 @@ const AirportController = {
         }
     },
     async updateAirport(req,res) {
-        const id = req.params.id;
-        Company.updateAirport(req.body, {
-            where: { id : id }
-        })
-            .then(num => {
-                if (num == 1) {
-                    res.send({
-                        message: "Airport was updated succesfully"
-                    });
-                } else {
-                    res.send ({
-                        message: `Cannot update Airport with id=${id}.`
-                    });
-                }
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message: "Error updating Airport with id=" + id
-                });
+        try {
+            const airportF = {
+                name: req.body.name,
+                companyManag: req.body.companyManag,
+                smooking: req.body.smooking,
+                CountryId: req.body.CountryId,
+                ContactInfoId: req.body.ContactInfoId,
+                IataCodeId: req.body.IataCodeId,
+            };
+
+            Validations.validaAirport(airportF)
+
+            await Airport.update(airportF, {
+                where: { id: req.body }
             });
+            res.status(202).send({ message: 'Successfull Updated.' });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error.' });
+        }
     },
     async deleteAirport(req,res) {
         try {

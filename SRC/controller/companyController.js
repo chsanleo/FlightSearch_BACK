@@ -1,10 +1,23 @@
 const Company = require('../models/company');
+const Validations = require('../utiles/validations');
+const company = require('../models/company');
 
 const CompanyController = {
     async createCompany(req, res) {
         try {
-            const company = Company.create(req.body);
-            res.status(201).send(company);
+            const companyF = {
+                name: req.body.name,
+                iatacodeid: req.body.iatacodeid,
+                currencyid: req.body.currencyid,
+                countryId: req.body.countryId,
+                contactinfoid: req.body.contactinfoid,
+            };
+
+            Validations.validaCompany(companyF)
+
+            const currency = Company.create(companyF);
+            res.status(201).send(currency);
+
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error creating the Company.' });
@@ -39,26 +52,26 @@ const CompanyController = {
         }
     },
     async updateCompany(req,res) {
-        const id = req.params.id;
-        Company.updateCompany(req.body, {
-            where: { id : id }
-        })
-            .then(num => {
-                if (num == 1) {
-                    res.send({
-                        message: "Company was updated succesfully"
-                    });
-                } else {
-                    res.send ({
-                        message: `Cannot update Company with id=${id}.`
-                    });
-                }
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message: "Error updating Company with id=" + id
-                });
+        try {
+            const companyF = {
+                name: req.body.name,
+                iatacodeid: req.body.iatacodeid,
+                currencyid: req.body.currencyid,
+                countryId: req.body.countryId,
+                contactinfoid: req.body.contactinfoid,
+            };
+
+            Validations.validaCompany(companyF)
+
+
+            await Company.update(companyF, {
+                where: { id: req.body }
             });
+            res.status(202).send({ message: 'Successfull Updated.' });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error.' });
+        }
     },
     async deleteCompany(req,res) {
         try {
