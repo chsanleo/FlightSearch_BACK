@@ -27,7 +27,7 @@ module.exports = {
         }
       }
     }
-    
+
     let iataAirports = [
       { code: 'ABC' }, { code: "AEP" }, { code: "AFA" }, { code: "AGP" },
       { code: "AMS" }, { code: "AOL" }, { code: "ARI" }, { code: "ARN" },
@@ -84,10 +84,7 @@ module.exports = {
       { code: "YVR" }, { code: "YWG" }, { code: "YYY" }, { code: "YYZ" },
       { code: "ZAG" }, { code: "ZAZ" }];
 
-
-
-    return queryInterface.bulkInsert('Iatacodes', iataAirports.concat(iataCompanies)
-    );
+    return queryInterface.bulkInsert('Iatacodes', iataAirports.concat(iataCompanies));
   },
 
   down: async (queryInterface, Sequelize) => {
