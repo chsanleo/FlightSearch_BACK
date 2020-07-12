@@ -1,10 +1,8 @@
-const { Company } = require('../models');
-
-const axios = require('axios');
+const Company = require('../models/company');
 
 const CompanyController = {
     createCompany (req, res) {
-        console.log(req.body)        
+        console.log(req.body)
         Company.create(req.body)
             .then(company => {
                 res.status(200).send(company)

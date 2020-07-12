@@ -1,4 +1,4 @@
-const { Plane } = require('../models');
+const Plane = require('../models/plane');
 
 const axios = require('axios');
 
