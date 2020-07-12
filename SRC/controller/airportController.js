@@ -2,16 +2,14 @@ const Airport = require('../models/airport');
 
 
 const AirportController = { 
-    createAirport (req, res) {
-        console.log(req.body)        
-        Airport.create(req.body)
-            .then(airport => {
-                res.status(200).send(airport)
-            })
-            .catch(error => {
-                console.log(error)
-                res.status(500).send({ message : 'There was a problem creating the airport, please, try again.'})
-            })
+    async createAirport(req, res) {
+        try {
+            const airport = Airport.create(req.body);
+            res.status(201).send(airport);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error creating the Airport.' });
+        }
     },
     async getAirports(req,res) {
         try {
