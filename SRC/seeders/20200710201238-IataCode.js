@@ -82,7 +82,7 @@ module.exports = {
       { code: "YFB" }, { code: "YHU" }, { code: "YHZ" }, { code: "YOW" },
       { code: "YQB" }, { code: "YRB" }, { code: "YUL" }, { code: "YVM" },
       { code: "YVR" }, { code: "YWG" }, { code: "YYY" }, { code: "YYZ" },
-      { code: "ZAG" }, { code: "ZAZ" }, //iataCompanies
+      { code: "ZAG" }, { code: "ZAZ" }, iataCompanies
     ]);
   },
 
