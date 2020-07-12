@@ -70,6 +70,28 @@ const Validations = {
             error += 'Name can not empty'
         }
 
+    },
+    validaPlane(plane) {
+        let error = ''
+
+        if(plane.type == ''){
+            error += 'Type can not empty'
+        }
+        if(plane.name == ''){
+            error += 'Name can not empty'
+        }
+        if(plane.model == ''){
+            error += 'Model can not empty'
+        }
+        if(plane.yearOfFabric > new Date()){
+            error += 'Can not fabricate planes in the data future'
+        }
+        if(plane.plate == ''){
+            error += 'Plane must be plate'
+        }
+        if(plane.companyId <= 0){
+            error += 'Plane must be a Company'
+        }
     }
 };
 

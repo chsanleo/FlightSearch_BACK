@@ -1,6 +1,7 @@
 const Plane = require('../models/plane');
 
 const axios = require('axios');
+const Validations = require('../utiles/validations');
 
 const PlaneController = {
 
@@ -29,7 +30,18 @@ const PlaneController = {
     },
     async createPlane (req,res) {
         try {
-            const plane = await Plane.create(req.body)
+            const planeF = {
+                type: req.body.type,
+                name: req.body,
+                model: req.body.model,
+                yearOfFabric: req.body.yearOfFabric,
+                plate: req.body.plate,
+                companyId: req.body.CompanyId
+            }
+
+            Validations.validatePlane(planeF)
+
+            const plane = await Plane.create(planeF)
             res.status(201).send(plane)
         } catch (error) {
             console.log(error)
@@ -38,8 +50,20 @@ const PlaneController = {
     },
     async updatePlane(req,res) {
         try {
-            const { id } = req.params;
-            await Plane.update(req.body, {
+
+            const planeF = {
+                type: req.body.type,
+                name: req.body,
+                model: req.body.model,
+                yearOfFabric: req.body.yearOfFabric,
+                plate: req.body.plate,
+                CompanyId: req.body.CompanyId
+            }
+
+            Validations.validatePlane(planeF)
+
+            const { id } = req.body;
+            await Plane.update(planeF, {
                 where: {
                     id: id
                 }
