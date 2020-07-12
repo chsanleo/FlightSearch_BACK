@@ -26,15 +26,6 @@ const UserController = {
             res.status(500).send({ message : 'There was a problem'})
         }
     },
-    async createUser(req,res) {
-        try {
-            const user = await User.create(req.body)
-            res.status(201).send(user)
-        } catch (error) {
-            console.log(error)
-            res.status(500).send({ message : 'There was a problem'})
-        }
-    },
     async updateUser(req,res) {
         try {
             const { id } = req.params;

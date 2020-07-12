@@ -6,5 +6,6 @@ const MainController = require ('../controller/mainController')
 //router.post('/create', MainController)
 //router.put('/modify/:id', MainController)
 //router.delete('/delete/:id', MainController)
+router.post('/register', MainController.register)
 
 module.exports = router;
