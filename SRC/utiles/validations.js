@@ -19,6 +19,9 @@ const Validations = {
         if (contactInfo.telephone == "") {
             error += " The telephone can not be empty. ";
         }
+        if (contactInfo.telephone == NaN) {
+            error += 'The telephone not admits letters'
+        }
 
         if (error != "") {
             throw Error(error);
