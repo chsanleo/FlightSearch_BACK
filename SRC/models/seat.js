@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
   Seat.init({
     type: DataTypes.STRING,
     price: DataTypes.STRING,
-    PlaneId: DataTypes.INTEGER
   }, {
     paranoid : true,
     sequelize,
