@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const {User} = require('../models');
 const ContactInfo = require ('../models/contactinfo');
 const Validations = require ('../utiles/validations');
 
@@ -7,10 +7,10 @@ const axios = require('axios');
 const UserController = {
     async getAllUsers(req,res) {
         try {
-            const users = User.findAll()
-            res.status(200).send(users)
+            const users = await User.findAll();
+            res.status(200).send(users);
         } catch (error) {
-            console.log(error)
+            console.log(error);
             res.status(500).send({ message : 'There was a problem'})
         }
     },
