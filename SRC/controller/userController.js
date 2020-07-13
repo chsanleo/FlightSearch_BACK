@@ -30,6 +30,7 @@ const UserController = {
     },
     async updateUser(req,res) {
         try {
+
             const contactInfoF = {
                 address: req.body.address,
                 telephone: req.body.telephone,
@@ -38,7 +39,7 @@ const UserController = {
 
             Validations.validaContactInfo(contactInforF);
 
-            const contactinfo = await ContactInfo.update(contactInfoF)
+            const contactInfo = await ContactInfo.update(contactInfoF)
 
             const userF = {
                 name: req.body.name,

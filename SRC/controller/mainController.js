@@ -44,6 +44,8 @@ const MainController = {
     
     async register(req, res) {
         try {
+            let error = '';
+            const usernameStock = await User.findOne({ where : { username: req.params.username}});
             const contactInfoF = {
                 address: req.body.address,
                 telephone: req.body.telephone,
@@ -65,7 +67,15 @@ const MainController = {
                 countryId: req.body.countryId,
                 contactInfoId :contactInfo.id
             };
+            //Same Username 
+            if(username = usernameStock){
+                error += 'This username already exists'
+            }
+            if(error != ''){
+                throw Error(error)
+            }
 
+            
             Validations.validaUser(userF);
 
             const user = await User.create(userF)

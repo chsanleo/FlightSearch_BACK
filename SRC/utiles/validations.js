@@ -4,12 +4,17 @@ const Validations = {
     validaContactInfo(contactInfo) {
 
         let error = "";
+        let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
 
         if (contactInfo.address == "") {
             error += " The address can not be empty. ";
         }
         if (contactInfo.email == "") {
             error += " The email can not be empty. ";
+        }
+        if (contactInfo.email != regex ){
+            error += 'The format email is invalid'
         }
         if (contactInfo.telephone == "") {
             error += " The telephone can not be empty. ";
@@ -32,9 +37,6 @@ const Validations = {
         }
         if(user.username == ''){
             error += 'Username can not empty'
-        }
-        if(user.username == username){
-            error += 'Username already exists'
         }
         if(user.surname == ''){
             error += 'Surname can not empty'
