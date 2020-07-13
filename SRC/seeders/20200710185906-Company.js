@@ -107,7 +107,7 @@ module.exports = {
       { name: 'Air Moldova', ContactInfoId: 125, CountryId:144 },
       { name: 'Avior Airlines' , ContactInfoId: 126, CountryId:245},
       { name: 'Jet Airways', ContactInfoId: 127 , CountryId:101},
-      { name: 'Southern Airways Express', ContactInfoId: 128 , CountryId:239},
+      { name: 'Southern Airways Express', ContactInfoId: 128 , CountryId:239}
     ]);
   },
   down: (queryInterface, Sequelize) => {
