@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Airport', [{
+    return queryInterface.bulkInsert('Airports', [{
       name: 'Aeroparque Jorge Newbery',
       smooking: true,
       ContactInfoId: 1,
@@ -120,6 +120,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Airport', null, {});
+    return queryInterface.bulkDelete('Airports', null, {});
   }
 };

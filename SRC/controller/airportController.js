@@ -1,4 +1,4 @@
-const Airport = require('../models/airport');
+const {Airport} = require('../models');
 const Validations = require('../utiles/validations');
 
 
