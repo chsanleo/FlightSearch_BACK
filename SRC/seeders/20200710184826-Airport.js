@@ -14,7 +14,8 @@ module.exports = {
       smooking: true,
       ContactInfoId: 2,
       CountryId: 212,
-      IataCodeId: 4
+      IataCodeId: 4,
+      companyManag:"Aena"
     },
     {
       name: 'Aeropuerto de Ámsterdam-Schiphol',
@@ -35,7 +36,8 @@ module.exports = {
       smooking: false,
       ContactInfoId: 5,
       CountryId: 212,
-      IataCodeId: 12
+      IataCodeId: 12,
+      companyManag:"Aena"
     },
     {
       name: 'Aeropuerto de Bamiyán',
