@@ -27,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     LandingAirportId: DataTypes.INTEGER,
     TakeOffAirportId: DataTypes.INTEGER,
     PlaneId: DataTypes.INTEGER,
-    CurrencyId: DataTypes.INTEGER
+    CurrencyId: DataTypes.INTEGER,
+    CompanyId: DataTypes.INTEGER
   }, {
     paranoid : true,
     sequelize,
