@@ -6,9 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Country extends Model {
 
     static associate(models) {
-      Country.belongsToMany(models.Company);
-      Country.belongsToMany(models.Airport);
-      Country.belongsToMany(models.User);
+
     }
   };
   Country.init({

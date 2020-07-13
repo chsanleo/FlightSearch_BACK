@@ -6,10 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Currency extends Model {
 
     static associate(models) {
-      Currency.hasMany(models.Flight);
-      Currency.belongsTo(models.Country);
-      Currency.hasMany(models.Company);
-      // define association here
+
     }
   };
   Currency.init({
