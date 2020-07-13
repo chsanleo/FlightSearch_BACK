@@ -13,7 +13,7 @@ const Validations = {
         if (contactInfo.email == "") {
             error += " The email can not be empty. ";
         }
-        if (contactInfo.email != regex ){
+        if (regex.test(String(contactInfo.email).toLowerCase()) ){
             error += 'The format email is invalid'
         }
         if (contactInfo.telephone == "") {

@@ -45,12 +45,18 @@ const MainController = {
     async register(req, res) {
         try {
             let error = '';
-            const usernameStock = await User.findOne({ where : { username: req.params.username}});
+            const usernameStock = await User.findOne({ where : { username: req.body.username}});
+                    //Same Username 
+                    if(username = usernameStock){
+                        throw Error('This username already exists')
+                    }
+            
             const contactInfoF = {
                 address: req.body.address,
                 telephone: req.body.telephone,
                 email: req.body.email,
             };
+
 
             Validations.validaContactInfo(contactInfoF);
 
@@ -67,13 +73,6 @@ const MainController = {
                 countryId: req.body.countryId,
                 contactInfoId :contactInfo.id
             };
-            //Same Username 
-            if(username = usernameStock){
-                error += 'This username already exists'
-            }
-            if(error != ''){
-                throw Error(error)
-            }
 
             
             Validations.validaUser(userF);
