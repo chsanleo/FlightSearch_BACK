@@ -5,9 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class IataCode extends Model {
 
-    static associate(models) {
-
-    }
+    static associate(models) { }
   };
   IataCode.init({
     code: DataTypes.STRING

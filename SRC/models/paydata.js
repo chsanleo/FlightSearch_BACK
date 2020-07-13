@@ -5,9 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class PayData extends Model {
 
-    static associate(models) {
-
-    }
+    static associate(models) { }
   };
   PayData.init({
     name: DataTypes.STRING,

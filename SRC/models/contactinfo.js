@@ -5,11 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class ContactInfo extends Model {
 
-    static associate(models) {
-
-
-      // define association here
-    }
+    static associate(models) { }
   };
   ContactInfo.init({
     address: DataTypes.STRING,
