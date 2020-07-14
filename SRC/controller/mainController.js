@@ -1,4 +1,4 @@
-const { User, ContactInfo, IataCode } = require('../models');
+const { User, ContactInfo, IataCode, Country } = require('../models');
 
 const Validations = require('../utiles/validations');
 
@@ -95,7 +95,9 @@ const MainController = {
     },
     async getAllCountries(req,res){
         try {
-            
+            const countriesList = await Country.findAll({attributes:['id','name','code','prefix']});
+            res.status(200).send(countriesList);
+
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
