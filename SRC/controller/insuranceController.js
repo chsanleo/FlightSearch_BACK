@@ -1,7 +1,5 @@
-const { Insurance } = require('../models');
+const { Insurance, ContactInfo } = require('../models');
 const Validations = require('../utiles/validations');
-const { ContactInfo } = require('../models');
-
 
 const InsuranceController = {
     async getInsurance(req, res) {
