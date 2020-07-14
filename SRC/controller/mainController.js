@@ -1,4 +1,4 @@
-const { User, ContactInfo, IataCode, Country } = require('../models');
+const { User, ContactInfo, IataCode, Country, Currency } = require('../models');
 
 const Validations = require('../utiles/validations');
 
@@ -86,23 +86,32 @@ const MainController = {
 
     async getAllIataCode(req, res) {
         try {
-            const iataList = await IataCode.findAll({attributes: ['id','code']});
+            const iataList = await IataCode.findAll({ attributes: ['id', 'code'] });
             res.status(200).send(iataList);
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async getAllCountries(req,res){
+    async getAllCountries(req, res) {
         try {
-            const countriesList = await Country.findAll({attributes:['id','name','code','prefix']});
+            const countriesList = await Country.findAll({ attributes: ['id', 'name', 'code', 'prefix'] });
             res.status(200).send(countriesList);
 
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
+    },
+    async getAllCurrencies(req, res) {
+        try {
+            const currencyList = await Currency.findAll({ attributes: ['id', 'name', 'code', 'countryId'] });
+            res.status(200).send(currencyList);
 
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
     }
 };
 
