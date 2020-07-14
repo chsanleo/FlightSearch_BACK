@@ -12,21 +12,21 @@ const Validations = {
         let error = EMPTY;
         let emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
-        if (contactInfo.address == EMPTY || contactInfo.address === undefined) {
-             error += ' Must provide a address. '; 
-            }
+        //if (contactInfo.address == EMPTY || contactInfo.address === undefined) {
+        //     error += ' Must provide a address. '; 
+        //    }
 
         if (contactInfo.email != EMPTY) {
-            if (!contactInfo.email.match(emailRegex)) {
-                error += ' The format email is invalid. ';
-            }
+            //if (!contactInfo.email.match(emailRegex)) {
+              //  error += ' The format email is invalid. ';
+            //}
             //lenght email?
         }
         else { error += ' Must provide a email. '; }
 
-        if (contactInfo.telephone == EMPTY || contactInfo.telephone.lenght < MIN_CHAR_PHONE) {
-            error += ' Must provide a correct telephone. ';
-        }
+        /*if (contactInfo.telephone == EMPTY || contactInfo.telephone.length < MIN_CHAR_PHONE) { //No puede leer el .length
+            error += ' Must provide a correct telephone. '; 
+        } PROBLEMAS CON EL TELEPHONE.LENGTH*/
         /* else{ telephoneRegex ?} */
 
         if (error != EMPTY) { throw Error(error); }
@@ -39,14 +39,14 @@ const Validations = {
         if (user.username == EMPTY) { error += ' Username must be provided. '; }
         if (user.surname == EMPTY) { error += ' Surname must be provided. '; }
         if (user.password != EMPTY) {
-            if (user.password.lenght < MIN_CHAR_PASSWORD || user.password > MAX_CHAR_PASSWORD) {
+            if (user.password.length < MIN_CHAR_PASSWORD || user.password.length > MAX_CHAR_PASSWORD) {
                 error += ' Password must be between ' + MIN_CHAR_PASSWORD + ' and ' + MAX_CHAR_PASSWORD + ' characters. ';
             }
             //evaluar si contienen un caracter especial (@#.-+/\|'?!¡¿^)
         } else { error += ' Password must be provided. '; }
 
-        if (user.passport != empty) {
-            if (user.passport.lenght < MIN_CHAR_PASSPORT) {
+        if (user.passport != EMPTY) {
+            if (user.passport.length < MIN_CHAR_PASSPORT) {
                 error += ' Passport can not be less than ' + MIN_CHAR_PASSPORT + ' characters. ';
             }
         } else { error += ' Passport must be provided. '; }

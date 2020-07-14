@@ -1,5 +1,5 @@
-const User = require('../models/user');
-const ContactInfo = require ('../models/contactinfo');
+const {User} = require('../models');
+const {ContactInfo} = require ('../models');
 const Validations = require ('../utiles/validations');
 
 const MainController = {

@@ -1,4 +1,4 @@
-const Plane = require('../models/plane');
+const {Plane} = require('../models');
 
 const axios = require('axios');
 const Validations = require('../utiles/validations');
