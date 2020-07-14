@@ -76,22 +76,31 @@ const MainController = {
 
             Validations.validaUser(userF);
 
-            const user = await User.create(userF)
-            res.status(201).send(user)
+            const user = await User.create(userF);
+            res.status(201).send(user);
         } catch (error) {
-            console.log(error)
-            res.status(500).send(error)
+            console.log(error);
+            res.status(500).send(error);
         }
     },
 
     async getAllIataCode(req, res) {
         try {
-            const iataList = await IataCode.findAll({attributes: [[Sequelize.literal('DISTINCT `code`'), 'code'], 'id']});
-            res.status(200).send(iataList)
+            const iataList = await IataCode.findAll({attributes: ['id','code']});
+            res.status(200).send(iataList);
         } catch (error) {
-            console.log(error)
-            res.status(500).send(error)
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
+    },
+    async getAllCountries(req,res){
+        try {
+            
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+
     }
 };
 
