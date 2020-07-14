@@ -7,11 +7,13 @@ const axios = require('axios');
 const UserController = {
     async getAllUsers(req, res) {
         try {
-            const users = await User.findAll();
+            const users = await User.findAll({
+                where: { deletedAt: null }
+            });
             res.status(200).send(users);
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was a problem' })
+            res.status(500).send({ message: 'There was a problem' });
         }
     },
     async getOneUser(req, res) {
@@ -23,10 +25,10 @@ const UserController = {
                 where: { id: id, deletedAt: null }
             });
 
-            res.status(200).send(user)
+            res.status(200).send(user);
         } catch (error) {
-            console.log(error)
-            res.status(500).send({ message: 'There was a problem' })
+            console.log(error);
+            res.status(500).send({ message: 'There was a problem' });
         }
     },
     async updateUser(req, res) {
@@ -42,7 +44,7 @@ const UserController = {
 
             Validations.validaContactInfo(contactInforF);
 
-            const contactInfo = await ContactInfo.update(contactInfoF)
+            const contactInfo = await ContactInfo.update(contactInfoF);
 
             const userF = {
                 name: req.body.name,
@@ -59,14 +61,12 @@ const UserController = {
             Validations.validaUser(userF);
 
             await User.update(userF, {
-                where: {
-                    id: id
-                }
-            })
-            res.status(200).send({ message: 'Todo OK' })
+                where: { id: id }
+            });
+            res.status(200).send({ message: 'Todo OK' });
         } catch (error) {
-            console.log(error)
-            res.status(500).send({ message: 'There was a problem' })
+            console.log(error);
+            res.status(500).send({ message: 'There was a problem' });
         }
     },
     async deleteUser(req, res) {
@@ -76,11 +76,11 @@ const UserController = {
 
             await User.destroy({
                 where: { id: id }
-            })
-            res.status(200).send({ message: 'Todo OK' })
+            });
+            res.status(200).send({ message: 'Todo OK' });
         } catch (error) {
-            console.log(error)
-            res.status(500).send({ message: 'There was a problem' })
+            console.log(error);
+            res.status(500).send({ message: 'There was a problem' });
         }
     }
 };
