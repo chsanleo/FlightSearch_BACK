@@ -1,10 +1,18 @@
 const express = require('express');
 const app = express();
 
+//PropertiesFile
 const properties = require('./config/properties');
 
+//MongoConectionDB
 const dbconnect = require('./config/mongoDb');
 dbconnect();
+
+//logger
+var winston = require('./config/winston');
+var morgan = require('morgan');
+app.use(morgan('combined', { stream: winston.stream }));
+
 
 //Routes
 const adminRouter = require('./routes/admin');

@@ -9,8 +9,10 @@
     "express": "4.17.1",
     "jsonwebtoken": "8.5.1",
     "mongoose": "5.9.22",
+    "morgan": "1.10.0",
     "mysql2": "2.1.0",
-    "sequelize": "6.1.0"
+    "sequelize": "6.1.0",
+    "winston": "3.3.3"
   },
   "devDependencies": {},
   "scripts": {
