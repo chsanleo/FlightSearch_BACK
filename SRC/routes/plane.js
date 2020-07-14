@@ -6,6 +6,6 @@ router.get('/planes/:id', PlaneController.getOnePlane);
 router.post('/create', PlaneController.createPlane);
 router.put('/modify/:id', PlaneController.updatePlane);
 router.delete('/delete/:id', PlaneController.deletePlane);
-router.get('/plate/:plate', PlaneController.getPlanePlate);
+router.get('/plate/:plate', PlaneController.getPlaneByPlate);
 
 module.exports = router;

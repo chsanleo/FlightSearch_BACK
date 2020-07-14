@@ -4,7 +4,9 @@ const Validations = require('../utiles/validations');
 const FlightController = {
     async getAllFlight(req, res) {
         try {
-            const flights = await Flight.findAll();
+            const flights = await Flight.findAll({
+                where: { deletedAt: null }
+            });
             res.status(200).send(flights);
         } catch (error) {
             console.log(error);
@@ -13,9 +15,11 @@ const FlightController = {
     },
     async getFlight(req, res) {
         try {
-            const flight = await Flight.findOne({
-                where: { id: req.params }
-            });
+            const { id } = req.params;
+            Validations.validaId(id);
+            const flight = await Flight.findByPk(id);
+
+            if (flight.deletedAt === null) { res.status(200).send(new Object); }
             res.status(200).send(flight);
         } catch (error) {
             console.log(error);
@@ -36,7 +40,7 @@ const FlightController = {
                 stock: req.body.stock
             };
 
-            Validations.validaFlight(flightF)
+            Validations.validaFlight(flightF);
 
             const flight = await Flight.create(flightF);
             res.status(201).send(flight);
@@ -47,6 +51,9 @@ const FlightController = {
     },
     async update(req, res) {
         try {
+            const { id } = req.body;
+            Validations.validaId(id);
+            
             const flightF = {
                 price: req.body.price,
                 code: req.body.code,
@@ -59,11 +66,10 @@ const FlightController = {
                 stock: req.body.stock
             };
 
-            Validations.validaFlight(flightF)
-
+            Validations.validaFlight(flightF);
 
             await Flight.update(flightF, {
-                where: { id: req.body }
+                where: { id: id }
             });
             res.status(202).send({ message: 'Successfull Updated.' });
         } catch (error) {
@@ -74,8 +80,11 @@ const FlightController = {
     },
     async delete(req, res) {
         try {
+            const { id } = req.body;
+            Validations.validaId(id);
+
             await Flight.destroy({
-                where: { id: req.params }
+                where: { id: id }
             });
             res.status(202).send({ message: 'Successfull Deleted.' });
         } catch (error) {
