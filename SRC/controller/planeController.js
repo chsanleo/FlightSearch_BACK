@@ -31,8 +31,9 @@ const PlaneController = {
     },
     async getPlaneByPlate(req, res) {
         try {
-            //validar plate
             const { plate } = req.params;
+            Validations.validaPlate(plate);
+
             const plane = await Plane.findOne({
                 where: { plate: plate, deletedAt: null }
             });
