@@ -1,34 +1,44 @@
-const {Plane} = require('../models');
-
-const axios = require('axios');
+const { Plane } = require('../models');
 const Validations = require('../utiles/validations');
 
 const PlaneController = {
 
-    async getPlanes(req,res) {
+    async getPlanes(req, res) {
         try {
-            const planes = await Plane.findAll()
-            res.status(200).send(planes)
+            const planes = await Plane.findAll({
+                where: { deletedAt: null }
+            });
+            res.status(200).send(planes);
         } catch (error) {
-            console.log(error)
-            res.status(500).send({ message : 'There was a problem get All planes'})
+            console.log(error);
+            res.status(500).send({ message: 'There was a problem get All planes' });
         }
     },
-    async getOnePlane (req,res) {
+    async getOnePlane(req, res) {
         try {
             const { id } = req.params;
             const plane = await Plane.findOne({
-                where : {
-                    id : id
-                }
-            })
-            res.status(200).send(plane)
+                where: { id: id, deletedAt: null }
+            });
+            res.status(200).send(plane);
         } catch (error) {
-            console.log(error)
-            res.status(500).send({ message : 'Error obteniendo un avión'})
+            console.log(error);
+            res.status(500).send({ message: 'Error obteniendo un avión' });
         }
     },
-    async createPlane (req,res) {
+    async getPlaneByPlate(req, res) {
+        try {
+            //validar plate
+            const { plate } = req.params;
+            const plane = await Plane.findOne({
+                where: { plate: plate, deletedAt: null }
+            });
+            res.status(200).send(plane);
+        } catch (error) {
+            res.status(500).send({ message: 'There was a problem' });
+        }
+    },
+    async createPlane(req, res) {
         try {
             const planeF = {
                 type: req.body.type,
@@ -39,16 +49,16 @@ const PlaneController = {
                 companyId: req.body.CompanyId
             }
 
-            Validations.validaPlane(planeF)
+            Validations.validaPlane(planeF);
 
-            const plane = await Plane.create(planeF)
-            res.status(201).send(plane)
+            const plane = await Plane.create(planeF);
+            res.status(201).send(plane);
         } catch (error) {
-            console.log(error)
-            res.status(500).send({ message : 'Error creando el avion'})
+            console.log(error);
+            res.status(500).send({ message: 'Error creando el avion' });
         }
     },
-    async updatePlane(req,res) {
+    async updatePlane(req, res) {
         try {
 
             const planeF = {
@@ -60,49 +70,31 @@ const PlaneController = {
                 CompanyId: req.body.CompanyId
             }
 
-            Validations.validaPlane(planeF)
+            Validations.validaPlane(planeF);
 
             const { id } = req.body;
             await Plane.update(planeF, {
-                where: {
-                    id: id
-                }
-            })
-            res.status(200).send({ message : 'Avion actualizado correctamente'})
+                where: { id: id }
+            });
+            res.status(200).send({ message: 'Avion actualizado correctamente' });
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'Error actualizando el avión'})
+            res.status(500).send({ message: 'Error actualizando el avión' });
         }
 
     },
-    async deletePlane(req,res) {
+    async deletePlane(req, res) {
         try {
             const { id } = req.params;
             await Plane.destroy({
-                where: {
-                    id: id
-                }
-            })
-            res.status(200).send({ message : 'Avión eliminado con éxito'})
+                where: { id: id }
+            });
+            res.status(200).send({ message: 'Avión eliminado con éxito' });
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'Error eliminando el avión'})
-        }
-    },
-    async getPlanePlate(req,res) {
-        try {
-            const { plate } = req.params;
-            const plane = await Plane.findOne({
-                where: {
-                    plate: plate
-                }
-            })
-            res.status(200).send(plane)
-        } catch (error) {
-            res.status(500).send({ message: 'There was a problem'})
+            res.status(500).send({ message: 'Error eliminando el avión' });
         }
     }
-
 };
 
 module.exports = PlaneController;
