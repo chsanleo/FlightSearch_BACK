@@ -8,9 +8,14 @@ const STRINGTYPE = "string";
 const MIN_STOCK = 1;
 
 const Validations = {
-    validaId(id){
+    validaId(id) {
         if (id === undefined || typeof (id) === STRINGTYPE || id < MIN_ID) {
             throw Error(" Id must be provide. ");
+        }
+    },
+    validaPlate(plate) {
+        if (plate === undefined || plate == EMPTY) {
+            throw Error(" Plate must be provide. ");
         }
     },
     validaContactInfo(contactInfo) {
@@ -25,7 +30,7 @@ const Validations = {
 
         if (contactInfo.email != EMPTY) {
             if (!regex.test(contactInfo.email)) {
-              error += ' The format email is invalid. ';
+                error += ' The format email is invalid. ';
             }
         }
         else { error += ' Must provide a email. '; }
@@ -90,7 +95,7 @@ const Validations = {
         if (typeof (flight.planeId) === STRINGTYPE || flight.planeId < MIN_ID) {
             error += ' Plane must be provided. ';
         }
-        if(typeof (flight.stock) === STRINGTYPE|| flight.stock < MIN_STOCK ){
+        if (typeof (flight.stock) === STRINGTYPE || flight.stock < MIN_STOCK) {
             error += ' Stock must be provided. ';
         }
 
