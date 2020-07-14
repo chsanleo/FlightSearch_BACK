@@ -1,4 +1,4 @@
-const Flight = require('../models/flight');
+const {Flight} = require('../models');
 const Validations = require('../utiles/validations');
 
 const FlightController = {
@@ -37,7 +37,7 @@ const FlightController = {
 
             Validations.validaFlight(flightF)
 
-            const flight = Flight.create(flightF);
+            const flight = await Flight.create(flightF);
             res.status(201).send(flight);
         } catch (error) {
             console.log(error);
