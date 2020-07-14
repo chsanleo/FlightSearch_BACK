@@ -1,4 +1,4 @@
-const Currency = require('../models/currency');
+const {Currency} = require('../models');
 
 const axios = require('axios');
 const Validations = require('../utiles/validations');
@@ -14,7 +14,7 @@ const CurrencyController = {
 
             Validations.validaCurrency(currencyF)
 
-            const currency = Currency.create(currencyF);
+            const currency = await Currency.create(currencyF);
             res.status(201).send(currency);
 
         } catch (error) {
