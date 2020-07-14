@@ -1,6 +1,6 @@
-const {User} = require('../models');
-const {ContactInfo} = require ('../models');
-const Validations = require ('../utiles/validations');
+const { User, ContactInfo, IataCode } = require('../models');
+
+const Validations = require('../utiles/validations');
 
 const MainController = {
     async login(req, res) {
@@ -41,16 +41,15 @@ const MainController = {
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    
     async register(req, res) {
         try {
             let error = '';
-            const usernameStock = await User.findOne({ where : { username: req.body.username}});
-                    //Same Username 
-                    if(username = usernameStock){
-                        throw Error('This username already exists')
-                    }
-            
+            const usernameStock = await User.findOne({ where: { username: req.body.username } });
+            //Same Username 
+            if (username = usernameStock) {
+                throw Error('This username already exists')
+            }
+
             const contactInfoF = {
                 address: req.body.address,
                 telephone: req.body.telephone,
@@ -71,10 +70,10 @@ const MainController = {
                 questionSecret: req.body.questionSecret,
                 answerSecret: req.body.answerSecret,
                 countryId: req.body.countryId,
-                contactInfoId :contactInfo.id
+                contactInfoId: contactInfo.id
             };
 
-            
+
             Validations.validaUser(userF);
 
             const user = await User.create(userF)
@@ -83,7 +82,17 @@ const MainController = {
             console.log(error)
             res.status(500).send(error)
         }
-    }    
+    },
+
+    async getAllIataCode(req, res) {
+        try {
+            const iataList = await IataCode.findAll({attributes: [[Sequelize.literal('DISTINCT `code`'), 'code'], 'id']});
+            res.status(200).send(iataList)
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error)
+        }
+    }
 };
 
 module.exports = MainController;
