@@ -1,7 +1,6 @@
 const EMPTY = "";
 const MIN_ID = 1;
 const MIN_PRICE = 0.0;
-const MIN_CHAR_PHONE = 6;
 const MIN_CHAR_PASSWORD = 6;
 const MAX_CHAR_PASSWORD = 12;
 const MIN_CHAR_PASSPORT = 8;
@@ -12,22 +11,20 @@ const Validations = {
         let error = EMPTY;
         let emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
-        //if (contactInfo.address == EMPTY || contactInfo.address === undefined) {
-        //     error += ' Must provide a address. '; 
-        //    }
+        if (contactInfo.address == EMPTY || contactInfo.address === undefined) {
+            error += ' Must provide a address. ';
+        }
 
         if (contactInfo.email != EMPTY) {
             //if (!contactInfo.email.match(emailRegex)) {
-              //  error += ' The format email is invalid. ';
+            //  error += ' The format email is invalid. ';
             //}
-            //lenght email?
         }
         else { error += ' Must provide a email. '; }
 
-        /*if (contactInfo.telephone == EMPTY || contactInfo.telephone.length < MIN_CHAR_PHONE) { //No puede leer el .length
-            error += ' Must provide a correct telephone. '; 
-        } PROBLEMAS CON EL TELEPHONE.LENGTH*/
-        /* else{ telephoneRegex ?} */
+        if (contactInfo.telephone == EMPTY) {
+            error += ' Must provide a correct telephone. ';
+        }
 
         if (error != EMPTY) { throw Error(error); }
     },
@@ -53,11 +50,12 @@ const Validations = {
 
         if (user.questionSecret == EMPTY) { error += ' Secret Question must be provided. '; }
         if (user.answerSecret == EMPTY) { error += ' Secret Answer must be provided. '; }
-        if (user.countryId == EMPTY || user.countryId < MIN_ID) { error += ' Country must be provided. '; }
-        if (user.contactInfoId == EMPTY || user.contactInfoId < MIN_ID) {
+        if (typeof (user.countryId) === STRINGTYPE || user.countryId < MIN_ID) {
+            error += ' Country must be provided. ';
+        }
+        if (typeof (user.contactInfoId) === STRINGTYPE || user.contactInfoId < MIN_ID) {
             error += ' Contact Information must be provided. ';
         }
-
 
         if (error != EMPTY) { throw Error(error); }
     },
@@ -65,7 +63,9 @@ const Validations = {
     validaFlight(flight) {
         let error = EMPTY;
 
-        if (flight.price == EMPTY || flight.price < MIN_PRICE) { error += ' Correct price must be provided. '; }
+        if (typeof (flight.price) === STRINGTYPE || flight.price < MIN_PRICE) {
+            error += ' Correct price must be provided. ';
+        }
         if (flight.code == EMPTY) { error += ' Flight Code must be provided. '; }
         //FECHA landing no puede ser anterior a fecha takeOFf
         if ((flight.takeOffDate == EMPTY || flight.takeOffDate < new Date()) ||
@@ -79,7 +79,9 @@ const Validations = {
         if (flight.takeOffAirportId == EMPTY || flight.takeOffAirportId < MIN_ID) {
             error += ' Take Off Airport must be provided. ';
         }
-        if (flight.planeId == EMPTY || flight.planeId < MIN_ID) { error += ' Plane must be provided. '; }
+        if (typeof (flight.planeId) === STRINGTYPE || flight.planeId < MIN_ID) {
+            error += ' Plane must be provided. ';
+        }
 
         if (error != EMPTY) { throw Error(error); }
     },
@@ -88,12 +90,12 @@ const Validations = {
         let error = EMPTY;
 
         if (insurance.type == EMPTY) { error += ' Type must be provided. '; }
-        if (insurance.price == EMPTY || insurance.price < MIN_PRICE) {
+        if (typeof (insurance.price) === STRINGTYPE || insurance.price < MIN_PRICE) {
             error += ' Correct price must be provided. ';
         }
         if (insurance.company == EMPTY) { error += ' Company must be provided. '; }
         if (insurance.name == EMPTY) { error += ' Name must be provided.'; }
-        if (insurance.contactInfoId == EMPTY || insurance.contactInfoId < MIN_ID) {
+        if (typeof (insurance.contactInfoId) === STRINGTYPE || insurance.contactInfoId < MIN_ID) {
             error += ' Contact Information must be provided. ';
         }
 
@@ -110,7 +112,9 @@ const Validations = {
             error += ' This date must be in the past. '
         }
         if (plane.plate == EMPTY) { error += ' Plate must be provided. '; }
-        if (plane.companyId == EMPTY || plane.companyId < MIN_ID) { error += 'Company must be provided. '; }
+        if (typeof (plane.companyId) === STRINGTYPE || plane.companyId < MIN_ID) {
+            error += 'Company must be provided. ';
+        }
 
         if (error != EMPTY) { throw Error(error); }
     },
@@ -121,7 +125,7 @@ const Validations = {
         if (currency.name == EMPTY) { error += ' Name must be provided. '; }
         //evaluar que solo puede tener 2 o 3 caracteres
         if (currency.code == EMPTY) { error += ' Code must be provided. '; }
-        if (currency.countryId == EMPTY || currency.countryId < MIN_ID) {
+        if (typeof (currency.countryId) === STRINGTYPE || currency.countryId < MIN_ID) {
             error += ' Country must be provided. ';
         }
 
@@ -131,15 +135,17 @@ const Validations = {
     validaCompany(company) {
         let error = EMPTY;
 
-        if (company.name == EMPTY) { error += 'Name must be provided. '; }
-        if (company.IataCodeId == EMPTY) { error += 'Code must be provided. '; }
-        if (company.currencyId == EMPTY || company.currencyId < MIN_ID) {
-            error += 'Currency must be provided. ';
+        if (company.name == EMPTY) { error += ' Name must be provided. '; }
+        if (typeof (company.IataCodeId) === STRINGTYPE || company.IataCodeId < MIN_ID) {
+            error += ' Code must be provided. ';
         }
-        if (company.countryId == EMPTY || company.countryId < MIN_ID) {
-            error += 'Country must be provided. ';
+        if (typeof (company.currencyId) === STRINGTYPE || company.currencyId < MIN_ID) {
+            error += ' Currency must be provided. ';
         }
-        if (company.contactInfoId == EMPTY || company.contactInfoId < MIN_ID) {
+        if (typeof (company.countryId) === STRINGTYPE || company.countryId < MIN_ID) {
+            error += ' Country must be provided. ';
+        }
+        if (typeof (company.contactInfoId) === STRINGTYPE || company.contactInfoId < MIN_ID) {
             error += ' Contact Information must be provided. ';
         }
 
@@ -153,14 +159,16 @@ const Validations = {
         if (bill.takeOffDate == EMPTY) { error += ' TakeOff Date must be provided. '; }
         if (bill.landingAirport == EMPTY) { error += ' Landing Airport must be provided. '; }
         if (bill.takeOffAirport == EMPTY) { error += ' TakeOff Airport must be provided. '; }
-        if (bill.basePrice == EMPTY || bill.basePrice < MIN_PRICE) {
+        if (typeof (bill.basePrice) === STRINGTYPE || bill.basePrice < MIN_PRICE) {
             error += ' Correct base price must be provided. ';
         }
         if (bill.ratioExchange == EMPTY || bill.ratioExchange < 0.0) {
             error += ' Ratio Exchange must be provided. ';
         }
         if (bill.baseCurrency == EMPTY) { error += ' Base currency must be provided. '; }
-        if (bill.price == EMPTY || bill.price < MIN_PRICE) { error += ' Correct price must be provided. '; }
+        if (typeof (bill.price) === STRINGTYPE || bill.price < MIN_PRICE) {
+            error += ' Correct price must be provided. ';
+        }
         if (bill.currency == EMPTY) { error += ' Currency must be provided. '; }
         //contiene los campos de user?
         if (bill.user == EMPTY) { error += ' User Information must be provided. '; }
@@ -176,13 +184,13 @@ const Validations = {
         let error = EMPTY;
 
         if (airport.name == EMPTY) { error += 'Name must be provided. '; }
-        if (airport.countryId == EMPTY || airport.countryId < MIN_ID) {
+        if (typeof (airport.countryId) === STRINGTYPE || airport.countryId < MIN_ID) {
             error += ' Country must be provided. ';
         }
-        if (airport.contactInfoId == EMPTY || airport.contactInfoId < MIN_ID) {
+        if (typeof (airport.contactInfoId) === STRINGTYPE || airport.contactInfoId < MIN_ID) {
             error += 'Contact Information must be provided. ';
         }
-        if (airport.IataCodeId == EMPTY || airport.IataCodeId < MIN_ID) {
+        if (typeof (airport.IataCodeId) === STRINGTYPE || airport.IataCodeId < MIN_ID) {
             error += ' Iata Code must be provided. ';
         }
 
