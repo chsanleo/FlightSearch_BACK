@@ -5,11 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Flight extends Model {
 
-    static associate(models) {
-
-      
-      // define association here
-    }
+    static associate(models) { }
   };
   Flight.init({
     price: DataTypes.FLOAT,
