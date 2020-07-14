@@ -16,6 +16,7 @@ const FlightController = {
     async getFlight(req, res) {
         try {
             const { id } = req.params;
+            Validations.validaId(id);
             const flight = await Flight.findByPk(id);
 
             if (flight.deletedAt === null) { res.status(200).send(new Object); }
@@ -51,9 +52,9 @@ const FlightController = {
     async update(req, res) {
         try {
             const { id } = req.body;
-            if (id === undefined || typeof (id) === "string" || id < 1) {
-                throw Error(" Id must be provide. ");
-            }
+
+            Validations.validaId(id);
+            
             const flightF = {
                 id: id,
                 price: req.body.price,
@@ -81,8 +82,10 @@ const FlightController = {
     },
     async delete(req, res) {
         try {
+            const { id } = req.body;
+            Validations.validaId(id);
             await Flight.destroy({
-                where: { id: req.params }
+                where: { id: id }
             });
             res.status(202).send({ message: 'Successfull Deleted.' });
         } catch (error) {

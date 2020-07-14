@@ -21,18 +21,11 @@ const CurrencyController = {
             res.status(500).send({ message: 'There was an error creating the Currency.' });
         }
     },
-    async getCurrencies(req, res) {
-        try {
-            const currencies = await Currency.findAll({ where: { deletedAt: null } });
-            res.status(200).send(currencies);
-        } catch (error) {
-            console.log(error);
-            res.status(500).send({ message: 'There was a problem trying to get the currencies' });
-        }
-    },
     async getCurrencyById(req, res) {
         try {
-            const { id } = req.params;
+            const { id } = req.body;
+            Validations.validaId(id);
+
             const currencyId = await Currency.findOne({
                 where: { deletedAt: null, id: id }
             });
@@ -47,6 +40,9 @@ const CurrencyController = {
     },
     async updateCurrency(req, res) {
         try {
+            const { id } = req.body;
+            Validations.validaId(id);
+
             const currencyF = {
                 name: req.body.name,
                 code: req.body.code,
@@ -55,7 +51,7 @@ const CurrencyController = {
 
             Validations.validaFlight(currencyF);
 
-            await Currency.update(currencyF, { where: { id: req.body } });
+            await Currency.update(currencyF, { where: { id: id } });
 
             res.status(202).send({ message: 'Successfull Updated.' });
         } catch (error) {
@@ -64,9 +60,12 @@ const CurrencyController = {
         }
     },
     async deleteCurrency(req, res) {
-        try { 
+        try {
+            const { id } = req.body;
+            Validations.validaId(id);
+
             const currency = await Currency.destroy({
-                where: {vid: req.params}
+                where: { id: id }
             });
             res.status(200).send({ message: 'Currency deleted succesfully.' });
         } catch (error) {
