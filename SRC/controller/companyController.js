@@ -4,17 +4,28 @@ const Validations = require('../utiles/validations');
 const CompanyController = {
     async createCompany(req, res) {
         try {
-            /*const companyF = {
+
+            const contactInfoF = {
+                address: req.body.address,
+                telephone: req.body.telephone,
+                email: req.body.email
+            }
+
+            Validations.validaContactInfo(contactInforF);
+
+            const contactInfo = await ContactInfo.create(contactInfoF)
+
+            const companyF = {
                 name: req.body.name,
                 iatacodeid: req.body.iatacodeid,
                 currencyid: req.body.currencyid,
                 countryId: req.body.countryId,
-                contactinfoid: req.body.contactinfoid,
+                contactinfoid: contactInfo.id,
             };
 
-            Validations.validaCompany(companyF)*/
+            Validations.validaCompany(companyF)
 
-            const currency = await Company.create(req.body);
+            const currency = await Company.create(companyF);
             res.status(201).send(currency);
 
         } catch (error) {
@@ -52,12 +63,23 @@ const CompanyController = {
     },
     async updateCompany(req,res) {
         try {
+
+            const contactInfoF = {
+                address: req.body.address,
+                telephone: req.body.telephone,
+                email: req.body.email
+            }
+
+            Validations.validaContactInfo(contactInforF);
+
+            const contactInfo = await ContactInfo.update(contactInfoF)
+
             const companyF = {
                 name: req.body.name,
                 iatacodeid: req.body.iatacodeid,
                 currencyid: req.body.currencyid,
                 countryId: req.body.countryId,
-                contactinfoid: req.body.contactinfoid,
+                contactinfoid: contactInfo.id,
             };
 
             Validations.validaCompany(companyF)
