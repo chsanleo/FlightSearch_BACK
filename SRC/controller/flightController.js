@@ -74,7 +74,7 @@ const FlightController = {
             res.status(202).send({ message: 'Successfull Updated.' });
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was an error.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
 
     },
@@ -89,7 +89,7 @@ const FlightController = {
             res.status(202).send({ message: 'Successfull Deleted.' });
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was an error.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     }
 };
