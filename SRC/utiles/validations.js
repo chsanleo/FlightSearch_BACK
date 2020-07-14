@@ -1,280 +1,196 @@
-const currency = require("../models/currency");
+const EMPTY = "";
+const MIN_ID = 1;
+const MIN_PRICE = 0.0;
+const MIN_CHAR_PHONE = 6;
+const MIN_CHAR_PASSWORD = 6;
+const MAX_CHAR_PASSWORD = 12;
+const MIN_CHAR_PASSPORT = 8;
 
 const Validations = {
     validaContactInfo(contactInfo) {
 
-        let error = "";
-        let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        let error = EMPTY;
+        let emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
+        if (contactInfo.address == EMPTY) { error += ' Must provide a address. '; }
 
-        if (contactInfo.address == "") {
-            error += " The address can not be empty. ";
+        if (contactInfo.email != EMPTY) {
+            if (!contactInfo.email.match(emailRegex)) {
+                error += ' The format email is invalid. ';
+            }
+            //lenght email?
         }
-        if (contactInfo.email == "") {
-            error += " The email can not be empty. ";
-        }
-        if (regex.test(String(contactInfo.email).toLowerCase()) ){
-            error += 'The format email is invalid'
-        }
-        if (contactInfo.telephone == "") {
-            error += " The telephone can not be empty. ";
-        }
-        if (contactInfo.telephone == NaN) {
-            error += 'The telephone not admits letters'
-        }
+        else { error += ' Must provide a email. '; }
 
-        if (error != "") {
-            throw Error(error);
+        if (contactInfo.telephone == EMPTY || contactInfo.telephone.lenght < MIN_CHAR_PHONE) {
+            error += ' Must provide a correct telephone. ';
         }
+        /* else{ telephoneRegex ?} */
+
+        if (error != EMPTY) { throw Error(error); }
     },
 
     validaUser(user) {
-        let error = "";
+        let error = EMPTY;
 
-        //casos
-        if(user.name == ''){
-            error += 'Name can not empty'
-        }
-        if(user.name.lenght < 4){
-            error += 'Name can not be less than 4 characters'
-        }
-        if(user.username == ''){
-            error += 'Username can not empty'
-        }
-        if(user.surname == ''){
-            error += 'Surname can not empty'
-        }
-        if(user.password == ''){
-            error += 'Password can not empty'
-        }
-        if(user.password.lenght < 6){
-            error += 'Password can not less than 6 characters'
-        }
-        if(user.passport == ''){
-            error += 'Passport can not empty'
-        }
-        if(user.passport.lenght < 8){
-            error += 'Passport can not be less than 8 characters'
-        }
-        if(user.questionSecret == ''){
-            error += 'QuestionSecret can not empty'
-        }
-        if(user.answerSecret == ''){
-            error += 'AnswerSecret can not empty'
-        }
-        if(user.countryId <= 0){
-            error += 'CountryID can not less than 0'
-        }
-        if(user.contactInfoId <= 0){
-            error += 'Name can not less than 0'
+        if (user.name == EMPTY) { error += ' Name must be provided. '; }
+        if (user.username == EMPTY) { error += ' Username must be provided. '; }
+        if (user.surname == EMPTY) { error += ' Surname must be provided. '; }
+        if (user.password != EMPTY) {
+            if (user.password.lenght < MIN_CHAR_PASSWORD || user.password > MAX_CHAR_PASSWORD) {
+                error += ' Password must be between ' + MIN_CHAR_PASSWORD + ' and ' + MAX_CHAR_PASSWORD + ' characters. ';
+            }
+            //evaluar si contienen un caracter especial (@#.-+/\|'?!¡¿^)
+        } else { error += ' Password must be provided. '; }
+
+        if (user.passport != empty) {
+            if (user.passport.lenght < MIN_CHAR_PASSPORT) {
+                error += ' Passport can not be less than ' + MIN_CHAR_PASSPORT + ' characters. ';
+            }
+        } else { error += ' Passport must be provided. '; }
+
+        if (user.questionSecret == EMPTY) { error += ' Secret Question must be provided. '; }
+        if (user.answerSecret == EMPTY) { error += ' Secret Answer must be provided. '; }
+        if (user.countryId == EMPTY || user.countryId < MIN_ID) { error += ' Country must be provided. '; }
+        if (user.contactInfoId == EMPTY || user.contactInfoId < MIN_ID) {
+            error += ' Contact Information must be provided. ';
         }
 
 
-        if (error != "") {
-            throw Error(error);
-        }
+        if (error != EMPTY) { throw Error(error); }
     },
+
     validaFlight(flight) {
-        let error = "";
+        let error = EMPTY;
 
-        if(flight.price < 0) {
-            error += 'Price can not negative'
+        if (flight.price == EMPTY || flight.price < MIN_PRICE) { error += ' Correct price must be provided. '; }
+        if (flight.code == EMPTY) { error += ' Flight Code must be provided. '; }
+        //FECHA landing no puede ser anterior a fecha takeOFf
+        if ((flight.takeOffDate == EMPTY || flight.takeOffDate < new Date()) ||
+            (flight.landingDate == EMPTY || flight.landingDate < new Date())) {
+            error += ' Landing and TakeOff Date must be in the future. ';
         }
-        if(flight.code == ''){
-            error += 'Code can not empty'
+        //no puede salir y llegar al mismo aeropuerto
+        if (flight.landingAirportId == EMPTY || flight.landingAirportId < MIN_ID) {
+            error += ' Landing Airport must be provided. '
         }
-        if(flight.takeOffDate < new Date()){
-            error += 'Take Off Date can not be last'
+        if (flight.takeOffAirportId == EMPTY || flight.takeOffAirportId < MIN_ID) {
+            error += ' Take Off Airport must be provided. ';
         }
-        if(flight.landingDate < new Date()){
-            error += 'Landing Date can not be last'
-        }
-        if(flight.landingAirportId <= 0){
-            error += 'Landing Airport ID can not 0 or less'
-        }
-        if(flight.takeOffAirportId <= 0){
-            error += 'Take Off Airport ID can not 0 or less'
-        }
-        if(flight.planeId <= 0){
-            error += 'PlaneID can not 0 or less'
-        }
+        if (flight.planeId == EMPTY || flight.planeId < MIN_ID) { error += ' Plane must be provided. '; }
 
-        if (error != "") {
-            throw Error(error);
-        }
+        if (error != EMPTY) { throw Error(error); }
     },
+
     validaInsurance(insurance) {
-        let error = "";
-        
-        //Revisar ya que no siempre se va a querer seguro, entendido en caso de que se coja
+        let error = EMPTY;
 
-        if(insurance.type == ''){
-            error += 'Must be a type'
+        if (insurance.type == EMPTY) { error += ' Type must be provided. '; }
+        if (insurance.price == EMPTY || insurance.price < MIN_PRICE) {
+            error += ' Correct price must be provided. ';
         }
-        if(insurance.price < 0){
-            error += 'Price can not negative'
-        }
-        if(insurance.company == ''){
-            error += 'Company can not empty'
-        }
-        if(insurance.name == ''){
-            error += 'Name can not empty'
-        }
-        if(insurance.contactInfoId <= 0){
-            error += 'ContactInfoId can not less than 0'
+        if (insurance.company == EMPTY) { error += ' Company must be provided. '; }
+        if (insurance.name == EMPTY) { error += ' Name must be provided.'; }
+        if (insurance.contactInfoId == EMPTY || insurance.contactInfoId < MIN_ID) {
+            error += ' Contact Information must be provided. ';
         }
 
-        if (error != "") {
-            throw Error(error);
-        }
-
+        if (error != EMPTY) { throw Error(error); }
     },
+
     validaPlane(plane) {
-        let error = ''
+        let error = EMPTY;
 
-        if(plane.type == ''){
-            error += 'Type can not empty'
+        if (plane.type == EMPTY) { error += ' Type must be provided. '; }
+        if (plane.name == EMPTY) { error += 'Name must be provided. ' }
+        if (plane.model == EMPTY) { error += 'Model must be provided. ' }
+        if (plane.yearOfFabric == EMPTY || plane.yearOfFabric > new Date()) {
+            error += ' This date must be in the past. '
         }
-        if(plane.name == ''){
-            error += 'Name can not empty'
-        }
-        if(plane.model == ''){
-            error += 'Model can not empty'
-        }
-        if(plane.yearOfFabric > new Date()){
-            error += 'Can not fabricate planes in the data future'
-        }
-        if(plane.plate == ''){
-            error += 'Plane must be plate'
-        }
-        if(plane.companyId <= 0){
-            error += 'Plane must be a Company'
-        }
+        if (plane.plate == EMPTY) { error += ' Plate must be provided. '; }
+        if (plane.companyId == EMPTY || plane.companyId < MIN_ID) { error += 'Company must be provided. '; }
 
-        if (error != "") {
-            throw Error(error);
-        }
-
+        if (error != EMPTY) { throw Error(error); }
     },
+
     validaCurrency(currency) {
-        let error = ''
+        let error = EMPTY;
 
-        if(currency.name == ''){
-            error += 'Name can not be empty'
+        if (currency.name == EMPTY) { error += ' Name must be provided. '; }
+        //evaluar que solo puede tener 2 o 3 caracteres
+        if (currency.code == EMPTY) { error += ' Code must be provided. '; }
+        if (currency.countryId == EMPTY || currency.countryId < MIN_ID) {
+            error += ' Country must be provided. ';
         }
-        if(currency.code == ''){
-            error += 'Code can not be empty'
-        }
-        if(currency.countryId <= 0){
-            error += 'Id can not be empty'
-        }
-        if (error != "") {
-            throw Error(error);
-        }
+
+        if (error != EMPTY) { throw Error(error); }
     },
+
     validaCompany(company) {
-        let error = ''
+        let error = EMPTY;
 
-        if(company.name == ''){
-            error += 'Name can not be empty'
+        if (company.name == EMPTY) { error += 'Name must be provided. '; }
+        if (company.IataCodeId == EMPTY) { error += 'Code must be provided. '; }
+        if (company.currencyId == EMPTY || company.currencyId < MIN_ID) {
+            error += 'Currency must be provided. ';
         }
-        if(company.IataCodeId == ''){
-            error += 'Code can not be empty'
+        if (company.countryId == EMPTY || company.countryId < MIN_ID) {
+            error += 'Country must be provided. ';
         }
-        if(company.currencyId <= 0){
-            error += 'CurrencyId can not be empty'
+        if (company.contactInfoId == EMPTY || company.contactInfoId < MIN_ID) {
+            error += ' Contact Information must be provided. ';
         }
-        if(company.countryId <= 0){
-            error += 'Id can not be empty'
-        }
-        if(company.contactInfoId <= 0){
-            error += 'ContactInfoId can not less than 0'
-        }
-        if (error != "") {
-            throw Error(error);
-        }
+
+        if (error != EMPTY) { throw Error(error); }
     },
-    validaFlightTicket(flightticket) {
-        let error = ''
+    validaFlightTicket(bill) {
+        let error = EMPTY;
 
-        if(flightticket.name == ''){
-            error += 'Name can not be empty'
+        //FECHA landing no puede ser anterior a fecha takeOFf
+        if (bill.landingDate == EMPTY) { error += ' Landing Date must be provided. '; }
+        if (bill.takeOffDate == EMPTY) { error += ' TakeOff Date must be provided. '; }
+        if (bill.landingAirport == EMPTY) { error += ' Landing Airport must be provided. '; }
+        if (bill.takeOffAirport == EMPTY) { error += ' TakeOff Airport must be provided. '; }
+        if (bill.basePrice == EMPTY || bill.basePrice < MIN_PRICE) {
+            error += ' Correct base price must be provided. ';
         }
-        if(flightticket.takeOffDate == ''){
-            error += 'Code can not be empty'
+        if (bill.ratioExchange == EMPTY || bill.ratioExchange < 0.0) {
+            error += ' Ratio Exchange must be provided. ';
         }
-        if(flightticket.landingAirport == ''){
-            error += 'CurrencyId can not be empty'
-        }
-        if(flightticket.takeOffAirport == ''){
-            error += 'Id can not be empty'
-        }
-        if(flightticket.basePrice <= 0){
-            error += 'ContactInfoId can not less than 0'
-        }
-        if(flightticket.ratioExchange <= 0){
-            error += 'Code can not be empty'
-        }
-        if(flightticket.baseCurrency == ''){
-            error += 'CurrencyId can not be empty'
-        }
-        if(flightticket.price <= 0){
-            error += 'Id can not be empty'
-        }
-        if(flightticket.currency == ''){
-            error += 'ContactInfoId can not less than 0'
-        }
-        if(flightticket.user <= 0){
-            error += 'Id can not be empty'
-        }
-        if(flightticket.smoking <= 0){
-            error += 'ContactInfoId can not less than 0'
-        }
-        if(flightticket.insurance <= 0){
-            error += 'ContactInfoId can not less than 0'
-        }
-        if(flightticket.flightcode == ''){
-            error += 'Id can not be empty'
-        }
-        if(flightticket.plane <= 0){
-            error += 'ContactInfoId can not less than 0'
-        }
-        if(flightticket.seat == ''){
-            error += 'Id can not be empty'
-        }
-        if (error != "") {
-            throw Error(error);
-        }
+        if (bill.baseCurrency == EMPTY) { error += ' Base currency must be provided. '; }
+        if (bill.price == EMPTY || bill.price < MIN_PRICE) { error += ' Correct price must be provided. '; }
+        if (bill.currency == EMPTY) { error += ' Currency must be provided. '; }
+        //contiene los campos de user?
+        if (bill.user == EMPTY) { error += ' User Information must be provided. '; }
+        //contiene los campos de insurance?
+        if (bill.insurance == EMPTY) { error += ' Insurance Information must be provided. '; }
+        if (bill.flightcode == EMPTY) { error += ' Flight code must be provided. '; }
+        if (bill.plane == EMPTY) { error += ' Plane must be provided. '; }
+        if (bill.seat == EMPTY) { error += ' Seat must be provided. '; }
+
+        if (error != EMPTY) { throw Error(error); }
     },
     validaAirport(airport) {
-        let error = ''
+        let error = EMPTY;
 
-        if(airport.name == ''){
-            error += 'Name can not be empty'
+        if (airport.name == EMPTY) { error += 'Name must be provided. '; }
+        if (airport.countryId == EMPTY || airport.countryId < MIN_ID) {
+            error += ' Country must be provided. ';
         }
-        if(airport.companymang == ''){
-            error += 'Company can not be empty'
+        if (airport.contactInfoId == EMPTY || airport.contactInfoId < MIN_ID) {
+            error += 'Contact Information must be provided. ';
         }
-        if(airport.smoking <= 0){ // Arreglar
-            error += 'Smoking may be allowed'
+        if (airport.IataCodeId == EMPTY || airport.IataCodeId < MIN_ID) {
+            error += ' Iata Code must be provided. ';
         }
-        if(airport.countryId <= 0){
-            error += 'Id can not be empty'
-        }
-        if(airport.contactInfoId <= 0){
-            error += 'ContactInfoId can not less than 0'
-        }
-        if(airport.IataCodeId <= 0){
-            error += 'IataCodeId can not less than 0'
-        }
-        if (error != "") {
-            throw Error(error);
-        }
+
+        if (error != EMPTY) { throw Error(error); }
     }
 
-    // String : No puede ser vacio, igual a name
-    // Number (id): no puede ser ni menor ni igual a 0
-    // Date : SI es fecha de salida no puede ser menor que new date y la fecha de llegada no puede ser menor que new date
+    //validaCountry?
+    //validaIataCode?
+    //validaPayData?
+
 };
 
 module.exports = Validations;
