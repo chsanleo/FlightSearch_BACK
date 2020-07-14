@@ -5,9 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Company extends Model {
 
-    static associate(models) {
-
-    }
+    static associate(models) { }
   };
   Company.init({
     name: DataTypes.STRING,

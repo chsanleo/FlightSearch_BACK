@@ -5,9 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Insurance extends Model {
 
-    static associate(models) {
-
-    }
+    static associate(models) { }
   };
   Insurance.init({
     type: DataTypes.STRING,

@@ -5,9 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Country extends Model {
 
-    static associate(models) {
-
-    }
+    static associate(models) { }
   };
   Country.init({
     name: DataTypes.STRING,
