@@ -1,6 +1,7 @@
 const Bill = require('../models/bill');
 const Validations = require('../utiles/validations');
 
+
 const FlightTicketController = {
 
     async getAll(req, res) {
@@ -14,7 +15,8 @@ const FlightTicketController = {
     },
     async get(req, res) {
         try {
-            const flightTicket = await Bill.findOne({ _id: req.params.id });
+
+            const flightTicket = await Bill.findOne({ name: req.params.User });
             res.status(200).send(flightTicket);
         } catch (error) {
             console.log(error);
