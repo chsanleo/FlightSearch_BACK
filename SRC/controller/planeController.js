@@ -11,7 +11,7 @@ const PlaneController = {
             res.status(200).send(planes);
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was a problem get All planes' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
     async getOnePlane(req, res) {
@@ -26,7 +26,7 @@ const PlaneController = {
             res.status(200).send(plane);
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'Error obteniendo un avión' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
     async getPlaneByPlate(req, res) {
@@ -38,7 +38,7 @@ const PlaneController = {
             });
             res.status(200).send(plane);
         } catch (error) {
-            res.status(500).send({ message: 'There was a problem' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
     async createPlane(req, res) {
@@ -58,7 +58,7 @@ const PlaneController = {
             res.status(201).send(plane);
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'Error creando el avion' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
     async updatePlane(req, res) {
@@ -83,7 +83,7 @@ const PlaneController = {
             res.status(200).send({ message: 'Avion actualizado correctamente' });
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message: 'Error actualizando el avión' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
 
     },
@@ -98,7 +98,7 @@ const PlaneController = {
             res.status(200).send({ message: 'Avión eliminado con éxito' });
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message: 'Error eliminando el avión' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     }
 };

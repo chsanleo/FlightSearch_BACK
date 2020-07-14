@@ -18,7 +18,7 @@ const CurrencyController = {
 
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was an error creating the Currency.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
     async getCurrencyById(req, res) {
@@ -35,7 +35,7 @@ const CurrencyController = {
             res.status(200).send(currencyId);
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message: 'There was a problem refreshing the currency.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
     async updateCurrency(req, res) {
@@ -56,7 +56,7 @@ const CurrencyController = {
             res.status(202).send({ message: 'Successfull Updated.' });
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was an error.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
     async deleteCurrency(req, res) {
@@ -70,7 +70,7 @@ const CurrencyController = {
             res.status(200).send({ message: 'Currency deleted succesfully.' });
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message: 'There was a problem deleting the currency, please, try again.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     }
 };
