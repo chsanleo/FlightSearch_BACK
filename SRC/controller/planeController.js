@@ -32,14 +32,14 @@ const PlaneController = {
         try {
             const planeF = {
                 type: req.body.type,
-                name: req.body,
+                name: req.body.name,
                 model: req.body.model,
                 yearOfFabric: req.body.yearOfFabric,
                 plate: req.body.plate,
                 companyId: req.body.CompanyId
             }
 
-            Validations.validatePlane(planeF)
+            Validations.validaPlane(planeF)
 
             const plane = await Plane.create(planeF)
             res.status(201).send(plane)
@@ -53,14 +53,14 @@ const PlaneController = {
 
             const planeF = {
                 type: req.body.type,
-                name: req.body,
+                name: req.body.name,
                 model: req.body.model,
                 yearOfFabric: req.body.yearOfFabric,
                 plate: req.body.plate,
                 CompanyId: req.body.CompanyId
             }
 
-            Validations.validatePlane(planeF)
+            Validations.validaPlane(planeF)
 
             const { id } = req.body;
             await Plane.update(planeF, {
