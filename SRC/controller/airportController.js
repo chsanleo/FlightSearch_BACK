@@ -16,7 +16,7 @@ const AirportController = {
 
             Validations.validaCurrency(airportF)
 
-            const airport = Airport.create(airportF);
+            const airport = await Airport.create(airportF);
             res.status(201).send(airport);
         } catch (error) {
             console.log(error);
@@ -42,9 +42,9 @@ const AirportController = {
                     id : id
                 }
             })
-            if (companyId === null){
-                res.status(400).send({ message : 'There was a problem getting the specified airport.'})
-            }
+            //if (companyId === null){
+            //    res.status(400).send({ message : 'There was a problem getting the specified airport.'})
+            //}
             res.status(200).send(airportId);
         } catch (error) {
             console.log(error)
@@ -76,7 +76,7 @@ const AirportController = {
     async deleteAirport(req,res) {
         try {
             const { id } = req.params
-            const airport = await Airport.destroy({
+            await Airport.destroy({
                 where : {
                     id : id
                 }

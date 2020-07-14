@@ -252,10 +252,10 @@ const Validations = {
         if(airport.name == ''){
             error += 'Name can not be empty'
         }
-        if(airport.companymang == ''){
-            error += 'Company can not be empty'
-        }
-        if(airport.smoking <= 0){ // Arreglar
+        //if(airport.companymang == ''){
+          //  error += 'Company can not be empty'
+        //}
+        if(airport.smoking){ // Arreglar
             error += 'Smoking may be allowed'
         }
         if(airport.countryId <= 0){
