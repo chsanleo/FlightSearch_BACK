@@ -4,6 +4,7 @@ const MIN_PRICE = 0.0;
 const MIN_CHAR_PASSWORD = 6;
 const MAX_CHAR_PASSWORD = 12;
 const MIN_CHAR_PASSPORT = 8;
+const STRINGTYPE = "string";
 
 const Validations = {
     validaContactInfo(contactInfo) {

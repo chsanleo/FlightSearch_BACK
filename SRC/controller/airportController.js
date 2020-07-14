@@ -42,9 +42,6 @@ const AirportController = {
                     id : id
                 }
             })
-            //if (companyId === null){
-            //    res.status(400).send({ message : 'There was a problem getting the specified airport.'})
-            //}
             res.status(200).send(airportId);
         } catch (error) {
             console.log(error)
