@@ -1,8 +1,5 @@
-const { User } = require('../models');
-const { ContactInfo } = require('../models');
+const { User, ContactInfo } = require('../models');
 const Validations = require('../utiles/validations');
-
-const axios = require('axios');
 
 const UserController = {
     async getAllUsers(req, res) {
@@ -13,7 +10,7 @@ const UserController = {
             res.status(200).send(users);
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was a problem' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
     async getOneUser(req, res) {
@@ -28,7 +25,7 @@ const UserController = {
             res.status(200).send(user);
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was a problem' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
     async updateUser(req, res) {
@@ -66,7 +63,7 @@ const UserController = {
             res.status(200).send({ message: 'Todo OK' });
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was a problem' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
     async deleteUser(req, res) {
@@ -80,7 +77,7 @@ const UserController = {
             res.status(200).send({ message: 'Todo OK' });
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was a problem' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     }
 };
