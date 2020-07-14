@@ -52,11 +52,9 @@ const FlightController = {
     async update(req, res) {
         try {
             const { id } = req.body;
-
             Validations.validaId(id);
             
             const flightF = {
-                id: id,
                 price: req.body.price,
                 code: req.body.code,
                 takeOffDate: req.body.takeOffDate,
@@ -84,6 +82,7 @@ const FlightController = {
         try {
             const { id } = req.body;
             Validations.validaId(id);
+
             await Flight.destroy({
                 where: { id: id }
             });
