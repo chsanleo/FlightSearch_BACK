@@ -5,6 +5,7 @@ const MIN_CHAR_PASSWORD = 6;
 const MAX_CHAR_PASSWORD = 12;
 const MIN_CHAR_PASSPORT = 8;
 const STRINGTYPE = "string";
+const MIN_STOCK = 1;
 
 const Validations = {
     validaContactInfo(contactInfo) {
@@ -82,6 +83,9 @@ const Validations = {
         }
         if (typeof (flight.planeId) === STRINGTYPE || flight.planeId < MIN_ID) {
             error += ' Plane must be provided. ';
+        }
+        if(typeof (flight.stock) === STRINGTYPE|| flight.stock < MIN_STOCK ){
+            error += ' Stock must be provided. ';
         }
 
         if (error != EMPTY) { throw Error(error); }

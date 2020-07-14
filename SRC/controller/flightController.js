@@ -1,4 +1,4 @@
-const {Flight} = require('../models');
+const { Flight } = require('../models');
 const Validations = require('../utiles/validations');
 
 const FlightController = {
@@ -32,7 +32,8 @@ const FlightController = {
                 landingAirportId: req.body.landingAirportId,
                 takeOffAirportId: req.body.takeOffAirportId,
                 planeId: req.body.planeId,
-                currencyId: req.body.currencyId
+                currencyId: req.body.currencyId,
+                stock: req.body.stock
             };
 
             Validations.validaFlight(flightF)
@@ -54,7 +55,8 @@ const FlightController = {
                 landingAirportId: req.body.landingAirportId,
                 takeOffAirportId: req.body.takeOffAirportId,
                 planeId: req.body.planeId,
-                currencyId: req.body.currencyId
+                currencyId: req.body.currencyId,
+                stock: req.body.stock
             };
 
             Validations.validaFlight(flightF)
