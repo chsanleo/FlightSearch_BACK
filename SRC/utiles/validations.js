@@ -12,7 +12,9 @@ const Validations = {
         let error = EMPTY;
         let emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
-        if (contactInfo.address == EMPTY) { error += ' Must provide a address. '; }
+        if (contactInfo.address == EMPTY || contactInfo.address === undefined) {
+             error += ' Must provide a address. '; 
+            }
 
         if (contactInfo.email != EMPTY) {
             if (!contactInfo.email.match(emailRegex)) {
