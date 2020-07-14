@@ -8,6 +8,11 @@ const STRINGTYPE = "string";
 const MIN_STOCK = 1;
 
 const Validations = {
+    validaId(id){
+        if (id === undefined || typeof (id) === STRINGTYPE || id < MIN_ID) {
+            throw Error(" Id must be provide. ");
+        }
+    },
     validaContactInfo(contactInfo) {
 
         let error = EMPTY;
