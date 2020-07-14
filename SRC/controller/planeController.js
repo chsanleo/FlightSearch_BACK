@@ -17,9 +17,12 @@ const PlaneController = {
     async getOnePlane(req, res) {
         try {
             const { id } = req.params;
+            Validations.validaId(id);
+
             const plane = await Plane.findOne({
                 where: { id: id, deletedAt: null }
             });
+            
             res.status(200).send(plane);
         } catch (error) {
             console.log(error);
@@ -60,6 +63,8 @@ const PlaneController = {
     },
     async updatePlane(req, res) {
         try {
+            const { id } = req.body;
+            Validations.validaId(id);
 
             const planeF = {
                 type: req.body.type,
@@ -71,8 +76,7 @@ const PlaneController = {
             }
 
             Validations.validaPlane(planeF);
-
-            const { id } = req.body;
+            
             await Plane.update(planeF, {
                 where: { id: id }
             });
@@ -86,6 +90,8 @@ const PlaneController = {
     async deletePlane(req, res) {
         try {
             const { id } = req.params;
+            Validations.validaId(id);
+
             await Plane.destroy({
                 where: { id: id }
             });
