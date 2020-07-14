@@ -1,4 +1,4 @@
-const { User, ContactInfo, IataCode, Country, Currency } = require('../models');
+const { User, ContactInfo, IataCode, Country, Currency, Seat } = require('../models');
 
 const Validations = require('../utiles/validations');
 
@@ -107,7 +107,15 @@ const MainController = {
         try {
             const currencyList = await Currency.findAll({ attributes: ['id', 'name', 'code', 'countryId'] });
             res.status(200).send(currencyList);
-
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getAllSeats(req, res){
+        try {
+            const seatList = await Seat.findAll({attributes:['id','type','price']});
+            res.status(200).send(seatList);
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
