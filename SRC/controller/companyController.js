@@ -1,11 +1,10 @@
-const Company = require('../models/company');
+const { Company } = require('../models');
 const Validations = require('../utiles/validations');
-const company = require('../models/company');
 
 const CompanyController = {
     async createCompany(req, res) {
         try {
-            const companyF = {
+            /*const companyF = {
                 name: req.body.name,
                 iatacodeid: req.body.iatacodeid,
                 currencyid: req.body.currencyid,
@@ -13,9 +12,9 @@ const CompanyController = {
                 contactinfoid: req.body.contactinfoid,
             };
 
-            Validations.validaCompany(companyF)
+            Validations.validaCompany(companyF)*/
 
-            const currency = Company.create(companyF);
+            const currency = await Company.create(req.body);
             res.status(201).send(currency);
 
         } catch (error) {
@@ -42,13 +41,13 @@ const CompanyController = {
                     id : id
                 }
             })
-            if (companyId === null){
+            if (companyId == null){
                 res.status(400).send({ message : 'There was a problem getting the specified company.'})
             }
             res.status(200).send(companyId);
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem refreshing the movie.'})
+            res.status(500).send({ message : 'There was a problem'})
         }
     },
     async updateCompany(req,res) {

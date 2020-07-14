@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Company', [
+    return queryInterface.bulkInsert('Companies', [
       { name: 'VASCO', ContactInfoId: 24, CountryId: 246, IataCodeId: 1707, CurrencyId: 49 },
       { name: 'Branson Air Express', ContactInfoId: 25, CountryId: 239, IataCodeId: 1851, CurrencyId: 49 },
       { name: 'Angara Airlines', ContactInfoId: 26, CountryId: 184, IataCodeId: 646, CurrencyId: 49 },
@@ -111,6 +111,6 @@ module.exports = {
     ]);
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Company', null, {});
+    return queryInterface.bulkDelete('Companies', null, {});
   }
 };
