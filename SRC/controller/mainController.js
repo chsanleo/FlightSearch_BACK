@@ -1,11 +1,10 @@
 const { User, ContactInfo, IataCode, Country, Currency, Seat, Flight, Airport } = require('../models');
-
+const axios = require("axios");
 const Validations = require('../utiles/validations');
 
 const MainController = {
     async login(req, res) {
         try {
-            //tema de email/username
             const user = await User.findOne(
                 {
                     where: { username: req.body.username }
@@ -66,7 +65,6 @@ const MainController = {
                 email: req.body.email,
             };
 
-
             Validations.validaContactInfo(contactInfoF);
 
             const contactInfo = await ContactInfo.create(contactInfoF);
@@ -82,7 +80,6 @@ const MainController = {
                 countryId: req.body.countryId,
                 contactInfoId: contactInfo.id
             };
-
 
             Validations.validaUser(userF);
 
@@ -161,14 +158,9 @@ const MainController = {
             const id = parseInt(req.body.id);
             Validations.validaId(id);
 
-            const flightList = await Flight.findAll(
-                /*{
-                    attributes: ['id', 'price', 'code', 'takeOffDate', 'landingDate',
-                        'LandingAirportId', 'TakeOffAirportId', 'PlaneId', 'CurrencyId',
-                        'CompanyId', 'stock']
-                },*/ {
-                    where: { CompanyId: id }
-                });
+            const flightList = await Flight.findAll({
+                where: { CompanyId: id }
+            });
             res.status(200).send(flightList);
         } catch (error) {
             console.log(error);
@@ -181,14 +173,9 @@ const MainController = {
             const id = parseInt(req.body.id);
             Validations.validaId(id);
 
-            const flightList = await Flight.findAll(
-                /*{
-                    attributes: ['id', 'price', 'code', 'takeOffDate', 'landingDate',
-                        'LandingAirportId', 'TakeOffAirportId', 'PlaneId', 'CurrencyId',
-                        'CompanyId', 'stock']
-                },*/ {
-                    where: { LandingAirportId: id }
-                });
+            const flightList = await Flight.findAll({
+                where: { LandingAirportId: id }
+            });
             res.status(200).send(flightList);
         } catch (error) {
             console.log(error);
@@ -201,14 +188,9 @@ const MainController = {
             const id = parseInt(req.body.id);
             Validations.validaId(id);
 
-            const flightList = await Flight.findAll(
-            /*{
-                attributes: ['id', 'price', 'code', 'takeOffDate', 'landingDate',
-                    'LandingAirportId', 'TakeOffAirportId', 'PlaneId', 'CurrencyId',
-                    'CompanyId', 'stock']
-            },*/ {
-                    where: { TakeOffAirportId: id }
-                });
+            const flightList = await Flight.findAll({
+                where: { TakeOffAirportId: id }
+            });
             res.status(200).send(flightList);
         } catch (error) {
             console.log(error);
@@ -262,6 +244,21 @@ const MainController = {
                 }
             });
             res.status(200).send(currencyList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getExchange(req, res) {
+        try {
+            const base = req.body.baseCurrencyCode;
+            const change = req.body.changeCurrencyCode;
+
+            Validations.validaCurrencyCode(base);
+            Validations.validaCurrencyCode(change);
+
+            const exchange = axios.get("https://api.exchangeratesapi.io/latest?base=" + base + "&symbols=" + change);
+            res.status(200).send(exchange);
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });

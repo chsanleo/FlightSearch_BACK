@@ -16,5 +16,6 @@ router.post('/flightbyLandAirport', MainController.getFlightsByTakeOffAirport);
 router.post('/airportbysmoking', MainController.getAirportSmoking);
 router.post('/currencybycountry', MainController.getCurrencyByCountry);
 router.post('/searchFlight', MainController.searchFlight);
+router.post('/exchagerate', MainController.getExchange);
 
 module.exports = router;
