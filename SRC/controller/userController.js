@@ -53,7 +53,7 @@ const UserController = {
                 questionSecret: req.body.questionSecret,
                 answerSecret: req.body.answerSecret,
                 CountryId: req.body.CountryId,
-                contactInfoId: contactInfo.id
+                ContactInfoId: contactInfo.id
             };
 
             Validations.validaUser(userF);
