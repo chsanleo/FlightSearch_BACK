@@ -194,6 +194,26 @@ const MainController = {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
+    },
+    async getFlightsByTakeOffAirport(req, res) {
+
+        try {
+            const id = parseInt(req.body.id);
+            Validations.validaId(id);
+
+            const flightList = await Flight.findAll(
+            /*{
+                attributes: ['id', 'price', 'code', 'takeOffDate', 'landingDate',
+                    'LandingAirportId', 'TakeOffAirportId', 'PlaneId', 'CurrencyId',
+                    'CompanyId', 'stock']
+            },*/ {
+                    where: { TakeOffAirportId: id }
+                });
+            res.status(200).send(flightList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
     }
 };
 
