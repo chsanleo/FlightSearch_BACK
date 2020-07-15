@@ -81,18 +81,10 @@ const Validations = {
             error += ' Correct price must be provided. ';
         }
         if (flight.code == EMPTY) { error += ' Flight Code must be provided. '; }
-        //FECHA landing no puede ser anterior a fecha takeOFf
-        if ((flight.takeOffDate == EMPTY || flight.takeOffDate < new Date()) ||
-            (flight.landingDate == EMPTY || flight.landingDate < new Date())) {
-            error += ' Landing and TakeOff Date must be in the future. ';
-        }
-        //no puede salir y llegar al mismo aeropuerto
-        if (flight.landingAirportId == EMPTY || flight.landingAirportId < MIN_ID) {
-            error += ' Landing Airport must be provided. '
-        }
-        if (flight.takeOffAirportId == EMPTY || flight.takeOffAirportId < MIN_ID) {
-            error += ' Take Off Airport must be provided. ';
-        }
+
+        error +=validaTakeOffAndLandingDates(flight.takeOffDate, flight.landingDate) 
+        error += validaTakeOffAndLandingAirports(flight.landingAirportId, flight.takeOffAirportId);
+
         if (typeof (flight.planeId) === STRINGTYPE || flight.planeId < MIN_ID) {
             error += ' Plane must be provided. ';
         }
@@ -118,7 +110,33 @@ const Validations = {
 
         if (error != EMPTY) { throw Error(error); }
     },
+    validaTakeOffAndLandingDates(takeOffDate, landingDate) {
+        let error = EMPTY;
 
+        if ((takeOffDate == EMPTY || takeOffDate < new Date()) ||
+            (landingDate == EMPTY || landingDate < new Date())) {
+            error += ' Landing and TakeOff Date must be in the future. ';
+        }
+        if (takeOffDate > landingDate) {
+            error += ' TakeOff Date must be early than Landing Date. ';
+        }
+        return error;
+    },
+    validaTakeOffAndLandingAirports(landingAirportId, takeOffAirportId) {
+        let error = EMPTY;
+
+        if (landingAirportId == EMPTY || landingAirportId < MIN_ID) {
+            error += ' Landing Airport must be provided. '
+        }
+        if (takeOffAirportId == EMPTY || takeOffAirportId < MIN_ID) {
+            error += ' Take Off Airport must be provided. ';
+        }
+
+        if (landingAirportId == takeOffAirportId) {
+            error += ' TakeOff and Landing Airport must be differents. ';
+        }
+        return error;
+    },
     validaPlane(plane) {
         let error = EMPTY;
 
@@ -177,11 +195,9 @@ const Validations = {
     validaFlightTicket(bill) {
         let error = EMPTY;
 
-        //FECHA landing no puede ser anterior a fecha takeOFf
-        if (bill.landingDate == EMPTY) { error += ' Landing Date must be provided. '; }
-        if (bill.takeOffDate == EMPTY) { error += ' TakeOff Date must be provided. '; }
-        if (bill.landingAirport == EMPTY) { error += ' Landing Airport must be provided. '; }
-        if (bill.takeOffAirport == EMPTY) { error += ' TakeOff Airport must be provided. '; }
+        error +=validaTakeOffAndLandingDates(bill.takeOffDate, bill.landingDate) 
+        error += validaTakeOffAndLandingAirports(bill.landingAirportId, bill.takeOffAirportId);
+
         if (typeof (bill.basePrice) === STRINGTYPE || bill.basePrice < MIN_PRICE) {
             error += ' Correct base price must be provided. ';
         }
