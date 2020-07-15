@@ -220,10 +220,23 @@ const MainController = {
             let smoking = false;
             if (req.body.smoking == true) { smoking = true; }
 
-            const airportList = await Airport.findAll( {
-                    where: { smooking: smoking }
-                });
+            const airportList = await Airport.findAll({
+                where: { smooking: smoking }
+            });
             res.status(200).send(airportList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getCurrencyByCountry(req, res) {
+        try {
+            const id = req.body.idCountry;
+            Validations.validaId(id);
+            const currencyList = await Currency.findAll({
+                where: { CountryId: id }
+            });
+            res.status(200).send(currencyList);
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });

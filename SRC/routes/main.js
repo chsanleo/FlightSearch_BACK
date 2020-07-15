@@ -13,6 +13,7 @@ router.post('/flightbydate', MainController.getFlightByDate);
 router.post('/flightbyCompany/', MainController.getFlightsByCompanies);
 router.post('/flightbyLandAirport', MainController.getFlightsByLandingAirport);
 router.post('/flightbyLandAirport', MainController.getFlightsByTakeOffAirport);
-router.post('/airportbysmoking',MainController.getAirportSmoking);
+router.post('/airportbysmoking', MainController.getAirportSmoking);
+router.post('/currencybycountry', MainController.getCurrencyByCountry);
 
 module.exports = router;
