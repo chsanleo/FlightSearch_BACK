@@ -36,8 +36,8 @@ const CompanyController = {
     async getCompanies(req, res) {
         try {
             const companies = await Company.findAll({
-                limit: 15
-            })
+                where: { deleteAt: null }
+            });
             res.status(200).send(companies)
         } catch (error) {
             console.log(error)
@@ -46,12 +46,12 @@ const CompanyController = {
     },
     async getCompanyById(req, res) {
         try {
-            const  id  = parseInt(req.params.id);
+            const id = parseInt(req.params.id);
             const companyId = await Company.findOne({
                 where: {
-                    id: id
+                    id: id, deleteAt: null
                 }
-            })
+            });
             if (companyId == null) {
                 res.status(400).send({ message: 'There was a problem getting the specified company.' })
             }
@@ -99,7 +99,7 @@ const CompanyController = {
     },
     async deleteCompany(req, res) {
         try {
-            const  id  = parseInt(req.params.id);
+            const id = parseInt(req.params.id);
             const company = await Company.destroy({
                 where: {
                     id: id
