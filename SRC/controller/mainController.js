@@ -1,5 +1,4 @@
-const { User, ContactInfo, IataCode, Country, Currency, Seat, Flight, Airport } = require('../models');
-const axios = require("axios");
+const { User, ContactInfo } = require('../models');
 const Validations = require('../utiles/validations');
 
 const EMPTY = "";
@@ -28,7 +27,7 @@ const MainController = {
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async getAllQuestions(req, res) {
+   /* async getAllQuestions(req, res) {
         try {
             const questions = await User.findAll({
                 attributes: ['questionSecret']
@@ -38,7 +37,7 @@ const MainController = {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
-    },
+    },*/
     async register(req, res) {
         try {
             let error = EMPTY;
@@ -79,7 +78,7 @@ const MainController = {
             res.status(500).send(error);
         }
     },
-
+/*
     async getAllIataCode(req, res) {
         try {
             const iataList = await IataCode.findAll({ attributes: ['id', 'code'] }, {
@@ -252,7 +251,7 @@ const MainController = {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
-    }
+    }*/
 };
 
 module.exports = MainController;
