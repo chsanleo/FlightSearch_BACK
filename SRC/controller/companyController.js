@@ -4,25 +4,36 @@ const Validations = require('../utiles/validations');
 const CompanyController = {
     async createCompany(req, res) {
         try {
-            /*const companyF = {
+
+            const contactInfoF = {
+                address: req.body.address,
+                telephone: req.body.telephone,
+                email: req.body.email
+            }
+
+            Validations.validaContactInfo(contactInforF);
+
+            const contactInfo = await ContactInfo.create(contactInfoF)
+
+            const companyF = {
                 name: req.body.name,
                 iatacodeid: req.body.iatacodeid,
                 currencyid: req.body.currencyid,
                 countryId: req.body.countryId,
-                contactinfoid: req.body.contactinfoid,
+                contactinfoid: contactInfo.id,
             };
 
-            Validations.validaCompany(companyF)*/
+            Validations.validaCompany(companyF)
 
-            const currency = await Company.create(req.body);
+            const currency = await Company.create(companyF);
             res.status(201).send(currency);
 
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was an error creating the Company.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async getCompanies(req,res) {
+    async getCompanies(req, res) {
         try {
             const companies = await Company.findAll({
                 limit: 15
@@ -30,34 +41,45 @@ const CompanyController = {
             res.status(200).send(companies)
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem trying to get the companies'})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async getCompanyById(req,res) {
+    async getCompanyById(req, res) {
         try {
             const { id } = req.params;
             const companyId = await Company.findOne({
-                where : {
-                    id : id
+                where: {
+                    id: id
                 }
             })
-            if (companyId == null){
-                res.status(400).send({ message : 'There was a problem getting the specified company.'})
+            if (companyId == null) {
+                res.status(400).send({ message: 'There was a problem getting the specified company.' })
             }
             res.status(200).send(companyId);
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem'})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async updateCompany(req,res) {
+    async updateCompany(req, res) {
         try {
+
+            const contactInfoF = {
+                address: req.body.address,
+                telephone: req.body.telephone,
+                email: req.body.email
+            }
+
+            Validations.validaContactInfo(contactInforF);
+
+            const contactInfo = await ContactInfo.update(contactInfoF)
+
             const companyF = {
                 name: req.body.name,
                 iatacodeid: req.body.iatacodeid,
                 currencyid: req.body.currencyid,
                 countryId: req.body.countryId,
-                contactinfoid: req.body.contactinfoid,
+                contactinfoid: contactInfo.id,
             };
 
             Validations.validaCompany(companyF)
@@ -69,21 +91,21 @@ const CompanyController = {
             res.status(202).send({ message: 'Successfull Updated.' });
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was an error.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async deleteCompany(req,res) {
+    async deleteCompany(req, res) {
         try {
             const { id } = req.params
             const company = await Company.destroy({
-                where : {
-                    id : id
+                where: {
+                    id: id
                 }
             })
-            res.status(200).send({ message : 'Company deleted succesfully.'})
+            res.status(200).send({ message: 'Company deleted succesfully.' })
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem deleting the company, please, try again.'})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     }
 };

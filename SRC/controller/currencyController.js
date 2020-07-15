@@ -1,6 +1,5 @@
-const {Currency} = require('../models');
+const { Currency } = require('../models');
 
-const axios = require('axios');
 const Validations = require('../utiles/validations');
 
 const CurrencyController = {
@@ -12,76 +11,66 @@ const CurrencyController = {
                 countryId: req.body.countryId
             };
 
-            Validations.validaCurrency(currencyF)
+            Validations.validaCurrency(currencyF);
 
             const currency = await Currency.create(currencyF);
             res.status(201).send(currency);
 
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was an error creating the Currency.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async getCurrencies(req,res) {
+    async getCurrencyById(req, res) {
         try {
-            const currencies = await Currency.findAll({
-                limit: 15
-            })
-            res.status(200).send(currencies)
-        } catch (error) {
-            console.log(error)
-            res.status(500).send({ message : 'There was a problem trying to get the currencies'})
-        }
-    },
-    async getCurrencyById(req,res) {
-        try {
-            const { id } = req.params;
+            const { id } = req.body;
+            Validations.validaId(id);
+
             const currencyId = await Currency.findOne({
-                where : {
-                    id : id
-                }
-            })
-            if (currencyId === null){
-                res.status(400).send({ message : 'There was a problem getting the specified currency.'})
+                where: { deletedAt: null, id: id }
+            });
+            if (currencyId === null) {
+                res.status(400).send({ message: 'There was a problem getting the specified currency.' });
             }
             res.status(200).send(currencyId);
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem refreshing the currency.'})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async updateCurrency(req,res) {
+    async updateCurrency(req, res) {
         try {
+            const { id } = req.body;
+            Validations.validaId(id);
+
             const currencyF = {
                 name: req.body.name,
                 code: req.body.code,
                 countryId: req.body.countryId
             };
 
-            Validations.validaFlight(currencyF)
+            Validations.validaFlight(currencyF);
 
+            await Currency.update(currencyF, { where: { id: id } });
 
-            await Currency.update(currencyF, {
-                where: { id: req.body }
-            });
             res.status(202).send({ message: 'Successfull Updated.' });
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was an error.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async deleteCurrency(req,res) {
+    async deleteCurrency(req, res) {
         try {
-            const { id } = req.params
+            const { id } = req.body;
+            Validations.validaId(id);
+
             const currency = await Currency.destroy({
-                where : {
-                    id : id
-                }
-            })
-            res.status(200).send({ message : 'Currency deleted succesfully.'})
+                where: { id: id }
+            });
+            res.status(200).send({ message: 'Currency deleted succesfully.' });
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem deleting the currency, please, try again.'})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     }
 };

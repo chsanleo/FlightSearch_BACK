@@ -3,3 +3,5 @@ SRC/node_modules
 SRC/config/config.json
 SRC/config/properties.js
 SRC/config/mongoDB.js
+SRC/config/winston.js
+logs

@@ -1,8 +1,8 @@
-const {Airport} = require('../models');
+const { Airport } = require('../models');
 const Validations = require('../utiles/validations');
 
 
-const AirportController = { 
+const AirportController = {
     async createAirport(req, res) {
         try {
             const airportF = {
@@ -23,7 +23,7 @@ const AirportController = {
             res.status(500).send({ message: 'There was an error creating the Airport.' });
         }
     },
-    async getAirports(req,res) {
+    async getAirports(req, res) {
         try {
             const airports = await Airport.findAll({
                 limit: 15
@@ -31,27 +31,24 @@ const AirportController = {
             res.status(200).send(airports)
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem trying to get the airports'})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async getAirportById(req,res) {
+    async getAirportById(req, res) {
         try {
             const { id } = req.params;
             const airportId = await Airport.findOne({
-                where : {
-                    id : id
+                where: {
+                    id: id
                 }
             })
-            //if (companyId === null){
-            //    res.status(400).send({ message : 'There was a problem getting the specified airport.'})
-            //}
             res.status(200).send(airportId);
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem refreshing the airport.'})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async updateAirport(req,res) {
+    async updateAirport(req, res) {
         try {
             const airportF = {
                 name: req.body.name,
@@ -70,24 +67,23 @@ const AirportController = {
             res.status(202).send({ message: 'Successfull Updated.' });
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was an error.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async deleteAirport(req,res) {
+    async deleteAirport(req, res) {
         try {
             const { id } = req.params
             await Airport.destroy({
-                where : {
-                    id : id
+                where: {
+                    id: id
                 }
             })
-            res.status(200).send({ message : 'Airport deleted succesfully.'})
+            res.status(200).send({ message: 'Airport deleted succesfully.' })
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem deleting the Airport, please, try again.'})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     }
-
 };
 
 module.exports = AirportController;

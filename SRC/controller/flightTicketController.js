@@ -1,6 +1,7 @@
 const Bill = require('../models/bill');
 const Validations = require('../utiles/validations');
 
+
 const FlightTicketController = {
 
     async getAll(req, res) {
@@ -14,7 +15,8 @@ const FlightTicketController = {
     },
     async get(req, res) {
         try {
-            const flightTicket = await Bill.findOne({ _id: req.params.id });
+            const { username } = req.params.username;
+            const flightTicket = await Bill.findOne({ username: username });
             res.status(200).send(flightTicket);
         } catch (error) {
             console.log(error);
@@ -44,15 +46,15 @@ const FlightTicketController = {
 
             Validations.validaFlightTicket(flightticketF)
 
-            const flightTicketP = Bill.create(flightticketF);
-            res.status(201).send(flightTicketP);
+            //const flightTicketP = Bill.create(flightticketF);
+            //res.status(201).send(flightTicketP);
 
-            // const flightTicket = await Bill.updateOne({ '_id': req.body._id }, req.body, { upsert: true });
-            // res.status(202).send(flightTicket);
+            const flightTicket = await Bill.updateOne({ '_id': req.body._id }, flightticketF, { upsert: true });
+            res.status(202).send(flightTicket);
 
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: 'There was an error.' });
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     }
 };

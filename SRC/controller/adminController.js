@@ -1,4 +1,3 @@
-//const { Flight } = require('../models');
 
 const AdminController = {
 

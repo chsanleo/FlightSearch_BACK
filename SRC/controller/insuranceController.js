@@ -1,33 +1,31 @@
-const {Insurance} = require('../models');
+const { Insurance, ContactInfo } = require('../models');
 const Validations = require('../utiles/validations');
-const {ContactInfo} = require ('../models');
-
 
 const InsuranceController = {
-    async getInsurance(req,res) {
+    async getInsurance(req, res) {
         try {
-            const insurances = await Insurance.findAll()
+            const insurances = await Insurance.findAll({
+                where: { deletedAt: null }
+            });
             res.status(200).send(insurances)
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem. '})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async getOneInsurance(req,res) {
+    async getOneInsurance(req, res) {
         try {
             const { id } = req.params;
             const insurance = await Insurance.findOne({
-                where : {
-                    id : id
-                }
-            })
+                where: { id: id, deletedAt: null }
+            });
             res.status(200).send(insurance)
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : ' There was a problem. '})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async createInsurance(req,res) {
+    async createInsurance(req, res) {
         try {
             const contactInfoF = {
                 address: req.body.address,
@@ -43,7 +41,7 @@ const InsuranceController = {
                 type: req.body.type,
                 name: req.body.name,
                 company: req.body.company,
-                price : req.body.price,
+                price: req.body.price,
                 contactInfoId: contactInfo.id
             }
 
@@ -53,10 +51,10 @@ const InsuranceController = {
             res.status(201).send(insurance)
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem'})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async updateInsurance(req,res) {
+    async updateInsurance(req, res) {
         try {
             const contactInfoF = {
                 address: req.body.address,
@@ -72,41 +70,38 @@ const InsuranceController = {
                 type: req.body.type,
                 name: req.body.name,
                 company: req.body.company,
-                price : req.body.price,
+                price: req.body.price,
                 contactInfoId: contactInfo.id
             }
 
             Validations.validaInsurance(insuranceF)
 
-
-
             const { id } = req.body;
             await Insurance.update(insuranceF, {
-                where : {
+                where: {
                     id: id
                 }
             })
-            res.status(200).send({ message : 'Todo OK'})
+            res.status(200).send({ message: 'Todo OK' })
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem'})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async deleteInsurance(req,res) {
+    async deleteInsurance(req, res) {
         try {
             const { id } = req.params;
             await Insurance.destroy({
-                where : {
+                where: {
                     id: id
                 }
             })
-            res.status(200).send({ message : 'Todo OK'})
+            res.status(200).send({ message: 'Todo OK' })
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message : 'There was a problem'})
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     }
-
 };
 
 module.exports = InsuranceController;
