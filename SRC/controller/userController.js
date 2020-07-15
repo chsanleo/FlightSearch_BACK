@@ -15,7 +15,7 @@ const UserController = {
     },
     async getOneUser(req, res) {
         try {
-            const  id  = parseInt(req.params.id);
+            const id = parseInt(req.params.id);
             Validations.validaId(id);
 
             const user = await User.findOne({
@@ -30,8 +30,8 @@ const UserController = {
     },
     async updateUser(req, res) {
         try {
-            const  id  = parseInt(req.body.id);
-            
+            const id = parseInt(req.body.id);
+
             Validations.validaId(id);
 
             const contactInfoF = {
@@ -42,7 +42,7 @@ const UserController = {
 
             Validations.validaContactInfo(contactInfoF);
 
-            const contactInfo = await ContactInfo.update(contactInfoF,{ where : { id : id}});
+            const contactInfo = await ContactInfo.update(contactInfoF, { where: { id: id } });
 
             const userF = {
                 name: req.body.name,
@@ -80,7 +80,17 @@ const UserController = {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
-    }
+    },
+    async logOut(req, res) {
+        const id = parseInt(req.user.id);
+        Validations.validaId(id);
+
+        await User.updateOne({
+            token: null
+        }, {
+            where: { id: id }
+        });
+    },
 };
 
 module.exports = UserController;
