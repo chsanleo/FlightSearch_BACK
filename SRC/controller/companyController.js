@@ -46,7 +46,7 @@ const CompanyController = {
     },
     async getCompanyById(req, res) {
         try {
-            const { id } = req.params;
+            const  id  = parseInt(req.params.id);
             const companyId = await Company.findOne({
                 where: {
                     id: id
@@ -64,6 +64,9 @@ const CompanyController = {
     async updateCompany(req, res) {
         try {
 
+            const id = parseInt(req.body.id);
+
+            Validations.validaId(id);
             const contactInfoF = {
                 address: req.body.address,
                 telephone: req.body.telephone,
@@ -86,7 +89,7 @@ const CompanyController = {
 
 
             await Company.update(companyF, {
-                where: { id: req.body }
+                where: { id: id }
             });
             res.status(202).send({ message: 'Successfull Updated.' });
         } catch (error) {
@@ -96,7 +99,7 @@ const CompanyController = {
     },
     async deleteCompany(req, res) {
         try {
-            const { id } = req.params
+            const  id  = parseInt(req.params.id);
             const company = await Company.destroy({
                 where: {
                     id: id

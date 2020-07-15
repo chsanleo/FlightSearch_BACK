@@ -15,7 +15,7 @@ const UserController = {
     },
     async getOneUser(req, res) {
         try {
-            const { id } = req.params;
+            const  id  = parseInt(req.params.id);
             Validations.validaId(id);
 
             const user = await User.findOne({
@@ -30,7 +30,7 @@ const UserController = {
     },
     async updateUser(req, res) {
         try {
-            const { id } = req.body;
+            const  id  = parseInt(req.body.id);
             Validations.validaId(id);
 
             const contactInfoF = {

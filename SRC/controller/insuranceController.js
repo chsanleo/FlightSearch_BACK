@@ -15,7 +15,7 @@ const InsuranceController = {
     },
     async getOneInsurance(req, res) {
         try {
-            const { id } = req.params;
+            const  id  = parseInt(req.params.id);
             const insurance = await Insurance.findOne({
                 where: { id: id, deletedAt: null }
             });
@@ -56,6 +56,10 @@ const InsuranceController = {
     },
     async updateInsurance(req, res) {
         try {
+            const id = parseInt(req.body.id);
+
+            Validations.validaId(id);
+
             const contactInfoF = {
                 address: req.body.address,
                 telephone: req.body.telephone,
@@ -76,7 +80,7 @@ const InsuranceController = {
 
             Validations.validaInsurance(insuranceF)
 
-            const { id } = req.body;
+            
             await Insurance.update(insuranceF, {
                 where: {
                     id: id

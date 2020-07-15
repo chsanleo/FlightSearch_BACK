@@ -15,7 +15,7 @@ const FlightController = {
     },
     async getFlight(req, res) {
         try {
-            const { id } = req.params;
+            const  id  = parseInt(req.params.id);
             Validations.validaId(id);
             const flight = await Flight.findByPk(id);
 
@@ -80,7 +80,7 @@ const FlightController = {
     },
     async delete(req, res) {
         try {
-            const { id } = req.body;
+            const  id  = parseInt(req.params.id);
             Validations.validaId(id);
 
             await Flight.destroy({

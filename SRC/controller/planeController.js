@@ -16,7 +16,7 @@ const PlaneController = {
     },
     async getOnePlane(req, res) {
         try {
-            const { id } = req.params;
+            const  id  = parseInt(req.params.id);
             Validations.validaId(id);
 
             const plane = await Plane.findOne({
@@ -64,7 +64,7 @@ const PlaneController = {
     },
     async updatePlane(req, res) {
         try {
-            const { id } = req.body;
+            const  id  = parseInt(req.body.id);
             Validations.validaId(id);
 
             const planeF = {

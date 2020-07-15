@@ -36,7 +36,7 @@ const AirportController = {
     },
     async getAirportById(req, res) {
         try {
-            const { id } = req.params;
+            const  id  = parseInt(req.params.id);
             const airportId = await Airport.findOne({
                 where: {
                     id: id
@@ -50,6 +50,10 @@ const AirportController = {
     },
     async updateAirport(req, res) {
         try {
+            const id = parseInt(req.body.id);
+
+            Validations.validaId(id);
+            
             const airportF = {
                 name: req.body.name,
                 companyManag: req.body.companyManag,
@@ -62,7 +66,7 @@ const AirportController = {
             Validations.validaAirport(airportF)
 
             await Airport.update(airportF, {
-                where: { id: req.body }
+                where: { id: id }
             });
             res.status(202).send({ message: 'Successfull Updated.' });
         } catch (error) {
@@ -72,7 +76,7 @@ const AirportController = {
     },
     async deleteAirport(req, res) {
         try {
-            const { id } = req.params
+            const  id  = parseInt(req.params.id);
             await Airport.destroy({
                 where: {
                     id: id

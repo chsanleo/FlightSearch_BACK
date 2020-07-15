@@ -11,9 +11,10 @@ const MAX_CURRRENCY_CODE = 3;
 
 const Validations = {
     validaId(id) {
-        if (id === undefined || typeof (id) === STRINGTYPE || id < MIN_ID) {
+        if (id === undefined || id < MIN_ID) {
             throw Error(" Id must be provide. ");
         }
+        
     },
     validaPlate(plate) {
         if (plate === undefined || plate == EMPTY) {
