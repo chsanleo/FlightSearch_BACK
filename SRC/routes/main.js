@@ -9,6 +9,6 @@ router.get('/iatacodes', MainController.getAllIataCode);
 router.get('/contries', MainController.getAllCountries);
 router.get('/currencies', MainController.getAllCurrencies);
 router.get('/seats', MainController.getAllSeats);
-router.post('/byDate',FlightController.getFlightByDate);
+router.post('/bydate', MainController.getFlightByDate);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const { User, ContactInfo, IataCode, Country, Currency, Seat } = require('../models');
+const { User, ContactInfo, IataCode, Country, Currency, Seat, Flight } = require('../models');
 
 const Validations = require('../utiles/validations');
 
@@ -138,7 +138,23 @@ const MainController = {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
-    }
+    },
+    async getFlightByDate(req, res) {
+        try {
+            const flightList = await Flight.findAll(
+                {
+                    attributes: ['id', 'price', 'code', 'takeOffDate', 'landingDate',
+                        'LandingAirportId', 'TakeOffAirportId', 'PlaneId', 'CurrencyId', 
+                        'CompanyId', 'stock']
+                }, {
+                where: { deletedAt: null, takeOffDate: req.body.takeOffDate }
+            });
+            res.status(200).send(flightList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
 };
 
 module.exports = MainController;
