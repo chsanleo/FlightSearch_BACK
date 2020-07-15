@@ -144,7 +144,7 @@ const MainController = {
             const flightList = await Flight.findAll(
                 {
                     attributes: ['id', 'price', 'code', 'takeOffDate', 'landingDate',
-                        'LandingAirportId', 'TakeOffAirportId', 'PlaneId', 'CurrencyId', 
+                        'LandingAirportId', 'TakeOffAirportId', 'PlaneId', 'CurrencyId',
                         'CompanyId', 'stock']
                 }, {
                 where: { deletedAt: null, takeOffDate: req.body.takeOffDate }
@@ -155,6 +155,26 @@ const MainController = {
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
+    async getFlightsByCompanies(req, res) {
+
+        try {
+            const id = parseInt(req.body.id);
+            Validations.validaId(id);
+
+            const flightList = await Flight.findAll(
+                /*{
+                    attributes: ['id', 'price', 'code', 'takeOffDate', 'landingDate',
+                        'LandingAirportId', 'TakeOffAirportId', 'PlaneId', 'CurrencyId',
+                        'CompanyId', 'stock']
+                },*/ {
+                where: { CompanyId: id }
+            });
+            res.status(200).send(flightList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    }
 };
 
 module.exports = MainController;

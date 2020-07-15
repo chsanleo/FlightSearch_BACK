@@ -10,5 +10,6 @@ router.get('/contries', MainController.getAllCountries);
 router.get('/currencies', MainController.getAllCurrencies);
 router.get('/seats', MainController.getAllSeats);
 router.post('/bydate', MainController.getFlightByDate);
+router.post('/byCompany/', MainController.getFlightsByCompanies);
 
 module.exports = router;
