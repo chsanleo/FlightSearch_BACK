@@ -1,11 +1,10 @@
-const { User, ContactInfo, IataCode, Country, Currency, Seat } = require('../models');
-
+const { User, ContactInfo, IataCode, Country, Currency, Seat, Flight, Airport } = require('../models');
+const axios = require("axios");
 const Validations = require('../utiles/validations');
 
 const MainController = {
     async login(req, res) {
         try {
-            //tema de email/username
             const user = await User.findOne(
                 {
                     where: { username: req.body.username }
@@ -66,7 +65,6 @@ const MainController = {
                 email: req.body.email,
             };
 
-
             Validations.validaContactInfo(contactInfoF);
 
             const contactInfo = await ContactInfo.create(contactInfoF);
@@ -82,7 +80,6 @@ const MainController = {
                 CountryId: req.body.CountryId,
                 ContactInfoId: contactInfo.id
             };
-
 
             Validations.validaUser(userF);
 
@@ -134,6 +131,134 @@ const MainController = {
                 where: { deletedAt: null }
             });
             res.status(200).send(seatList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getFlightByDate(req, res) {
+        try {
+            const flightList = await Flight.findAll(
+                {
+                    attributes: ['id', 'price', 'code', 'takeOffDate', 'landingDate',
+                        'LandingAirportId', 'TakeOffAirportId', 'PlaneId', 'CurrencyId',
+                        'CompanyId', 'stock']
+                }, {
+                where: { deletedAt: null, takeOffDate: req.body.takeOffDate }
+            });
+            res.status(200).send(flightList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getFlightsByCompanies(req, res) {
+
+        try {
+            const id = parseInt(req.body.id);
+            Validations.validaId(id);
+
+            const flightList = await Flight.findAll({
+                where: { CompanyId: id }
+            });
+            res.status(200).send(flightList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getFlightsByLandingAirport(req, res) {
+
+        try {
+            const id = parseInt(req.body.id);
+            Validations.validaId(id);
+
+            const flightList = await Flight.findAll({
+                where: { LandingAirportId: id }
+            });
+            res.status(200).send(flightList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getFlightsByTakeOffAirport(req, res) {
+
+        try {
+            const id = parseInt(req.body.id);
+            Validations.validaId(id);
+
+            const flightList = await Flight.findAll({
+                where: { TakeOffAirportId: id }
+            });
+            res.status(200).send(flightList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getAirportSmoking(req, res) {
+        try {
+            let smoking = false;
+            if (req.body.smoking == true) { smoking = true; }
+
+            const airportList = await Airport.findAll({
+                where: { smooking: smoking }
+            });
+            res.status(200).send(airportList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getCurrencyByCountry(req, res) {
+        try {
+            const id = req.body.idCountry;
+            Validations.validaId(id);
+            const currencyList = await Currency.findAll({
+                where: { CountryId: id }
+            });
+            res.status(200).send(currencyList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async searchFlight(req, res) {
+        try {
+            let error = "";
+            const takeOffDate = req.body.takeOffDate;
+            const landingDate = req.body.landingDate;
+            const landingAirportId = req.body.LandingAirportId;
+            const takeOffAirportId = req.body.TakeOffAirportId;
+
+            error += Validations.validaTakeOffAndLandingDates(takeOffDate, landingDate);
+            error += Validations.validaTakeOffAndLandingAirports(landingAirportId, takeOffAirportId);
+
+            if (error != "") { throw Error(error); }
+
+            const currencyList = await Currency.findAll({
+                where: {
+                    takeOffDate: takeOffDate, landingDate: landingDate,
+                    landingAirportId: landingAirportId, takeOffAirportId: takeOffAirportId
+                }
+            });
+            res.status(200).send(currencyList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getExchange(req, res) {
+        try {
+            const base = req.body.baseCurrencyCode;
+            const change = req.body.changeCurrencyCode;
+
+            Validations.validaCurrencyCode(base);
+            Validations.validaCurrencyCode(change);
+
+            const exchange = axios.get("https://api.exchangeratesapi.io/latest?base=" + base + "&symbols=" + change);
+            res.status(200).send(exchange);
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
