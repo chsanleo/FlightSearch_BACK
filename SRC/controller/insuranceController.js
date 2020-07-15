@@ -68,7 +68,7 @@ const InsuranceController = {
 
             Validations.validaContactInfo(contactInfoF)
 
-            const contactInfo = await ContactInfo.update(contactInfoF)
+            const contactInfo = await ContactInfo.update(contactInfoF, { where : { id: id}})
 
             const insuranceF = {
                 type: req.body.type,
