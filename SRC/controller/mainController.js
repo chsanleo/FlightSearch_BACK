@@ -2,14 +2,14 @@ const { User, ContactInfo, IataCode, Country, Currency, Seat, Flight, Airport } 
 const axios = require("axios");
 const Validations = require('../utiles/validations');
 
+const EMPTY = "";
+
 const MainController = {
     async login(req, res) {
         try {
-            const user = await User.findOne(
-                {
-                    where: { username: req.body.username }
-                }
-            );
+            const user = await User.findOne({
+                where: { username: req.body.username }
+            });
             if (!await bycrypt.compare(req.body.password, user.password)) {
                 throw new Error({ message: 'Wrong Credentials' });
             }
@@ -28,21 +28,10 @@ const MainController = {
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async logOut(req, res) {
-        const id = parseInt(req.user.id);
-        Validations.validaId(id);
-
-        await User.updateOne({
-            token: null
-        }, {
-            where: { id: id }
-        });
-    },
     async getAllQuestions(req, res) {
         try {
             const questions = await User.findAll({
                 attributes: ['questionSecret']
-
             });
             res.status(200).send(questions);
         } catch (error) {
@@ -52,11 +41,11 @@ const MainController = {
     },
     async register(req, res) {
         try {
-            let error = '';
+            let error = EMPTY;
             const usernameStock = await User.findOne({ where: { username: req.body.username } });
-            //Same Username 
+
             if (username = usernameStock) {
-                throw Error('This username already exists')
+                throw Error('This username already exists.');
             }
 
             const contactInfoF = {
@@ -226,7 +215,7 @@ const MainController = {
     },
     async searchFlight(req, res) {
         try {
-            let error = "";
+            let error = EMPTY;
             const takeOffDate = req.body.takeOffDate;
             const landingDate = req.body.landingDate;
             const landingAirportId = req.body.LandingAirportId;
@@ -235,7 +224,7 @@ const MainController = {
             error += Validations.validaTakeOffAndLandingDates(takeOffDate, landingDate);
             error += Validations.validaTakeOffAndLandingAirports(landingAirportId, takeOffAirportId);
 
-            if (error != "") { throw Error(error); }
+            if (error != EMPTY) { throw Error(error); }
 
             const currencyList = await Currency.findAll({
                 where: {
