@@ -31,6 +31,7 @@ const UserController = {
     async updateUser(req, res) {
         try {
             const  id  = parseInt(req.body.id);
+            
             Validations.validaId(id);
 
             const contactInfoF = {
