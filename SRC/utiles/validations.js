@@ -6,6 +6,8 @@ const MAX_CHAR_PASSWORD = 12;
 const MIN_CHAR_PASSPORT = 8;
 const STRINGTYPE = "string";
 const MIN_STOCK = 1;
+const MIN_CURRENCY_CODE = 2;
+const MAX_CURRRENCY_CODE = 3;
 
 const Validations = {
     validaId(id) {
@@ -22,7 +24,6 @@ const Validations = {
 
         let error = EMPTY;
         let regex = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
-
 
         if (contactInfo.address == EMPTY || contactInfo.address === undefined) {
             error += ' Must provide a address. ';
@@ -139,8 +140,14 @@ const Validations = {
         let error = EMPTY;
 
         if (currency.name == EMPTY) { error += ' Name must be provided. '; }
-        //evaluar que solo puede tener 2 o 3 caracteres
-        if (currency.code == EMPTY) { error += ' Code must be provided. '; }
+
+        if (currency.code != EMPTY) {
+            if (currency.code.length < MIN_CURRENCY_CODE || currency.code.length > MAX_CURRRENCY_CODE) {
+                error += ' Code must be between ' + MIN_CURRENCY_CODE + ' and ' + MAX_CURRRENCY_CODE + ' characters. ';
+            }
+        }
+        else { error += ' Code must be provided. '; }
+
         if (typeof (currency.countryId) === STRINGTYPE || currency.countryId < MIN_ID) {
             error += ' Country must be provided. ';
         }
