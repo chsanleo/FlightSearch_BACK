@@ -42,7 +42,7 @@ const UserController = {
 
             Validations.validaContactInfo(contactInfoF);
 
-            const contactInfo = await ContactInfo.update(contactInfoF);
+            const contactInfo = await ContactInfo.update(contactInfoF,{ where : { id : id}});
 
             const userF = {
                 name: req.body.name,
