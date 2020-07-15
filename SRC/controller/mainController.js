@@ -29,6 +29,16 @@ const MainController = {
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
+    async logOut(req, res) {
+        const id = parseInt(req.user.id);
+        Validations.validaId(id);
+
+        await User.updateOne({
+            token: null
+        }, {
+            where: { id: id }
+        });
+    },
     async getAllQuestions(req, res) {
         try {
             const questions = await User.findAll({
@@ -97,9 +107,9 @@ const MainController = {
     },
     async getAllCountries(req, res) {
         try {
-            const countriesList = await Country.findAll({ attributes: ['id', 'name', 'code', 'prefix'] },{
-            where: { deletedAt: null }
-        });
+            const countriesList = await Country.findAll({ attributes: ['id', 'name', 'code', 'prefix'] }, {
+                where: { deletedAt: null }
+            });
             res.status(200).send(countriesList);
 
         } catch (error) {
@@ -109,7 +119,7 @@ const MainController = {
     },
     async getAllCurrencies(req, res) {
         try {
-            const currencyList = await Currency.findAll({ attributes: ['id', 'name', 'code', 'countryId'] },{
+            const currencyList = await Currency.findAll({ attributes: ['id', 'name', 'code', 'countryId'] }, {
                 where: { deletedAt: null }
             });
             res.status(200).send(currencyList);
@@ -120,7 +130,7 @@ const MainController = {
     },
     async getAllSeats(req, res) {
         try {
-            const seatList = await Seat.findAll({ attributes: ['id', 'type', 'price'] },{
+            const seatList = await Seat.findAll({ attributes: ['id', 'type', 'price'] }, {
                 where: { deletedAt: null }
             });
             res.status(200).send(seatList);
