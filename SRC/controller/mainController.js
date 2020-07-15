@@ -1,4 +1,4 @@
-const { User, ContactInfo, IataCode, Country, Currency, Seat, Flight } = require('../models');
+const { User, ContactInfo, IataCode, Country, Currency, Seat, Flight, Airport } = require('../models');
 
 const Validations = require('../utiles/validations');
 
@@ -210,6 +210,20 @@ const MainController = {
                     where: { TakeOffAirportId: id }
                 });
             res.status(200).send(flightList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getAirportSmoking(req, res) {
+        try {
+            let smoking = false;
+            if (req.body.smoking == true) { smoking = true; }
+
+            const airportList = await Airport.findAll( {
+                    where: { smooking: smoking }
+                });
+            res.status(200).send(airportList);
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
