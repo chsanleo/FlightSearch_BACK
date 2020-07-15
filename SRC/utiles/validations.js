@@ -83,7 +83,7 @@ const Validations = {
         }
         if (flight.code == EMPTY) { error += ' Flight Code must be provided. '; }
 
-        error +=validaTakeOffAndLandingDates(flight.takeOffDate, flight.landingDate) 
+        error += validaTakeOffAndLandingDates(flight.takeOffDate, flight.landingDate) 
         error += validaTakeOffAndLandingAirports(flight.landingAirportId, flight.takeOffAirportId);
 
         if (typeof (flight.planeId) === STRINGTYPE || flight.planeId < MIN_ID) {

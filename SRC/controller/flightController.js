@@ -19,7 +19,7 @@ const FlightController = {
             Validations.validaId(id);
             const flight = await Flight.findByPk(id);
 
-            if (flight.deletedAt === null) { res.status(200).send(new Object); }
+            if (flight.deletedAt != null) { res.status(200).send(new Object); }
             res.status(200).send(flight);
         } catch (error) {
             console.log(error);
@@ -33,10 +33,10 @@ const FlightController = {
                 code: req.body.code,
                 takeOffDate: req.body.takeOffDate,
                 landingDate: req.body.landingDate,
-                landingAirportId: req.body.landingAirportId,
-                takeOffAirportId: req.body.takeOffAirportId,
-                planeId: req.body.planeId,
-                currencyId: req.body.currencyId,
+                landingAirportId: req.body.LandingAirportId,
+                takeOffAirportId: req.body.TakeOffAirportId,
+                planeId: req.body.PlaneId,
+                currencyId: req.body.CurrencyId,
                 stock: req.body.stock
             };
 
