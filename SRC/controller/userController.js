@@ -39,7 +39,7 @@ const UserController = {
                 email: req.body.email
             }
 
-            Validations.validaContactInfo(contactInforF);
+            Validations.validaContactInfo(contactInfoF);
 
             const contactInfo = await ContactInfo.update(contactInfoF);
 
