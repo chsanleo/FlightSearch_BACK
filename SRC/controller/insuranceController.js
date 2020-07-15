@@ -42,7 +42,7 @@ const InsuranceController = {
                 name: req.body.name,
                 company: req.body.company,
                 price: req.body.price,
-                contactInfoId: contactInfo.id
+                ContactInfoId: contactInfo.id
             }
 
             Validations.validaInsurance(insuranceF)

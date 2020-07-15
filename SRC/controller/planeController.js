@@ -50,7 +50,7 @@ const PlaneController = {
                 model: req.body.model,
                 yearOfFabric: req.body.yearOfFabric,
                 plate: req.body.plate,
-                companyId: req.body.CompanyId
+                CompanyId: req.body.CompanyId
             }
 
             Validations.validaPlane(planeF);
@@ -66,7 +66,7 @@ const PlaneController = {
         try {
             const  id  = parseInt(req.body.id);
             Validations.validaId(id);
-
+            
             const planeF = {
                 type: req.body.type,
                 name: req.body.name,
@@ -78,7 +78,7 @@ const PlaneController = {
 
             Validations.validaPlane(planeF);
             
-            await Plane.update(planeF, {
+            await Plane.update(req.body, {
                 where: { id: id }
             });
             res.status(200).send({ message: 'Avion actualizado correctamente' });

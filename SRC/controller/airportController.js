@@ -5,12 +5,22 @@ const Validations = require('../utiles/validations');
 const AirportController = {
     async createAirport(req, res) {
         try {
+            const contactInfoF = {
+                address: req.body.address,
+                telephone: req.body.telephone,
+                email: req.body.email
+            };
+
+            Validations.validaContactInfo(contactInfoF)
+
+            const contactInfo = await ContactInfo.create(contactInfoF)
+
             const airportF = {
                 name: req.body.name,
                 companyManag: req.body.companyManag,
                 smooking: req.body.smooking,
                 CountryId: req.body.CountryId,
-                ContactInfoId: req.body.ContactInfoId,
+                ContactInfoId: contactInfo.id,
                 IataCodeId: req.body.IataCodeId,
             };
 
@@ -53,15 +63,25 @@ const AirportController = {
             const id = parseInt(req.body.id);
 
             Validations.validaId(id);
-            
+
+            const contactInfoF = {
+                address: req.body.address,
+                telephone: req.body.telephone,
+                email: req.body.email
+            };
+            Validations.validaContactInfo(contactInfoF)
+
+            const contactInfo = await ContactInfo.update(contactInfoF, { where : { id: id}})
+
             const airportF = {
                 name: req.body.name,
                 companyManag: req.body.companyManag,
                 smooking: req.body.smooking,
                 CountryId: req.body.CountryId,
-                ContactInfoId: req.body.ContactInfoId,
+                ContactInfoId: contactInfo.id,
                 IataCodeId: req.body.IataCodeId,
             };
+            
 
             Validations.validaAirport(airportF)
 

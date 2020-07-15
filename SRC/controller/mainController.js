@@ -79,8 +79,8 @@ const MainController = {
                 passport: req.body.passport,
                 questionSecret: req.body.questionSecret,
                 answerSecret: req.body.answerSecret,
-                countryId: req.body.countryId,
-                contactInfoId: contactInfo.id
+                CountryId: req.body.CountryId,
+                ContactInfoId: contactInfo.id
             };
 
 

@@ -8,7 +8,7 @@ const CurrencyController = {
             const currencyF = {
                 name: req.body.name,
                 code: req.body.code,
-                countryId: req.body.countryId
+                CountryId: req.body.CountryId
             };
 
             Validations.validaCurrency(currencyF);
@@ -46,7 +46,7 @@ const CurrencyController = {
             const currencyF = {
                 name: req.body.name,
                 code: req.body.code,
-                countryId: req.body.countryId
+                CountryId: req.body.CountryId
             };
 
             Validations.validaFlight(currencyF);

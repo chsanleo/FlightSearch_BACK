@@ -33,10 +33,10 @@ const FlightController = {
                 code: req.body.code,
                 takeOffDate: req.body.takeOffDate,
                 landingDate: req.body.landingDate,
-                landingAirportId: req.body.LandingAirportId,
-                takeOffAirportId: req.body.TakeOffAirportId,
-                planeId: req.body.PlaneId,
-                currencyId: req.body.CurrencyId,
+                LandingAirportId: req.body.LandingAirportId,
+                TakeOffAirportId: req.body.TakeOffAirportId,
+                PlaneId: req.body.PlaneId,
+                CurrencyId: req.body.CurrencyId,
                 stock: req.body.stock
             };
 
@@ -59,10 +59,10 @@ const FlightController = {
                 code: req.body.code,
                 takeOffDate: req.body.takeOffDate,
                 landingDate: req.body.landingDate,
-                landingAirportId: req.body.landingAirportId,
-                takeOffAirportId: req.body.takeOffAirportId,
-                planeId: req.body.planeId,
-                currencyId: req.body.currencyId,
+                LandingAirportId: req.body.LandingAirportId,
+                TakeOffAirportId: req.body.TakeOffAirportId,
+                PlaneId: req.body.PlaneId,
+                CurrencyId: req.body.CurrencyId,
                 stock: req.body.stock
             };
 

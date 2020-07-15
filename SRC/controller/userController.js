@@ -52,7 +52,7 @@ const UserController = {
                 passport: req.body.passport,
                 questionSecret: req.body.questionSecret,
                 answerSecret: req.body.answerSecret,
-                countryId: req.body.countryId,
+                CountryId: req.body.CountryId,
                 contactInfoId: contactInfo.id
             };
 

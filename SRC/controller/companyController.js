@@ -17,10 +17,10 @@ const CompanyController = {
 
             const companyF = {
                 name: req.body.name,
-                iatacodeid: req.body.iatacodeid,
-                currencyid: req.body.currencyid,
-                countryId: req.body.countryId,
-                contactinfoid: contactInfo.id,
+                IataCodeId: req.body.IataCodeId,
+                CurrencyId: req.body.CurrencyId,
+                CountryId: req.body.CountryId,
+                ContactInfoId: contactInfo.id,
             };
 
             Validations.validaCompany(companyF)
@@ -75,14 +75,14 @@ const CompanyController = {
 
             Validations.validaContactInfo(contactInforF);
 
-            const contactInfo = await ContactInfo.update(contactInfoF)
+            const contactInfo = await ContactInfo.update(contactInfoF, { where : { id: id}})
 
             const companyF = {
                 name: req.body.name,
-                iatacodeid: req.body.iatacodeid,
-                currencyid: req.body.currencyid,
-                countryId: req.body.countryId,
-                contactinfoid: contactInfo.id,
+                IataCodeId: req.body.IataCodeId,
+                Currencyid: req.body.CurrencyId,
+                CountryId: req.body.CountryId,
+                ContactInfoId: contactInfo.id,
             };
 
             Validations.validaCompany(companyF)

@@ -11,10 +11,9 @@ const MAX_CURRRENCY_CODE = 3;
 
 const Validations = {
     validaId(id) {
-        if (id === undefined || id < MIN_ID) {
+        if (id === undefined || id < MIN_ID || isNaN(id)) {
             throw Error(" Id must be provide. ");
         }
-        
     },
     validaPlate(plate) {
         if (plate === undefined || plate == EMPTY) {
@@ -83,8 +82,8 @@ const Validations = {
         }
         if (flight.code == EMPTY) { error += ' Flight Code must be provided. '; }
 
-        error += validaTakeOffAndLandingDates(flight.takeOffDate, flight.landingDate) 
-        error += validaTakeOffAndLandingAirports(flight.landingAirportId, flight.takeOffAirportId);
+        error += this.validaTakeOffAndLandingDates(flight.takeOffDate, flight.landingDate) 
+        error += this.validaTakeOffAndLandingAirports(flight.landingAirportId, flight.takeOffAirportId);
 
         if (typeof (flight.planeId) === STRINGTYPE || flight.planeId < MIN_ID) {
             error += ' Plane must be provided. ';
@@ -196,8 +195,8 @@ const Validations = {
     validaFlightTicket(bill) {
         let error = EMPTY;
 
-        error +=validaTakeOffAndLandingDates(bill.takeOffDate, bill.landingDate) 
-        error += validaTakeOffAndLandingAirports(bill.landingAirportId, bill.takeOffAirportId);
+        error += this.validaTakeOffAndLandingDates(bill.takeOffDate, bill.landingDate) 
+        error += this.validaTakeOffAndLandingAirports(bill.landingAirportId, bill.takeOffAirportId);
 
         if (typeof (bill.basePrice) === STRINGTYPE || bill.basePrice < MIN_PRICE) {
             error += ' Correct base price must be provided. ';
