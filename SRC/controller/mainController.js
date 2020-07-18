@@ -1,21 +1,25 @@
 const { User, ContactInfo } = require('../models');
+const bcrypt = require('bcryptjs');
+const properties = require('../config/properties');
+const jwt = require('jsonwebtoken');
 const Validations = require('../utiles/validations');
 
 const EMPTY = "";
 
-const MainController = {
+const MainController = { 
     async login(req, res) {
         try {
             const user = await User.findOne({
                 where: { username: req.body.username }
             });
-            if (!await bycrypt.compare(req.body.password, user.password)) {
+            console.log(user);
+           /* if (!await bcrypt.compare(req.body.password, user.password)) {
                 throw new Error({ message: 'Wrong Credentials' });
-            }
+            }*/
 
             const token = jwt.sign({ id: user.id }, properties.token_SECRETWORD, { expiresIn: properties.token_EXPIRES });
 
-            await User.updateOne({
+            await User.update({
                 token: token
             }, {
                 where: { id: user.id }
@@ -59,6 +63,7 @@ const MainController = {
             };
 
             Validations.validaUser(userF);
+            userF.password = await bcrypt.hash(req.body.password, properties.PASSWORDSALT);
 
             const user = await User.create(userF);
             res.status(201).send(user);
