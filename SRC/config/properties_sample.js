@@ -1,14 +1,15 @@
 //Global Variables
 const PROPERTIES = {
-    server_PORT: 3005,
-    token_SECRETWORD: 'ElConcordMolaMogollon',
-    token_EXPIRES: '48h',
-    MONGO_USER: 'UserDB',
-    MONGO_PASS: 'concord..',
-    MONGO_NAMEDB: 'flightSearch',
-    LOG_PATH: `../logs/app.log`,
-    LOG_MAXSIZE: 5242880,// 5MB
-    LOG_MAXFILES: 5,
+    server_PORT: 2,
+    token_SECRETWORD: 'password',
+    token_EXPIRES: '1s',
+    MONGO_USER: 'user',
+    MONGO_PASS: 'passmongo',
+    MONGO_NAMEDB: 'namemongo',
+    PASSWORDSALT: 1,
+    LOG_PATH: `path`,
+    LOG_MAXSIZE: 5,// 5MB
+    LOG_MAXFILES: 1,
     LOG_LEVELFILE: 'info',//error, warn, info, verbose, debug, silly
     LOG_LEVELCONSOLE: 'debug'//error, warn, info, verbose, debug, silly
 };

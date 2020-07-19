@@ -5,15 +5,16 @@ var options = {
     file: {
         //error, warn, info, verbose, debug, silly
         level: 'info',
-        filename: `../logs/app.log`,
+        filename: `/logs`,
         handleExceptions: true,
         json: true,
-        maxsize: 5242880, // 5MB
-        maxFiles: 5,
+        maxsize: 5, // 5MB
+        maxFiles: 1,
         colorize: false,
     },
     console: {
-        level: 'debug',
+         //error, warn, info, verbose, debug, silly
+        level: 'info',
         handleExceptions: true,
         json: false,
         colorize: true,
