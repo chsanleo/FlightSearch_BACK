@@ -36,7 +36,7 @@ const MainController = {
             let error = EMPTY;
             const usernameStock = await User.findOne({ where: { username: req.body.username } });
 
-            if (username = usernameStock) {
+            if (usernameStock) {
                 throw Error('This username already exists.');
             }
 
