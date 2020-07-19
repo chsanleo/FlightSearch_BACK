@@ -1,4 +1,4 @@
-const { User, ContactInfo } = require('../models');
+const { User, ContactInfo, Country } = require('../models');
 const Validations = require('../utiles/validations');
 
 const UserController = {
@@ -20,7 +20,10 @@ const UserController = {
 
             const user = await User.findOne({
                 where: { id: id, deletedAt: null },
-                include: { model: ContactInfo }
+                include: [
+                    { model: ContactInfo },
+                    { model: Country}
+                ]
             });
             res.status(200).send(user);
         } catch (error) {
@@ -34,6 +37,11 @@ const UserController = {
 
             Validations.validaId(id);
 
+            const user = await User.findOne({
+                where: { id: id, deletedAt: null }
+            });
+            if (!user) { throw Error(' User error. '); }
+
             const contactInfoF = {
                 address: req.body.address,
                 telephone: req.body.telephone,
@@ -42,18 +50,18 @@ const UserController = {
 
             Validations.validaContactInfo(contactInfoF);
 
-            const contactInfo = await ContactInfo.update(contactInfoF, { where: { id: id } });
+            await ContactInfo.update(contactInfoF, { where: { id: user.ContactInfoId } });
 
             const userF = {
                 name: req.body.name,
                 username: req.body.username,
                 surname: req.body.surname,
-                password: req.body.password,
+                password: user.password,
                 passport: req.body.passport,
-                questionSecret: req.body.questionSecret,
-                answerSecret: req.body.answerSecret,
+                questionSecret: user.questionSecret,
+                answerSecret: user.answerSecret,
                 CountryId: req.body.CountryId,
-                ContactInfoId: contactInfo.id
+                ContactInfoId: user.ContactInfoId
             };
 
             Validations.validaUser(userF);
