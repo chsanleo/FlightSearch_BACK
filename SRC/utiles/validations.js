@@ -46,7 +46,7 @@ const Validations = {
 
     validaUser(user) {
         let error = EMPTY;
-
+        console.log(user.username);
         if (user.name == EMPTY) { error += ' Name must be provided. '; }
         if (user.username == EMPTY) { error += ' Username must be provided. '; }
         if (user.surname == EMPTY) { error += ' Surname must be provided. '; }
