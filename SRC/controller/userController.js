@@ -19,9 +19,9 @@ const UserController = {
             Validations.validaId(id);
 
             const user = await User.findOne({
-                where: { id: id, deletedAt: null }
+                where: { id: id, deletedAt: null },
+                include: { model: ContactInfo }
             });
-
             res.status(200).send(user);
         } catch (error) {
             console.log(error);
