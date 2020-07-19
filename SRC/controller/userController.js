@@ -1,4 +1,4 @@
-const { User, ContactInfo } = require('../models');
+const { User, ContactInfo, Country } = require('../models');
 const Validations = require('../utiles/validations');
 
 const UserController = {
@@ -20,7 +20,10 @@ const UserController = {
 
             const user = await User.findOne({
                 where: { id: id, deletedAt: null },
-                include: { model: ContactInfo }
+                include: [
+                    { model: ContactInfo },
+                    { model: Country}
+                ]
             });
             res.status(200).send(user);
         } catch (error) {
