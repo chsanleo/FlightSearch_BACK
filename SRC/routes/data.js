@@ -3,7 +3,7 @@ const DataController = require('../controller/dataController');
 
 router.get('/questions', DataController.getAllQuestions);
 router.get('/iatacodes', DataController.getAllIataCode);
-router.get('/contries', DataController.getAllCountries);
+router.get('/countries', DataController.getAllCountries);
 router.get('/currencies', DataController.getAllCurrencies);
 router.get('/seats', DataController.getAllSeats);
 router.post('/flightbydate', DataController.getFlightByDate);
