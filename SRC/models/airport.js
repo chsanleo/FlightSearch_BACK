@@ -4,7 +4,11 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Airport extends Model {
-    static associate(models) { }
+    static associate(models) { 
+      Airport.belongsTo(models.ContactInfo);
+      Airport.belongsTo(models.IataCode);
+      Airport.belongsTo(models.Country);
+    }
   };
   Airport.init({
     name: DataTypes.STRING,
