@@ -1,4 +1,4 @@
-const { Airport } = require('../models');
+const { Airport, ContactInfo, IataCode, Country } = require('../models');
 const Validations = require('../utiles/validations');
 
 
@@ -36,8 +36,12 @@ const AirportController = {
     async getAirports(req, res) {
         try {
             const airports = await Airport.findAll({
-                limit: 15
-            })
+                include:[
+                    { model: ContactInfo},
+                    { model : IataCode},
+                    { model: Country}
+                ]
+            });
             res.status(200).send(airports)
         } catch (error) {
             console.log(error)
@@ -48,9 +52,12 @@ const AirportController = {
         try {
             const  id  = parseInt(req.params.id);
             const airportId = await Airport.findOne({
-                where: {
-                    id: id
-                }
+                where: { id: id },
+                include:[
+                    { model: ContactInfo},
+                    { model : IataCode},
+                    { model: Country}
+                ]
             })
             res.status(200).send(airportId);
         } catch (error) {
@@ -80,8 +87,7 @@ const AirportController = {
                 CountryId: req.body.CountryId,
                 ContactInfoId: contactInfo.id,
                 IataCodeId: req.body.IataCodeId,
-            };
-            
+            };        
 
             Validations.validaAirport(airportF)
 
@@ -98,10 +104,8 @@ const AirportController = {
         try {
             const  id  = parseInt(req.params.id);
             await Airport.destroy({
-                where: {
-                    id: id
-                }
-            })
+                where: { id: id }
+            });
             res.status(200).send({ message: 'Airport deleted succesfully.' })
         } catch (error) {
             console.log(error)
