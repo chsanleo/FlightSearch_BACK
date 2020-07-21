@@ -72,20 +72,6 @@ const MainController = {
             res.status(500).send(error);
         }
     },
-
-    async getInfo(req,res) {
-        try {
-            const user = await user.findOne({
-                where : {
-                    token : req.header.authorization
-                }
-            })
-            res.status(201).send(user);
-        } catch (error) {
-            console.log(error);
-            res.status(500).send(error);
-        }
-    }
 };
 
 module.exports = MainController;
