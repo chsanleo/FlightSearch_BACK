@@ -30,11 +30,12 @@ const userRouter = require('./routes/users');
 const cors = require('./middleware/cors');
 
 
+const auth = require('./middleware/auth');
 app.use(express.json());
 app.use(cors);
 
 //Use of Routes
-app.use('/admin', adminRouter);
+app.use('/admin',  adminRouter);
 app.use('/airport', airportRouter);
 app.use('/company', companyRouter);
 app.use('/currency', currencyRouter);
@@ -44,6 +45,6 @@ app.use('/flight', flightRouter);
 app.use('/insurance', insuranceRouter);
 app.use('/main', mainRouter);
 app.use('/plane', planeRouter);
-app.use('/user', userRouter);
+app.use('/user', auth, userRouter);
 
 app.listen(properties.server_PORT, () => console.log('Server running on port ' + properties.server_PORT));

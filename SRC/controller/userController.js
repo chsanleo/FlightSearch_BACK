@@ -99,6 +99,14 @@ const UserController = {
             where: { id: id }
         });
     },
+    async getInfo(req,res) {
+        try {
+            res.status(201).send(req.user);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send(error);
+        }
+    }
 };
 
 module.exports = UserController;
