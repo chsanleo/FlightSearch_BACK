@@ -33,7 +33,6 @@ const cors = require('./middleware/cors');
 const auth = require('./middleware/auth');
 app.use(express.json());
 app.use(cors);
-app.options('*',(req,res) => res.send())
 
 //Use of Routes
 app.use('/admin',  adminRouter);
