@@ -5,7 +5,9 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Flight extends Model {
 
-    static associate(models) { }
+    static associate(models) {
+      Flight.belongsTo(models.Company);
+     }
   };
   Flight.init({
     price: DataTypes.FLOAT,

@@ -1,4 +1,4 @@
-const { Flight } = require('../models');
+const { Flight, Company } = require('../models');
 const Validations = require('../utiles/validations');
 
 const FlightController = {
@@ -15,7 +15,7 @@ const FlightController = {
     },
     async getFlight(req, res) {
         try {
-            const  id  = parseInt(req.params.id);
+            const id = parseInt(req.params.id);
             Validations.validaId(id);
             const flight = await Flight.findByPk(id);
 
@@ -37,6 +37,7 @@ const FlightController = {
                 TakeOffAirportId: req.body.TakeOffAirportId,
                 PlaneId: req.body.PlaneId,
                 CurrencyId: req.body.CurrencyId,
+                CompanyId: req.body.CompanyId,
                 stock: req.body.stock
             };
 
@@ -53,7 +54,7 @@ const FlightController = {
         try {
             const { id } = req.body;
             Validations.validaId(id);
-            
+
             const flightF = {
                 price: req.body.price,
                 code: req.body.code,
@@ -80,13 +81,35 @@ const FlightController = {
     },
     async delete(req, res) {
         try {
-            const  id  = parseInt(req.params.id);
+            const id = parseInt(req.params.id);
             Validations.validaId(id);
 
             await Flight.destroy({
                 where: { id: id }
             });
             res.status(202).send({ message: 'Successfull Deleted.' });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
+    async getFlightsbyAirportsandDate(req, res) {
+        try {
+            console.log(req.body.takeOffDate)
+            const flights = await Flight.findAll({
+                where: {
+                    deletedAt: null,
+                    TakeOffAirportId: req.body.TakeOffAirportId,
+                    LandingAirportId: req.body.LandingAirportId,
+                    //takeOffDate: req.body.takeOffDate //Preguntar mañana
+                },
+                include : [
+                    {model : Company}
+                ],
+                
+            });
+            
+            res.status(200).send(flights);
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
