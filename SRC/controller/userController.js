@@ -90,14 +90,20 @@ const UserController = {
         }
     },
     async logOut(req, res) {
-        const id = parseInt(req.user.id);
-        Validations.validaId(id);
+        try {
+            const id = parseInt(req.user.id);
+            Validations.validaId(id);
+    
+            await User.updateOne({
+                token: null
+            }, {
+                where: { id: id }
+            });
+        } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
 
-        await User.updateOne({
-            token: null
-        }, {
-            where: { id: id }
-        });
     },
     async getInfo(req,res) {
         try {
