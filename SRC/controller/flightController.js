@@ -1,4 +1,4 @@
-const { Flight, Company } = require('../models');
+const { Flight, Company,Airport } = require('../models');
 const Validations = require('../utiles/validations');
 const { Op } = require('sequelize');
 
@@ -96,7 +96,6 @@ const FlightController = {
     },
     async getFlightsbyAirportsandDate(req, res) {
         try {
-            console.log(req.body.takeOffDate)
             const flights = await Flight.findAll({
                 where: {
                     deletedAt: null,
@@ -107,7 +106,8 @@ const FlightController = {
                     } 
                 },
                 include : [
-                    {model : Company}
+                    {model : Company},
+                    {model : Airport}
                 ],
                 
             });

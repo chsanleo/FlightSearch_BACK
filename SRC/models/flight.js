@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       Flight.belongsTo(models.Company);
+      Flight.belongsTo(models.Airport);
      }
   };
   Flight.init({
