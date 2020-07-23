@@ -1,6 +1,7 @@
 const { User, IataCode, Country, Currency, Seat, Flight, Airport } = require('../models');
 const axios = require("axios");
 const Validations = require('../utiles/validations');
+const { response } = require('express');
 const EMPTY = "";
 
 const DataController = {
@@ -173,19 +174,47 @@ const DataController = {
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
-    async getExchange(req, res) {
-        try {
-            const base = req.body.baseCurrencyCode;
-            const change = req.body.changeCurrencyCode;
+    getExchange(req, res) {
 
-            Validations.validaCurrencyCode(base);
-            Validations.validaCurrencyCode(change);
+        const base = req.body.baseCurrencyCode;
+        const change = req.body.changeCurrencyCode;
 
-            const exchange = axios.get("https://api.exchangeratesapi.io/latest?base=" + base + "&symbols=" + change);
-            res.status(200).send(exchange);
-        } catch (error) {
-            console.log(error);
-            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        Validations.validaCurrencyCode(base);
+        Validations.validaCurrencyCode(change);
+        let ratio = 1;
+        let permitList = ["USD", "MXN", "SGD", "AUD", "ILS", "KRW", "PLN", "ZAR",
+            "NZD", "NOK", "CNY", "CHF", "THB", "JPY", "HRK", "RUB", "BRL", "SEK", "HU", "PHP", "HKD",
+            "TRY", "BGN", "MYR", "EUR", "INR", "IDR", "RON", "GBP", "CZK", "DKK", "ISK", "CAD"]
+
+        if (permitList.includes(base) && permitList.includes(change)) {
+            axios.get("https://api.exchangeratesapi.io/latest?base=" + base + "&symbols=" + change)
+                .then(result => {
+
+                    let response = JSON.stringify(result.data.rates);
+                    response = response.replace('"','');
+                    response = response.replace (change,'');
+                    response = response.replace('{','');
+                    response = response.replace('}','');
+                    response = response.replace (':','' );
+                    response = response.replace('"','');
+
+                    let finalResponse = {
+                        exchange: response
+                    }
+
+                    res.send(finalResponse);
+                })
+                .catch(error => {
+                    console.log(error);
+                    res.send(500).send({ message: 'There was an error. Contact with the administrator.' });
+                });
+        } else {
+            let min = 0; let max = 2;
+            ratio = min + (Math.random() * (max - min));
+            let response = {
+                exchange: ratio
+            }
+            res.status(200).send(response);
         }
     }
 };
