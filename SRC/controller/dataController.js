@@ -153,22 +153,20 @@ const DataController = {
         try {
             let error = EMPTY;
             const takeOffDate = req.body.takeOffDate;
-            const landingDate = req.body.landingDate;
             const landingAirportId = req.body.LandingAirportId;
             const takeOffAirportId = req.body.TakeOffAirportId;
 
-            error += Validations.validaTakeOffAndLandingDates(takeOffDate, landingDate);
             error += Validations.validaTakeOffAndLandingAirports(landingAirportId, takeOffAirportId);
 
             if (error != EMPTY) { throw Error(error); }
 
-            const currencyList = await Currency.findAll({
+            const flightList = await Flight.findAll({
                 where: {
-                    takeOffDate: takeOffDate, landingDate: landingDate,
+                    takeOffDate: takeOffDate,
                     landingAirportId: landingAirportId, takeOffAirportId: takeOffAirportId
                 }
             });
-            res.status(200).send(currencyList);
+            res.status(200).send(flightList);
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
