@@ -1,5 +1,6 @@
 const { Flight, Company } = require('../models');
 const Validations = require('../utiles/validations');
+const { Op } = require('sequelize');
 
 const FlightController = {
     async getAllFlight(req, res) {
@@ -101,7 +102,9 @@ const FlightController = {
                     deletedAt: null,
                     TakeOffAirportId: req.body.TakeOffAirportId,
                     LandingAirportId: req.body.LandingAirportId,
-                    //takeOffDate: req.body.takeOffDate //Preguntar mañana
+                    takeOffDate: {
+                        [Op.startsWith] : req.body.takeOffDate 
+                    } 
                 },
                 include : [
                     {model : Company}
