@@ -186,7 +186,7 @@ const DataController = {
                     TakeOffAirportId: takeOffAirportId
                 },
                 include : [
-                    {model : Company},
+                    {model : Company}
                 ]
             });
             res.status(200).send(flightList);
