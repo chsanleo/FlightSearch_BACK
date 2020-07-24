@@ -1,6 +1,8 @@
-const { User, IataCode, Country, Currency, Seat, Flight, Airport, ContactInfo } = require('../models');
+const { User, IataCode, Country, Currency, Seat, Flight, Airport, ContactInfo, Company } = require('../models');
 const axios = require("axios");
 const Validations = require('../utiles/validations');
+const { Op } = require('sequelize');
+
 const EMPTY = "";
 
 const DataController = {
@@ -177,9 +179,15 @@ const DataController = {
 
             const flightList = await Flight.findAll({
                 where: {
-                    takeOffDate: takeOffDate,
-                    landingAirportId: landingAirportId, takeOffAirportId: takeOffAirportId
-                }
+                    takeOffDate: {
+                        [Op.startsWith] : takeOffDate 
+                    } ,
+                    LandingAirportId: landingAirportId, 
+                    TakeOffAirportId: takeOffAirportId
+                },
+                include : [
+                    {model : Company},
+                ]
             });
             res.status(200).send(flightList);
         } catch (error) {

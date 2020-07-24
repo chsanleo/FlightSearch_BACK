@@ -1,6 +1,5 @@
 const { Flight, Company,Airport } = require('../models');
 const Validations = require('../utiles/validations');
-const { Op } = require('sequelize');
 
 const FlightController = {
     async getAllFlight(req, res) {
@@ -89,30 +88,6 @@ const FlightController = {
                 where: { id: id }
             });
             res.status(202).send({ message: 'Successfull Deleted.' });
-        } catch (error) {
-            console.log(error);
-            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
-        }
-    },
-    async getFlightsbyAirportsandDate(req, res) {
-        try {
-            const flights = await Flight.findAll({
-                where: {
-                    deletedAt: null,
-                    TakeOffAirportId: req.body.TakeOffAirportId,
-                    LandingAirportId: req.body.LandingAirportId,
-                    takeOffDate: {
-                        [Op.startsWith] : req.body.takeOffDate 
-                    } 
-                },
-                include : [
-                    {model : Company},
-                    {model : Airport}
-                ],
-                
-            });
-            
-            res.status(200).send(flights);
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
