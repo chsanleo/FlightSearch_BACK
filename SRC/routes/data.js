@@ -10,6 +10,7 @@ router.post('/flightbydate', DataController.getFlightByDate);
 router.post('/flightbyCompany', DataController.getFlightsByCompanies);
 router.post('/flightbyLandAirport', DataController.getFlightsByLandingAirport);
 router.post('/flightbyTakeOffAirport', DataController.getFlightsByTakeOffAirport);
+router.get('/airports', DataController.getAllAirport);
 router.post('/airportbysmoking', DataController.getAirportSmoking);
 router.post('/currencybycountry', DataController.getCurrencyByCountry);
 router.post('/searchFlight', DataController.searchFlight);

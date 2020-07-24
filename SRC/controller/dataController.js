@@ -1,7 +1,6 @@
-const { User, IataCode, Country, Currency, Seat, Flight, Airport } = require('../models');
+const { User, IataCode, Country, Currency, Seat, Flight, Airport, ContactInfo } = require('../models');
 const axios = require("axios");
 const Validations = require('../utiles/validations');
-const { response } = require('express');
 const EMPTY = "";
 
 const DataController = {
@@ -122,6 +121,22 @@ const DataController = {
             res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
         }
     },
+    async getAllAirport(req, res) {
+        try {
+            const airportList = await Airport.findAll({
+                where: { deletedAt: null },
+                include: [
+                    { model: ContactInfo },
+                    { model: Country },
+                    { model: IataCode }
+                ]
+            });
+            res.status(200).send(airportList);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    },
     async getAirportSmoking(req, res) {
         try {
             let smoking = false;
@@ -189,12 +204,12 @@ const DataController = {
                 .then(result => {
 
                     let response = JSON.stringify(result.data.rates);
-                    response = response.replace('"','');
-                    response = response.replace (change,'');
-                    response = response.replace('{','');
-                    response = response.replace('}','');
-                    response = response.replace (':','' );
-                    response = response.replace('"','');
+                    response = response.replace('"', '');
+                    response = response.replace(change, '');
+                    response = response.replace('{', '');
+                    response = response.replace('}', '');
+                    response = response.replace(':', '');
+                    response = response.replace('"', '');
 
                     let finalResponse = {
                         exchange: response
