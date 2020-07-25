@@ -84,7 +84,7 @@ const Validations = {
         if (flight.code == EMPTY) { error += ' Flight Code must be provided. '; }
 
         error += this.validaTakeOffAndLandingDates(flight.takeOffDate, flight.landingDate) 
-        error += this.validaTakeOffAndLandingAirports(flight.landingAirportId, flight.takeOffAirportId);
+        error += this.validaTakeOffAndLandingAirports(flight.LandingAirportId, flight.TakeOffAirportId);
 
         if (typeof (flight.planeId) === STRINGTYPE || flight.planeId < MIN_ID) {
             error += ' Plane must be provided. ';
