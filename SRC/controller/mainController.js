@@ -6,16 +6,15 @@ const Validations = require('../utiles/validations');
 
 const EMPTY = "";
 
-const MainController = { 
+const MainController = {
     async login(req, res) {
         try {
             const user = await User.findOne({
                 where: { username: req.body.username }
             });
-            console.log(user);
-           /* if (!await bcrypt.compare(req.body.password, user.password)) {
+            if (!await bcrypt.compare(req.body.password, user.password)) {
                 throw new Error({ message: 'Wrong Credentials' });
-            }*/
+            }
 
             const token = jwt.sign({ id: user.id }, properties.token_SECRETWORD, { expiresIn: properties.token_EXPIRES });
 
@@ -33,7 +32,6 @@ const MainController = {
     },
     async register(req, res) {
         try {
-            let error = EMPTY;
             const usernameStock = await User.findOne({ where: { username: req.body.username } });
 
             if (usernameStock) {
@@ -72,6 +70,41 @@ const MainController = {
             res.status(500).send(error);
         }
     },
+    async forgotPassword(req, res) {
+        try {
+            const forgotObj = {
+                question: req.body.question,
+                answer: req.body.answer,
+                username: req.body.username,
+                password: req.body.password
+            }
+            Validations.validaForgotData(forgotObj);
+            
+            const user = await User.findOne({
+                where: {
+                    username: forgotObj.username,
+                    questionSecret: forgotObj.question,
+                    answerSecret: forgotObj.answer,
+                }
+            });
+
+            if (!user) { throw Error(); }
+            if (!await bcrypt.compare(forgotObj.password, user.password)) {
+                throw new Error({ message: 'Wrong Credentials' });
+            }
+
+            user.password = await bcrypt.hash(password, properties.PASSWORDSALT);
+            await User.update(user, {
+                where: { id: id }
+            });
+
+            res.status(201).send(forgotObj);
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'There was an error. Contact with the administrator.' });
+        }
+    }
 };
 
 module.exports = MainController;
