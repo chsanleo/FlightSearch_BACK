@@ -70,7 +70,11 @@ const DataController = {
                         'LandingAirportId', 'TakeOffAirportId', 'PlaneId', 'CurrencyId',
                         'CompanyId', 'stock']
                 }, {
-                where: { deletedAt: null, takeOffDate: req.body.takeOffDate }
+                where: {
+                    deletedAt: null, takeOffDate: {
+                        [Op.startsWith]: takeOffDate
+                    }
+                }
             });
             res.status(200).send(flightList);
         } catch (error) {
@@ -180,13 +184,13 @@ const DataController = {
             const flightList = await Flight.findAll({
                 where: {
                     takeOffDate: {
-                        [Op.startsWith] : takeOffDate 
-                    } ,
-                    LandingAirportId: landingAirportId, 
+                        [Op.startsWith]: takeOffDate
+                    },
+                    LandingAirportId: landingAirportId,
                     TakeOffAirportId: takeOffAirportId
                 },
-                include : [
-                    {model : Company}
+                include: [
+                    { model: Company }
                 ]
             });
             res.status(200).send(flightList);
