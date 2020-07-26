@@ -1,3 +1,5 @@
+const utils = require('./utils');
+
 const EMPTY = "";
 const MIN_ID = 1;
 const MIN_PRICE = 0.0;
@@ -83,7 +85,7 @@ const Validations = {
         }
         if (flight.code == EMPTY) { error += ' Flight Code must be provided. '; }
 
-        error += this.validaTakeOffAndLandingDates(flight.takeOffDate, flight.landingDate) 
+        error += this.validaTakeOffAndLandingDates(flight.takeOffDate, flight.landingDate)
         error += this.validaTakeOffAndLandingAirports(flight.landingAirportId, flight.takeOffAirportId);
 
         if (typeof (flight.planeId) === STRINGTYPE || flight.planeId < MIN_ID) {
@@ -200,7 +202,7 @@ const Validations = {
     validaFlightTicket(bill) {
         let error = EMPTY;
 
-        error +=validaTakeOffAndLandingDates(bill.takeOffDate, bill.landingDate) 
+        error += validaTakeOffAndLandingDates(bill.takeOffDate, bill.landingDate)
         error += validaTakeOffAndLandingAirports(bill.landingAirportId, bill.takeOffAirportId);
 
         if (typeof (bill.basePrice) === STRINGTYPE || bill.basePrice < MIN_PRICE) {
@@ -237,6 +239,16 @@ const Validations = {
         if (typeof (airport.IataCodeId) === STRINGTYPE || airport.IataCodeId < MIN_ID) {
             error += ' Iata Code must be provided. ';
         }
+
+        if (error != EMPTY) { throw Error(error); }
+    },
+    validaForgotData(forgotData) {
+        let error = EMPTY;
+
+        if (utils.isNullOrEmpty(forgotData.question)) { error += ' Question must be provided. '; }
+        if (utils.isNullOrEmpty(forgotData.answer)) { error += ' Answer must be provided. '; }
+        if (utils.isNullOrEmpty(forgotData.username)) { error += ' Username must be provided. '; }
+        if (utils.isNullOrEmpty(forgotData.password)) { error += ' Password must be provided. '; }
 
         if (error != EMPTY) { throw Error(error); }
     }
