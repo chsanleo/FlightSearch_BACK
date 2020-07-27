@@ -64,18 +64,16 @@ const DataController = {
     },
     async getFlightByDate(req, res) {
         try {
-            const takeOffDate = req.body.takeOffDate;
-            const flightList = await Flight.findAll(
-                {
-                    attributes: ['id', 'price', 'code', 'takeOffDate', 'landingDate',
-                        'LandingAirportId', 'TakeOffAirportId', 'PlaneId', 'CurrencyId',
-                        'CompanyId', 'stock']
-                }, {
+            const takeOffDate = req.body.date;
+            const flightList = await Flight.findAll({
                 where: {
-                    deletedAt: null, takeOffDate: {
+                    takeOffDate: {
                         [Op.startsWith]: takeOffDate
                     }
-                }
+                },
+                include: [
+                    { model: Company }
+                ]
             });
             res.status(200).send(flightList);
         } catch (error) {
@@ -187,8 +185,6 @@ const DataController = {
                     takeOffDate: {
                         [Op.startsWith]: takeOffDate
                     },
-                    LandingAirportId: landingAirportId,
-                    TakeOffAirportId: takeOffAirportId
                 },
                 include: [
                     { model: Company }
