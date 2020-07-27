@@ -64,6 +64,7 @@ const DataController = {
     },
     async getFlightByDate(req, res) {
         try {
+            const takeOffDate = req.body.takeOffDate;
             const flightList = await Flight.findAll(
                 {
                     attributes: ['id', 'price', 'code', 'takeOffDate', 'landingDate',
