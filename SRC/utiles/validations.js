@@ -135,9 +135,9 @@ const Validations = {
             error += ' Take Off Airport must be provided. ';
         }
 
-        if (landingAirportId == takeOffAirportId) {
+        /*if (landingAirportId == takeOffAirportId) {
             error += ' TakeOff and Landing Airport must be differents. ';
-        }
+        }*/
         return error;
     },
     validaPlane(plane) {
@@ -202,8 +202,8 @@ const Validations = {
     validaFlightTicket(bill) {
         let error = EMPTY;
 
-        error += validaTakeOffAndLandingDates(bill.takeOffDate, bill.landingDate)
-        error += validaTakeOffAndLandingAirports(bill.landingAirportId, bill.takeOffAirportId);
+        error += this.validaTakeOffAndLandingDates(bill.takeOffDate, bill.landingDate)
+        error += this.validaTakeOffAndLandingAirports(bill.landingAirport, bill.takeOffAirport);
 
         if (typeof (bill.basePrice) === STRINGTYPE || bill.basePrice < MIN_PRICE) {
             error += ' Correct base price must be provided. ';
