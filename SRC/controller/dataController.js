@@ -1,4 +1,4 @@
-const { User, IataCode, Country, Currency, Seat, Flight, Airport, ContactInfo, Company } = require('../models');
+const { User, IataCode, Country, Currency, Seat, Flight, Airport, ContactInfo, Company, Plane } = require('../models');
 const axios = require("axios");
 const Validations = require('../utiles/validations');
 const { Op } = require('sequelize');
@@ -187,7 +187,8 @@ const DataController = {
                     },
                 },
                 include: [
-                    { model: Company }
+                    { model: Company },
+                    { model: Plane}
                 ]
             });
             res.status(200).send(flightList);
